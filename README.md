@@ -5,8 +5,7 @@ Fork & Clone Project
 In cloned directory excute these command:
 ```
 npm install
-git remote add main https://github.com/HeribertoUroza/pantry_managementFE/edit/master/README.md
-```
+git remote add main https://github.com/HeribertoUroza/pantry_managementFE
 
 ## Building
 NEVER work on master branch
