@@ -1,0 +1,23 @@
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    opacity: 0.9;
+  }
+
+  .bottom-column{
+    display: inline-block;
+    vertical-align: bottom;
+    float: none;
+}
+
+.landingButton{
+    position: relative;
+}
+
+.landingLogo{
+    width: 200px;
+    margin-top: 200px;
+}

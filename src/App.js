@@ -6,6 +6,7 @@ import firebase from './firebase';
 import Signup from './containers/SignUp/SignUp';
 import Login from './containers/Login/Login';
 import Logout from './containers/Logout/Logout';
+import Landing from './containers/Landing/Landing'
 import Error404 from './components/Error404/Error404';
 
 
@@ -48,6 +49,7 @@ class App extends Component {
         <AuthContext.Provider value={this.state.user}>
           <Switch>
               <Route path='/signup' exact component={ Signup } />
+              <Route path='/landing' exact component={ Landing } />
               <Route path='/login' exact component={ Login } />
               <Route path='/logout' exact component={ Logout } />
               <Route component={Error404}/>

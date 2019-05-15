@@ -62,7 +62,7 @@ class Signup extends React.Component {
                     <div className="row">
                       <div className="col"></div>
                       <div className="col">
-                      <img src={logo} alt="logo" className="landingLogo" />
+                      <img src={logo} alt="logo" className="signUpLogo" />
                       </div>
                       <div className="col">
                         <div className="row my-5 py-5">

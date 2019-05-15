@@ -54,7 +54,7 @@ class Login extends React.Component {
                 <div className="row">
                 <div className="col"></div>
                 <div className="col">
-                <img src={logo} alt="logo" className="landingLogo"/>
+                <img src={logo} alt="logo" className="loginLogo"/>
                 </div>
                 <div className="col">
                 <div className="text-center" style={{marginTop: "200px"}}>
