@@ -26,13 +26,11 @@
     color: white;
 }
 
-
-
 .landingLogo {
-    width: 200px;
-    margin-top: 125px;
     position: relative;
     z-index: 100;
+    margin-top: 200px;
+    margin-left: 50px;
 }
 
 .brown {

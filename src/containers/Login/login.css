@@ -1,0 +1,15 @@
+.loginContainer {
+    background-image: url('../../assets/Photos/basil-delicious-food-459469.jpg');
+    background-size: cover;
+    height: 100%;
+    opacity: 0.80;
+}
+
+.navy {
+    background-color: navy;
+}
+
+.landingLinkLogin {
+    color: white;
+    font-weight: bold;
+}

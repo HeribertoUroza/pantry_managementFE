@@ -6,8 +6,11 @@ import { Redirect, Link, withRouter } from 'react-router-dom';
 //CONTEXT
 import AuthContext from '../../context/auth';
 
+//CSS
+import './login.css'
+
 //ASSETS
-import logo from '../../assets/Branding/PossiblePantryLogo3.svg'
+import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
 
 
 class Login extends React.Component {
@@ -46,29 +49,36 @@ class Login extends React.Component {
           (user) => {
             if (!user) {
               return (
-                <div className="container-fluid">
-                  <div className="row">
-                    <img src={logo} alt="logo"/>
-                    <div className="col-12">
-                      {displayError}
-                      <form>
-                        <div className="form-group">
-                          <label htmlFor="exampleInputEmail1" className="signuplabel">EMAIL</label>
-                          <input type="email" className="form-control" id="signupinput" aria-describedby="emailHelp" placeholder="Enter email" name="email" value={email} onChange={this.handleChange} />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="exampleInputPassword1" className="signuplabel">PASSWORD</label>
-                          <input type="password" className="form-control" id="signupinput" placeholder="Password" value={password} name="password" onChange={this.handleChange} />
-                        </div>
-                        <button className="btn waves-effect white waves-light" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmit}>LOGIN
-                            <i className="material-icons right">send</i>
-                        </button>
-                      </form>
-                      <br />
-                      <Link to='/signup'><p className="login">Sign Up</p></Link>
-                    </div>
-                  </div>
+                <>
+                <div className="container-fluid loginContainer">
+                <div className="row">
+                <div className="col"></div>
+                <div className="col">
+                <img src={logo} alt="logo" className="landingLogo"/>
                 </div>
+                <div className="col">
+                <div className="text-center" style={{marginTop: "200px"}}>
+                  {displayError}
+                  <form onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                      <label htmlFor="exampleInputEmail1" className="whiteText boldText">EMAIL</label>
+                      <input type="email" className="form-control whiteForm" id="signupinputemail" aria-describedby="emailHelp" name="email" value={email} onChange={this.handleChange} />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="exampleInputPassword1" className="whiteText boldText">PASSWORD</label>
+                      <input type="password" className="form-control" id="signupinputpassword" value={password} name="password" onChange={this.handleChange} />
+                    </div>
+                    <button className="btn waves-effect waves-light navy mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmit}>SIGN UP
+                            <i className="material-icons right">send</i>
+                    </button>
+                    <p className="whiteText mt-3">Already have an account? <Link to='/login' className="landingLinkLogin">Login</Link></p>
+                  </form>
+                  </div>
+                  </div>
+                  <div className="col"></div>
+                  </div>
+                  </div>
+                </>
               )
             }
             else {
