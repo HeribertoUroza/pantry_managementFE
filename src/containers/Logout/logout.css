@@ -1,0 +1,19 @@
+.logoutContainer {
+    background-image: url('../../assets/Photos/aromatic-bread-bunch-349608.jpg');
+    background-size: cover;
+    height: 100%;
+    opacity: 0.9;
+}
+
+.logoutLogo{
+    width: 200px;
+}
+
+.logoutH3 {
+    font-size: 50px;
+    color: #06174c;
+}
+
+.logoutH4 {
+    font-size: 30px;
+}
