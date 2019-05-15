@@ -1,7 +1,16 @@
 import React from 'react';
-import firebase from '../firebase';
-import AuthContext from '../contexts/auth';
+import firebase from '../../firebase';
 import { Link, withRouter } from 'react-router-dom';
+
+
+//CONTEXT
+import AuthContext from '../../context/auth';
+
+//CSS
+import './signup.css';
+
+//ASSETS
+import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
 
 
 
@@ -46,30 +55,35 @@ class Signup extends React.Component {
       <AuthContext.Consumer>
         {
           (user) => {
-            if (!user) {
+            if (user === null) {
               return (
                 <>
-                <div className="container-fluid">
-                <img src={logo} alt="logo"/>
+                <div className="container-fluid signUpContainer">
                 <div className="row">
-                <div className="col-12">
+                <div className="col"></div>
+                <div className="col"></div>
+                <div className="col">
+                <div className="row mt-5 pt-5"></div>
+                <div className="text-center">
+                <img src={logo} alt="logo" className="landingLogo"/>
                   {displayError}
                   <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                      <label htmlFor="exampleInputEmail1" className="signuplabel">EMAIL</label>
-                      <input type="email" className="form-control" id="signupinput" aria-describedby="emailHelp" placeholder="Enter email" name="email" value={email} onChange={this.handleChange} />
+                      <label htmlFor="exampleInputEmail1" className="whiteText boldText">EMAIL</label>
+                      <input type="email" className="form-control whiteForm" id="signupinputemail" aria-describedby="emailHelp" name="email" value={email} onChange={this.handleChange} />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputPassword1" className="signuplabel">PASSWORD</label>
-                      <input type="password" className="form-control" id="signupinput" placeholder="Password" value={password} name="password" onChange={this.handleChange} />
+                      <label htmlFor="exampleInputPassword1" className="whiteText boldText">PASSWORD</label>
+                      <input type="password" className="form-control" id="signupinputpassword" value={password} name="password" onChange={this.handleChange} />
                     </div>
-                    <button class="btn waves-effect white waves-light" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmit}>SIGN UP
-                            <i class="material-icons right">send</i>
+                    <button className="btn waves-effect waves-light brown" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmit}>SIGN UP
+                            <i className="material-icons right">send</i>
                     </button>
+                    <p className="whiteText mt-3">Already have an account? <Link to='/login' className="landingLink">Login</Link></p>
                   </form>
-                  <br/>
-                  <Link to='/login'><p className="login">Login</p></Link>
                   </div>
+                  </div>
+                  <div className="col"></div>
                   </div>
                   </div>
                 </>

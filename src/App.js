@@ -1,19 +1,22 @@
-import './App.css';
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import firebase from './firebase';
 
-// ---- Pages
-import HomeContainer from './containers/home';
-import Signup from './containers/signup';
-import Login from './containers/login';
-import Logout from './containers/logout';
-import Error404 from './components/error404';
+// ---- PAGES
+import Signup from './containers/SignUp/SignUp';
+import Login from './containers/Login/Login';
+import Logout from './containers/Logout/Logout';
+import Error404 from './components/Error404/Error404';
 
 
 
-// ---- Context
-import AuthContext from './contexts/auth';
+// ---- CONTEXT
+import AuthContext from './context/auth';
+
+
+// ---- CSS
+import './App.css';
+
 
 
 class App extends Component {
@@ -44,7 +47,6 @@ class App extends Component {
       <HashRouter>
         <AuthContext.Provider value={this.state.user}>
           <Switch>
-              <Route path='/' exact component={ HomeContainer } />
               <Route path='/signup' exact component={ Signup } />
               <Route path='/login' exact component={ Login } />
               <Route path='/logout' exact component={ Logout } />

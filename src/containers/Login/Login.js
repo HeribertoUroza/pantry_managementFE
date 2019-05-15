@@ -1,7 +1,13 @@
 import React from 'react';
-import firebase from '../firebase';
-import AuthContext from '../contexts/auth';
+import firebase from '../../firebase';
 import { Redirect, Link, withRouter } from 'react-router-dom';
+
+
+//CONTEXT
+import AuthContext from '../../context/auth';
+
+//ASSETS
+import logo from '../../assets/Branding/PossiblePantryLogo3.svg'
 
 
 class Login extends React.Component {
