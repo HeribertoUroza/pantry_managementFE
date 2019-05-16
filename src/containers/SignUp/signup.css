@@ -1,0 +1,38 @@
+.signUpContainer {
+    background-image: url('../../assets/Photos/broccoli-carrots-close-up-952482.jpg');
+    background-size: cover;
+    height: 100%;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.whiteText {
+    color: white;
+}
+
+.boldText {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.landingLink {
+    color: darkorange;
+    font-weight: bold;
+}
+
+#signupinputemail {
+    color: white;
+}
+
+.signUpLogo {
+    position: relative;
+    z-index: 100;
+    margin-top: 200px;
+    margin-left: 50px;
+}
+
+.brown {
+    background-color: #654321;
+}
