@@ -71,7 +71,7 @@ class Login extends React.Component {
                     <button className="btn waves-effect waves-light navy mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmit}>LOGIN
                             <i className="material-icons right">send</i>
                     </button>
-                    <p className="whiteText mt-3">Already have an account? <Link to='/login' className="landingLinkLogin">Login</Link></p>
+                    <p className="whiteText mt-3">Don't have an account? <Link to='/signup' className="landingLinkLogin">Sign Up</Link></p>
                   </form>
                   </div>
                   </div>
