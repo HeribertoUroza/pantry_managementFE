@@ -138,43 +138,52 @@ class UserPreference extends React.Component {
                                                         <p>Dietary Preferences</p>
                                                         <p>
                                                             <label>
-                                                                <input type="checkbox" id="inlineCheckbox1" value="Sports" onClick={this.handleClickInterest} />
-                                                                <span htmlFor="inlineCheckbox1">Sports</span>
+                                                                <input type="checkbox" id="inlineCheckbox1" value="Vegetarian" onClick={this.handleClickInterest} />
+                                                                <span htmlFor="inlineCheckbox1">Vegetarian</span>
                                                             </label></p>
                                                         <p> <label>
-                                                            <input type="checkbox" id="inlineCheckbox2" value="Movies" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox2">Movies</span>
-                                                        </label></p>
-                                                        <p> <label>
-                                                            <input type="checkbox" id="inlineCheckbox3" value="Celebrities" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox3">Celebrities</span>
-                                                        </label></p>
-                                                        <p> <label>
-                                                            <input type="checkbox" id="inlineCheckbox4" value="Arts" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox4">Arts</span>
+                                                            <input type="checkbox" id="inlineCheckbox2" value="Vegan" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox2">Vegan</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox5" value="Literature" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox5">Literature</span>
+                                                            <input type="checkbox" id="inlineCheckbox13" value="Pescatarian" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox13">Pescatarian</span>
+                                                        </label></p>
+                                                        <p> <label>
+                                                            <input type="checkbox" id="inlineCheckbox3" value="Sugar Conscious" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox3">Sugar Conscious</span>
+                                                        </label></p>
+                                                       
+
+                                                    </div>
+                                                    <div className="col">
+                                                    <p>Food Limitations</p>
+                                                    <p> <label>
+                                                            <input type="checkbox" id="inlineCheckbox4" value="Soy Free" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox4">Soy Free</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox6" value="Technology" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox5">Technology</span>
+                                                            <input type="checkbox" id="inlineCheckbox5" value="Red Meat-Free" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox5">Red Meat-Free</span>
+                                                        </label></p>
+                                                        <p><label>
+                                                            <input type="checkbox" id="inlineCheckbox6" value="Pork Free" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox6">Pork Free</span>
                                                         </label></p>
                                                     </div>
                                                     <div className="col">
                                                         <p>Food Allergies</p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox7" value="Morning Joe" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox7">Morning Joe</span>
+                                                            <input type="checkbox" id="inlineCheckbox7" value="Tree Nuts" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox7">Tree Nuts</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox8" value="The Rachel Maddow Show" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox8">The Rachel Maddow Show</span>
+                                                            <input type="checkbox" id="inlineCheckbox8" value="Shellfish" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox8">Shellfish</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox9" value="NBC Nightly News" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox9">NBC Nightly News</span>
+                                                            <input type="checkbox" id="inlineCheckbox9" value="Peanuts" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox9">Peanuts</span>
                                                         </label></p>
                                                         <p><label>
                                                             <input type="checkbox" id="inlineCheckbox10" value="Meet the Press" onClick={this.handleClickInterest} />
