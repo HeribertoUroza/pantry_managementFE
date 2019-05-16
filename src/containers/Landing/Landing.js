@@ -27,18 +27,13 @@ class Login extends React.Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    handleSubmit = (e) => {
+    handleSubmitSignup = (e) => {
         e.preventDefault();
-
-        const { email, password } = this.state;
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((response) => {
-                console.log('Returns: ', response);
-            })
-            .catch(err => {
-                const { message } = err;
-                this.setState({ error: message });
-            })
+            this.props.history.push('/signup')
+    }
+    handleSubmitLogin = (e) => {
+        e.preventDefault();
+            this.props.history.push('/login')
     }
 
     render() {
@@ -73,10 +68,10 @@ class Login extends React.Component {
                                             </div>
                                             <div className="row">
                                                 <div className="col text-center">
-                                                    <button className="btn waves-effect waves-light brown mt-5 mr-4" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmit}>SIGN UP
+                                                    <Link to='/signup'><button className="btn waves-effect waves-light brown mt-5 mr-4" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmitSignup}>SIGN UP
                                                         <i className="material-icons right">send</i>
-                                                    </button>
-                                                    <button className="btn waves-effect waves-light navy mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmit}>SIGN UP
+                                                    </button></Link>
+                                                    <button className="btn waves-effect waves-light navy mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmitLogin}>LOGIN
                                                         <i className="material-icons right">send</i>
                                                     </button>
                                                 </div>

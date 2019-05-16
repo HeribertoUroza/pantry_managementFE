@@ -37,9 +37,8 @@ class Signup extends React.Component {
     const { email, password } = this.state;
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        console.log("Response", response)
-        this.props.history.push('constituent')
+      .then(() => {
+        this.props.history.push('/preferences')
       })
 
       .catch(err => {

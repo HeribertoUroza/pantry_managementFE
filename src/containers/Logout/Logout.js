@@ -12,8 +12,17 @@ import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
 
 export default class Logout extends React.Component {
 
+  state = {
+
+  }
+
   componentDidMount() {
     firebase.auth().signOut()
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.history.push('/login')
   }
 
   render() {

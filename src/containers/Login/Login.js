@@ -30,8 +30,8 @@ class Login extends React.Component {
 
     const { email, password } = this.state;
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((response) => {
-        console.log('Returns: ', response);
+      .then(() => {
+        this.props.history.push('/dashboard')
       })
       .catch(err => {
         const { message } = err;
@@ -68,7 +68,7 @@ class Login extends React.Component {
                       <label htmlFor="exampleInputPassword1" className="whiteText boldText">PASSWORD</label>
                       <input type="password" className="form-control" id="signupinputpassword" value={password} name="password" onChange={this.handleChange} />
                     </div>
-                    <button className="btn waves-effect waves-light navy mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmit}>SIGN UP
+                    <button className="btn waves-effect waves-light navy mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmit}>LOGIN
                             <i className="material-icons right">send</i>
                     </button>
                     <p className="whiteText mt-3">Already have an account? <Link to='/login' className="landingLinkLogin">Login</Link></p>
