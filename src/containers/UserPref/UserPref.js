@@ -2,6 +2,10 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import firebase from '../../firebase';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+
 
 
 
@@ -14,8 +18,9 @@ import './userpref.css'
 //SERVICES
 //import { postUser, postUserPrefTopics, postUserPrefTV } from '../services/main';
 import ImageService from '../../services/ImageServices'
-import Upload from '../../services/Upload';
 
+//COMPONENTS
+import Upload from '../../components/Upload/Upload';
 
 //JQUERY ITIALIZATION
 
@@ -31,15 +36,34 @@ class UserPreference extends React.Component {
             username: '',
             email: '',
             dob: '',
+            age: null,
             dietaryPref: [],
             foodAllergies: [],
             firebaseUID: '',
-            selectedDate: new Date('2014-08-18T21:11:54'),
+            date: "",
         }
     }
 
-    handleDateChange = date => {
-        this.setState({ selectedDate: date });
+   getAge = (dateString) =>{
+        const today = new Date();
+        const birthDate = new Date(dateString);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+        {
+            age--;
+        }
+        return age;
+    }
+
+    handleDateChange = dateChange => {
+        if(this.getAge(dateChange) < 18) {
+            this.setState({ageError: true})
+        }
+        this.setState({ date: dateChange,
+        age: this.getAge(dateChange),
+        ageError: false,
+     });
     };
 
     handleChange = (e) => {
@@ -65,7 +89,7 @@ class UserPreference extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { name, username, dob, dietaryPref,foodAllergies } = this.state;
+        const { name, username, dob, dietaryPref, foodAllergies } = this.state;
 
         this.setState({
             email: document.getElementById('exampleFormControlInputEmail').value,
@@ -123,7 +147,23 @@ class UserPreference extends React.Component {
                                 <div className="container-fluid userPrefContainer">
                                     <div className="container py-5 mx-auto" style={{ backgroundColor: "white" }}>
                                         <div className="container pr-5 mx-auto">
-                                            <form onSubmit={this.handleSubmit}>
+                                            <p className="text-center"> You must be 18 years or older to use Possible Pantry</p>
+                                             <label htmlFor="dateofbirth" className="mr-2">Date of Birth</label>
+                                             <DatePicker
+                                                 selected={this.state.date}
+                                                 onChange={this.handleDateChange}
+                                                 isClearable={true}
+                                                 showMonthDropdown
+                                                 useShortMonthInDropdown
+                                                 showYearDropdown
+                                                 dateFormatCalendar="MMMM"
+                                                 scrollableYearDropdown
+                                                 maxDate = {new Date()}
+                                                 yearDropdownItemNumber={116}
+                                             />
+
+                                            {
+                                                this.state.age >= 18 ?  <form onSubmit={this.handleSubmit}>
                                                 <div className="form-group">
                                                     <label htmlFor="exampleFormControlInput1">Name</label>
                                                     <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="John Doe" value={name} name="name" required onChange={this.handleChange} />
@@ -131,77 +171,109 @@ class UserPreference extends React.Component {
                                                     <input type="email" className="form-control" id="exampleFormControlInputEmail" placeholder="name@example.com" readOnly value="email" name="email" />
                                                     <label htmlFor="exampleFormControlInput1">User Name</label>
                                                     <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="johndoe123" value={username} name="username" required onChange={this.handleChange} />
-                                                    <label htmlFor="dateofbirth">Date of Birth</label>
                                                 </div>
                                                 <div className="row">
                                                     <div className="col">
                                                         <p>Dietary Preferences</p>
                                                         <p>
                                                             <label>
-                                                                <input type="checkbox" id="inlineCheckbox1" value="Vegetarian" onClick={this.handleClickInterest} />
+                                                                <input type="checkbox" id="inlineCheckbox1" value="vegetarian" onClick={this.handleClickInterest} />
                                                                 <span htmlFor="inlineCheckbox1">Vegetarian</span>
                                                             </label></p>
                                                         <p> <label>
-                                                            <input type="checkbox" id="inlineCheckbox2" value="Vegan" onClick={this.handleClickInterest} />
+                                                            <input type="checkbox" id="inlineCheckbox2" value="vegan" onClick={this.handleClickInterest} />
                                                             <span htmlFor="inlineCheckbox2">Vegan</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox13" value="Pescatarian" onClick={this.handleClickInterest} />
+                                                            <input type="checkbox" id="inlineCheckbox13" value="pescatarian" onClick={this.handleClickInterest} />
                                                             <span htmlFor="inlineCheckbox13">Pescatarian</span>
                                                         </label></p>
                                                         <p> <label>
-                                                            <input type="checkbox" id="inlineCheckbox3" value="Sugar Conscious" onClick={this.handleClickInterest} />
+                                                            <input type="checkbox" id="inlineCheckbox3" value="sugar-conscious" onClick={this.handleClickInterest} />
                                                             <span htmlFor="inlineCheckbox3">Sugar Conscious</span>
                                                         </label></p>
-                                                       
-
+                                                        <p> <label>
+                                                            <input type="checkbox" id="inlineCheckbox15" value="paleo" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox15">Paleo</span>
+                                                        </label></p>
+                                                        <p> <label>
+                                                            <input type="checkbox" id="inlineCheckbox20" value="kosher" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox20">Kosher</span>
+                                                        </label></p>
+                                                        <p> <label>
+                                                            <input type="checkbox" id="inlineCheckbox18" value="keto-friendly" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox18">Keto</span>
+                                                        </label></p>
                                                     </div>
                                                     <div className="col">
-                                                    <p>Food Limitations</p>
-                                                    <p> <label>
-                                                            <input type="checkbox" id="inlineCheckbox4" value="Soy Free" onClick={this.handleClickInterest} />
+                                                        <p>Food Limitations</p>
+                                                        <p> <label>
+                                                            <input type="checkbox" id="inlineCheckbox4" value="soy-free" onClick={this.handleClickInterest} />
                                                             <span htmlFor="inlineCheckbox4">Soy Free</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox5" value="Red Meat-Free" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox5">Red Meat-Free</span>
+                                                            <input type="checkbox" id="inlineCheckbox5" value="red-meat-free" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox5">Red Meat Free</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox6" value="Pork Free" onClick={this.handleClickInterest} />
+                                                            <input type="checkbox" id="inlineCheckbox6" value="pork-free" onClick={this.handleClickInterest} />
                                                             <span htmlFor="inlineCheckbox6">Pork Free</span>
                                                         </label></p>
+                                                        <p><label>
+                                                            <input type="checkbox" id="inlineCheckbox14" value="wheat-free" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox14">Wheat Free</span>
+                                                        </label></p>
+                                                        <p><label>
+                                                            <input type="checkbox" id="inlineCheckbox16" value="low-sugar" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox16">No Sugar</span>
+                                                        </label></p>
+                                                        <p><label>
+                                                            <input type="checkbox" id="inlineCheckbox17" value="gluten-free" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox17">Gluten Free</span>
+                                                        </label></p>
+                                                        <p><label>
+                                                            <input type="checkbox" id="inlineCheckbox19" value="low-potassium" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox19">No Potassium</span>
+                                                        </label></p>
+
                                                     </div>
                                                     <div className="col">
                                                         <p>Food Allergies</p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox7" value="Tree Nuts" onClick={this.handleClickInterest} />
+                                                            <input type="checkbox" id="inlineCheckbox7" value="tree-nut-free" onClick={this.handleClickInterest} />
                                                             <span htmlFor="inlineCheckbox7">Tree Nuts</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox8" value="Shellfish" onClick={this.handleClickInterest} />
+                                                            <input type="checkbox" id="inlineCheckbox8" value="shellfish-free" onClick={this.handleClickInterest} />
                                                             <span htmlFor="inlineCheckbox8">Shellfish</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox9" value="Peanuts" onClick={this.handleClickInterest} />
+                                                            <input type="checkbox" id="inlineCheckbox9" value="peanut-free" onClick={this.handleClickInterest} />
                                                             <span htmlFor="inlineCheckbox9">Peanuts</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox10" value="Meet the Press" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox10">Meet the Press</span>
+                                                            <input type="checkbox" id="inlineCheckbox10" value="gluten-free" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox10">Gluten Free</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox11" value="PBS NewsHour" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox11">PBS NewsHour</span>
+                                                            <input type="checkbox" id="inlineCheckbox11" value="gluten-free" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox11">Dairy</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox12" value="60 Minutes" onClick={this.handleClickInterest} />
-                                                            <span htmlFor="inlineCheckbox12">60 Minutes</span>
+                                                            <input type="checkbox" id="inlineCheckbox12" value="crustacean-free" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox12">Crustacean</span>
+                                                        </label></p>
+                                                        <p><label>
+                                                            <input type="checkbox" id="inlineCheckbox21" value="alcohol-free" onClick={this.handleClickInterest} />
+                                                            <span htmlFor="inlineCheckbox21">Alcohol</span>
                                                         </label></p>
                                                     </div>
                                                 </div>
                                                 <Upload />
-                                                <button className="btn waves-effect waves-light navy" type="submit" name="action" onClick={this.handleSubmit}>Submit</button>
-                                            </form>
+                                               <button className="btn waves-effect waves-light navy" style={{borderRadius: "50px"}} type="submit" name="action" onClick={this.handleSubmit}>Submit</button>
+                                            </form> : null
+                                            }
+                                           
                                         </div>
                                     </div>
                                 </div>
