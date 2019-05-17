@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import firebase from '../../firebase';
 
 import DatePicker from "react-datepicker";
@@ -142,7 +142,7 @@ class UserPreference extends React.Component {
             <AuthContext.Consumer>
                 {
                     (user) => {
-                        if (!user) {
+                        if (user) {
                             return (<>
                                 <div className="container-fluid userPrefContainer">
                                     <div className="container py-5 mx-auto" style={{ backgroundColor: "white" }}>
@@ -168,7 +168,7 @@ class UserPreference extends React.Component {
                                                     <label htmlFor="exampleFormControlInput1">Name</label>
                                                     <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="John Doe" value={name} name="name" required onChange={this.handleChange} />
                                                     <label htmlFor="exampleFormControlInput1">Email address</label>
-                                                    <input type="email" className="form-control" id="exampleFormControlInputEmail" placeholder="name@example.com" readOnly value="email" name="email" />
+                                                    <input type="email" className="form-control" id="exampleFormControlInputEmail" placeholder="name@example.com" readOnly value={user.email} name="email" />
                                                     <label htmlFor="exampleFormControlInput1">User Name</label>
                                                     <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="johndoe123" value={username} name="username" required onChange={this.handleChange} />
                                                 </div>
@@ -278,6 +278,9 @@ class UserPreference extends React.Component {
                                     </div>
                                 </div>
                             </>)
+                        }
+                        else{
+                            return <Redirect to='/dashboard'/>
                         }
                     }
                 }
