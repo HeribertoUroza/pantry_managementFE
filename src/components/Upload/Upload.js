@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import {withRouter} from 'react-router-dom'
 
 //SERVICES
-import ImageService from './ImageServices';
+import ImageService from '../../services/ImageServices';
 
 
 class Upload extends React.Component {
@@ -44,7 +44,7 @@ class Upload extends React.Component {
   render() {
 
     return (
-        <div className="input-group">
+        <div className="input-group py-3">
           <div className="custom-file">
             <input type="file" className="custom-file-input" onChange={this.handleFileInput} />
             <label className="custom-file-label">Upload Your Profile Photo and Join The Movement</label>
