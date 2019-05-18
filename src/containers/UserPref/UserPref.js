@@ -163,7 +163,7 @@ class UserPreference extends React.Component {
             <AuthContext.Consumer>
                 {
                     (user) => {
-                        if (!user) {
+                        if (user) {
                             return (<>
                                 <div className="container-fluid userPrefContainer">
                                     <div className="container mx-auto py-5" style={{ backgroundColor: "white" }}>
@@ -313,7 +313,7 @@ class UserPreference extends React.Component {
                             </>)
                         }
                         else {
-                            return (<Redirect to='/dashboard' />)
+                            return (<Redirect to='/signup' />)
                           }                        
                     }
                 }
