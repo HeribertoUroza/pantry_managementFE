@@ -3,7 +3,6 @@ import { withRouter, Redirect } from 'react-router';
 import firebase from '../../firebase';
 
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -14,6 +13,8 @@ import AuthContext from '../../context/auth'
 
 //CSS
 import './userpref.css'
+import "react-datepicker/dist/react-datepicker.css";
+
 
 //SERVICES
 //import { postUser, postUserPrefTopics, postUserPrefTV } from '../services/main';
@@ -163,7 +164,7 @@ class UserPreference extends React.Component {
             <AuthContext.Consumer>
                 {
                     (user) => {
-                        if (user) {
+                        if (!user) {
                             return (<>
                                 <div className="container-fluid userPrefContainer">
                                     <div className="container mx-auto py-5" style={{ backgroundColor: "white" }}>
