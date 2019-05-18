@@ -9,6 +9,7 @@ import Logout from './containers/Logout/Logout';
 import Landing from './containers/Landing/Landing'
 import Error404 from './components/Error404/Error404';
 import UserPref from './containers/UserPref/UserPref';
+import Recipe from './containers/Recipe/Recipe';
 
 
 
@@ -18,7 +19,6 @@ import AuthContext from './context/auth';
 
 // ---- CSS
 import './App.css';
-
 
 
 class App extends Component {
@@ -54,6 +54,7 @@ class App extends Component {
               <Route path='/login' exact component={ Login } />
               <Route path='/logout' exact component={ Logout } />
               <Route path='/preference' exact component={UserPref}/>
+              <Route path='/recipe' exact component={ Recipe } />
               <Route component={Error404}/>
             </Switch>
           </AuthContext.Provider>
