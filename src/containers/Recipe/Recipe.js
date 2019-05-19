@@ -12,7 +12,8 @@ import './recipe.css';
 //ASSETS
 import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
 
-
+//MATERIALIZE
+import M from 'materialize-css'
 
 class Recipe extends React.Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class Recipe extends React.Component {
 
         this.state = {
             db_ingredients: [],
+            ingredients_type: ['ounce', 'kilo', 'pounds/lb'],
             new_ingredients: [
                 {
                     ingredient_name: 'cheese',
@@ -37,7 +39,9 @@ class Recipe extends React.Component {
         }
     }
 
-
+    componentDidMount() {
+        M.AutoInit()
+    }
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
@@ -47,6 +51,10 @@ class Recipe extends React.Component {
     handleSubmit = (e) => {
         // 
         e.preventDefault();
+
+    }
+
+    handleIType = e => {
 
     }
 
@@ -83,17 +91,21 @@ class Recipe extends React.Component {
                                                                     <input id="last_name" type="text" className="validate" />
                                                                         <label htmlFor="last_name">Last Name</label>
                                                                 </div>
-                                                            </div>
+                                                        </div>
+
+                                                        
                                                         
                                                             {/* <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a> */}
-                                                            <select></select>
-                                                            {/* <ul id='dropdown1' class='dropdown-content'>
-                                                                <li><a href="#!">one</a></li>
-                                                                <li><a href="#!">two</a></li>
-                                                                <li><a href="#!">three</a></li>
-                                                                <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-                                                                <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-                                                            </ul> */}
+                                                        <div class="input-field col s3">
+                                                            <select>
+                                                                <option value="" disabled selected>Select Measurement</option>
+                                                                <option value="1">Option 1</option>
+                                                                <option value="2">Option 2</option>
+                                                                <option value="3">Option 3</option>
+                                                            </select>
+                                                            <label>Materialize Select</label>
+                                                        </div>
+
                                                     </form>
                                                     </div>
 
