@@ -113,9 +113,12 @@ class UserPreference extends React.Component {
             age,
             dietaryPref,
             foodAllergies,
-            profileurl: ImageService.getImages()[0].url,
+           // profileurl: ImageService.getImages()[0].url,
             firebaseUID: firebase.auth().currentUser.uid
         })
+
+        this.props.history.push('/dashboard')
+
     }
 
 
@@ -132,6 +135,8 @@ class UserPreference extends React.Component {
         firebaseUID,
         date,
         phone_number, } = this.state;
+
+
 
         /* postUser(email, name, username, dob, age, phone_number, firebaseUID)
              .then((response) => {
@@ -193,7 +198,7 @@ class UserPreference extends React.Component {
                                                 </div>
                                                 <div className="col-6">
                                                     <label htmlFor="exampleFormControlInputEmail">Email address</label>
-                                                    <input type="email" className="form-control" id="exampleFormControlInputEmail" placeholder="name@example.com" readOnly value="email" name="email" required />
+                                                    <input type="email" className="form-control" id="exampleFormControlInputEmail" placeholder="name@example.com" readOnly value={user.email} name="email" required />
                                                     </div>
                                                     <div className="col-6">
                                                     <label htmlFor="exampleFormControlInputNumber">Phone Number</label>

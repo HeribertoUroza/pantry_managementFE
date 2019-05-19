@@ -34,14 +34,14 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 ${grid}px 0 0`,
 
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
+  background: isDragging ? '#2e6e51' : 'grey',
 
   // styles we need to apply on draggables
   ...draggableStyle,
 });
 
 const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  background: isDraggingOver ? 'white' : '#e5e3e4',
   display: 'flex',
   padding: grid,
   overflow: 'auto',
@@ -96,8 +96,6 @@ class WeekRecipeView extends React.Component {
     }
 
     render() {
-        const userFollowers = `/${this.props.id}/followers`;
-        const profile = `/profile/${this.state.username}`
         return (<>
  <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable" direction="horizontal">

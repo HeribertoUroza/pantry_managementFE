@@ -15,8 +15,6 @@ import './dashboard.css'
 
 //SERVICES
 //import { postUser, postUserPrefTopics, postUserPrefTV } from '../services/main';
-import ImageService from '../../services/ImageServices'
-import Upload from '../../services/Upload';
 
 
 //COMPONENTS
@@ -65,20 +63,21 @@ class Dashboard extends React.Component {
             <AuthContext.Consumer>
                 {
                     (user) => {
-                        if (!user) {
+                        if (user) {
                             return (<>
                                 <div className="container-fluid">
                                     <Header />
-                                        <div className="row" style={{backgroundColor: "black", color: "white"}}>
-                                            <span className="col text-left align-middle " style={{height: "50px"}}>
+                                        <div className="container-fluid" style={{backgroundColor: "black", color: "white"}}>
+                                            <span className="col text-right align-middle " style={{height: "50px"}}>
                                                 <p style={{fontSize: "25px"}}>Welcome Back {this.state.name}</p>
-                                            </span>
-                                            <span className="col text-right align-middle">
                                                 <Clock
                                                     format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
                                                     ticking={true}
                                                      />
                                             </span>
+                                        </div>
+                                        <div className="row">
+                                        Your Recipes For the Week of
                                         </div>
                                         <WeekRecipe/>
                                 </div>
