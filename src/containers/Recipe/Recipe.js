@@ -21,7 +21,7 @@ class Recipe extends React.Component {
 
         this.state = {
             db_ingredients: [],
-            ingredients_type: ['ounce', 'kilo', 'pounds/lb'],
+            I_type: ['Select Measurement','ounce', 'kilo', 'pounds/lb'],
             new_ingredients: [
                 {
                     ingredient_name: 'cheese',
@@ -35,10 +35,15 @@ class Recipe extends React.Component {
                 }
             ],
             recipe_name: '',
-            recipe_ID: ''
+            ingredient_name: '',
+            ingredient_weight: '',
+            ingredient_type: '',
+            recipe_ID: '',
+            product_url: '',
+            recipe_desc: ''
         }
     }
-
+x
     componentDidMount() {
         M.AutoInit()
     }
@@ -48,14 +53,25 @@ class Recipe extends React.Component {
 
     }
 
-    handleSubmit = (e) => {
+    handleRecipeSubmit = (e) => {
         // 
         e.preventDefault();
 
     }
 
-    handleIType = e => {
+    createIngredients = (e) => {
+        e.preventDefault();
+        const { ingredient_name, ingredient_weight, ingredient_type } = this.state
+        let new_ingredientsArr = [...this.state.new_ingredients]
+        console.log(new_ingredientsArr)
+        let ingredient_obj = { ingredient_name, ingredient_weight, ingredient_type}
 
+        new_ingredientsArr.push(ingredient_obj)
+        this.setState({
+            new_ingredients: new_ingredientsArr
+        })
+
+                
     }
 
     render() {
@@ -74,72 +90,89 @@ class Recipe extends React.Component {
                                                 <div className="row">
                                                     <div className="input-field col s12">
                                                         <i className="material-icons prefix"></i>
-                                                        <input type="text" name='recipe_name' id="autocomplete-input" className="autocomplete" onChange={this.handleChange} />
-                                                        <label HTMLFor="autocomplete-input">Recipe Name</label>
+                                                        <input type="text" name='recipe_name' id="autocomplete-input" className="" onChange={this.handleChange} />
+                                                        <label htmlFor="autocomplete-input">Recipe Name</label>
                                                     </div>
                                                 </div>
                                                 {/* Input Fields */}
-                                                
+
                                                 <div className="row">
                                                     <form className="col s12">
                                                         <div className="row">
-                                                            <div className="input-field col s10">
-                                                                <input id="first_name" type="text" className="validate" />
-                                                                    <label htmlFor="first_name">First Name</label>
+                                                            <div className="input-field col s7">
+                                                                <input id="first_name" name='ingredient_name' type="text" className="validate" onChange={this.handleChange} />
+                                                                <label htmlFor="first_name">Ingredient Name</label>
                                                             </div>
-                                                                <div className="input-field col s2">
-                                                                    <input id="last_name" type="text" className="validate" />
-                                                                        <label htmlFor="last_name">Last Name</label>
-                                                                </div>
-                                                        </div>
+                                                            <div className="input-field col s2">
+                                                                <input id="last_name" name='ingredient_weight' type="number" className="validate" onChange={this.handleChange}/>
+                                                                <label htmlFor="last_name">Ingredient Weight</label>
+                                                            </div>
 
-                                                        
-                                                        
-                                                            {/* <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a> */}
-                                                        <div class="input-field col s3">
-                                                            <select>
-                                                                <option value="" disabled selected>Select Measurement</option>
-                                                                <option value="1">Option 1</option>
-                                                                <option value="2">Option 2</option>
-                                                                <option value="3">Option 3</option>
-                                                            </select>
-                                                            <label>Materialize Select</label>
-                                                        </div>
+                                                            <div className="input-field col s3">
+                                                                <select name='ingredient_type' onChange={this.handleChange}>
+                                                                    
+                                                                    {
+                                                                        this.state.I_type.map((e, i) => {
 
+                                                                            return (
+                                                                                <option disabled={e === 'Selected Measurement'}  key={i} value={e}>{e}</option>
+                                                                        
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                                <label>Ingredient Type</label>
+                                                            </div>
+                                                        </div>
                                                     </form>
+                                                </div>
+
+                                                <div className='row'>
+                                                    <div className='col s12'>
+                                                        <div className='row'>
+                                                            <div className="input-field col s6">
+                                                                <input id="last_name" name='product_url' type="text" className="validate" onChange={this.handleChange}/>
+                                                                    <label htmlFor="last_name">Product Url for {this.state.ingredient_name}</label>
+                                                        </div>
+                                                            <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.createIngredients}>Add Ingredient
+                                                                <i className="material-icons right">send</i>
+                                                            </button>
+                                                        </div>
                                                     </div>
+                                                                    
+                                                </div>
 
-                                                        {/* List of Ingregients */}
-                                                        <ul class="collection with-header">
-                                                        <li class="collection-header"><h3>Ingredients</h3></li>
-                                                            {
-                                                                this.state.new_ingredients.map( (e, i) => {
-                                                                    return (
-                                                                        <li class="collection-item"><div>{e.ingredient_name} - {e.ingredient_weight} {e.ingredient_type}<a href="#!" className="secondary-content"><i class="material-icons"></i></a></div></li>
-                                                                    )
-                                                                })
-                                                            }
-                                                        </ul>
+                                                {/* List of Ingregients */}
+                                                <ul className="collection with-header">
+                                                    <li className="collection-header"><h3>Ingredients</h3></li>
+                                                    {
+                                                        this.state.new_ingredients.map((e, i) => {
+                                                            return (
+                                                                <li className="collection-item" key={i}><div>{e.ingredient_name} - {e.ingredient_weight} {e.ingredient_type}<a href="#!" className="secondary-content"><i class="material-icons"></i></a></div></li>
+                                                            )
+                                                        })
+                                                    }
+                                                </ul>
 
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <textarea id="textarea2" class="materialize-textarea" data-length="120"></textarea>
-                                                        <label for="textarea2">Directions/Instructions</label>
+                                                <div className="row">
+                                                    <div className="input-field col s12">
+                                                        <textarea id="textarea2" className="materialize-textarea" data-length="420" onChange={this.handleChange}></textarea>
+                                                        <label htmlFor="textarea2">Directions/Instructions</label>
                                                     </div>
                                                 </div>
                                             </div>
-                                                </div>
-                                            </div>
-                                    
+                                        </div>
+                                    </div>
+
                                 </>
-                                        )
-                                    }
-                                }
-                            }
+                            )
+                        }
+                    }
+                }
             </AuthContext.Consumer>
 
-                                    );
-                                }
-                            }
-                            
-export default withRouter( Recipe )
+        );
+    }
+}
+
+export default withRouter(Recipe)
