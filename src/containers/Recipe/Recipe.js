@@ -15,25 +15,14 @@ import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
 //MATERIALIZE
 import M from 'materialize-css'
 
-class Recipe extends React.Component {
+class AddRecipe extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
             db_ingredients: [],
-            I_type: ['Select Measurement', 'ounce', 'kilo', 'pounds/lb'],
-            new_ingredients: [
-                {
-                    ingredient_name: 'cheese',
-                    ingredient_weight: '2',
-                    ingredient_type: 'oz'
-                },
-                {
-                    ingredient_name: 'mac',
-                    ingredient_weight: '10',
-                    ingredient_type: 'lb'
-                }
-            ],
+            I_type: ['Select Measurement','teaspoon', 'tablespoon', 'dessertspoon', 'fluid ounce', 'cup', 'cup liquid', 'pint', 'pint liquid', 'pound', 'kilo', 'litre', 'gallon'],
+            new_ingredients: [],
             recipe_name: '',
             ingredient_name: '',
             ingredient_weight: '',
@@ -71,7 +60,7 @@ class Recipe extends React.Component {
             new_ingredients: new_ingredientsArr,
             ingredient_name: '',
             ingredient_weight: '',
-            ingredient_type: ''
+            ingredient_type: 'Select Measurement'
         })
     }
 
@@ -82,7 +71,7 @@ class Recipe extends React.Component {
             <AuthContext.Consumer>
                 {
                     (user) => {
-                        if (!user) {
+                        if (user) {
                             return (
                                 <>
                                     <div className='container'>
@@ -105,7 +94,7 @@ class Recipe extends React.Component {
                                                                 <label htmlFor="Ingredient Name">Ingredient Name</label>
                                                             </div>
                                                             <div className="input-field col s2">
-                                                                <input id="Ingredient Weight" name='Ingredient Weight' value={this.state.ingredient_weight} type="number" className="validate" onChange={this.handleChange} />
+                                                                <input id="Ingredient Weight" name='ingredient_weight' value={this.state.ingredient_weight} type="number" className="validate" onChange={this.handleChange} />
                                                                 <label htmlFor="Ingredient Weight">Ingredient Weight</label>
                                                             </div>
 
@@ -155,8 +144,8 @@ class Recipe extends React.Component {
 
                                                 <div className="row">
                                                     <div className="input-field col s12">
-                                                        <textarea id="textarea2" className="materialize-textarea" data-length="420" onChange={this.handleChange}></textarea>
-                                                        <label htmlFor="textarea2">Directions/Instructions</label>
+                                                        <textarea id="recipe_desc" name='recipe_desc' className="materialize-textarea" data-length="420" onChange={this.handleChange}></textarea>
+                                                        <label htmlFor="recipe_desc">Directions/Instructions</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -177,4 +166,4 @@ class Recipe extends React.Component {
     }
 }
 
-export default withRouter(Recipe)
+export default withRouter(AddRecipe)
