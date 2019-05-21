@@ -21,7 +21,7 @@ class Recipe extends React.Component {
 
         this.state = {
             db_ingredients: [],
-            I_type: ['Select Measurement','ounce', 'kilo', 'pounds/lb'],
+            I_type: ['Select Measurement', 'ounce', 'kilo', 'pounds/lb'],
             new_ingredients: [
                 {
                     ingredient_name: 'cheese',
@@ -43,9 +43,10 @@ class Recipe extends React.Component {
             recipe_desc: ''
         }
     }
-x
+    
     componentDidMount() {
         M.AutoInit()
+        
     }
 
     handleChange = (e) => {
@@ -54,7 +55,6 @@ x
     }
 
     handleRecipeSubmit = (e) => {
-        // 
         e.preventDefault();
 
     }
@@ -63,15 +63,16 @@ x
         e.preventDefault();
         const { ingredient_name, ingredient_weight, ingredient_type } = this.state
         let new_ingredientsArr = [...this.state.new_ingredients]
-        console.log(new_ingredientsArr)
-        let ingredient_obj = { ingredient_name, ingredient_weight, ingredient_type}
+        let ingredient_obj = { ingredient_name, ingredient_weight, ingredient_type }
 
         new_ingredientsArr.push(ingredient_obj)
-        this.setState({
-            new_ingredients: new_ingredientsArr
-        })
 
-                
+        this.setState({
+            new_ingredients: new_ingredientsArr,
+            ingredient_name: '',
+            ingredient_weight: '',
+            ingredient_type: ''
+        })
     }
 
     render() {
@@ -90,8 +91,8 @@ x
                                                 <div className="row">
                                                     <div className="input-field col s12">
                                                         <i className="material-icons prefix"></i>
-                                                        <input type="text" name='recipe_name' id="autocomplete-input" className="" onChange={this.handleChange} />
-                                                        <label htmlFor="autocomplete-input">Recipe Name</label>
+                                                        <input type="text" name='recipe_name' id="Recipe Name" className="" onChange={this.handleChange} />
+                                                        <label htmlFor="Recipe Name">Recipe Name</label>
                                                     </div>
                                                 </div>
                                                 {/* Input Fields */}
@@ -100,23 +101,21 @@ x
                                                     <form className="col s12">
                                                         <div className="row">
                                                             <div className="input-field col s7">
-                                                                <input id="first_name" name='ingredient_name' type="text" className="validate" onChange={this.handleChange} />
-                                                                <label htmlFor="first_name">Ingredient Name</label>
+                                                                <input id="Ingredient Name" name='ingredient_name' value={this.state.ingredient_name} type="text" className="validate" onChange={this.handleChange} />
+                                                                <label htmlFor="Ingredient Name">Ingredient Name</label>
                                                             </div>
                                                             <div className="input-field col s2">
-                                                                <input id="last_name" name='ingredient_weight' type="number" className="validate" onChange={this.handleChange}/>
-                                                                <label htmlFor="last_name">Ingredient Weight</label>
+                                                                <input id="Ingredient Weight" name='Ingredient Weight' value={this.state.ingredient_weight} type="number" className="validate" onChange={this.handleChange} />
+                                                                <label htmlFor="Ingredient Weight">Ingredient Weight</label>
                                                             </div>
 
                                                             <div className="input-field col s3">
-                                                                <select name='ingredient_type' onChange={this.handleChange}>
-                                                                    
+                                                                <select name='ingredient_type' value={this.state.ingredient_type} onChange={this.handleChange}>
+
                                                                     {
                                                                         this.state.I_type.map((e, i) => {
-
                                                                             return (
-                                                                                <option disabled={e === 'Selected Measurement'}  key={i} value={e}>{e}</option>
-                                                                        
+                                                                                <option disabled={e === 'Selected Measurement'} key={i} value={e}>{e}</option>
                                                                             )
                                                                         })
                                                                     }
@@ -131,15 +130,15 @@ x
                                                     <div className='col s12'>
                                                         <div className='row'>
                                                             <div className="input-field col s6">
-                                                                <input id="last_name" name='product_url' type="text" className="validate" onChange={this.handleChange}/>
-                                                                    <label htmlFor="last_name">Product Url for {this.state.ingredient_name}</label>
-                                                        </div>
+                                                                <input id="Product Url" name='product_url' type="text" className="validate" onChange={this.handleChange} />
+                                                                <label htmlFor="Product Url">Product Url for {this.state.ingredient_name}</label>
+                                                            </div>
                                                             <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.createIngredients}>Add Ingredient
                                                                 <i className="material-icons right">send</i>
                                                             </button>
                                                         </div>
                                                     </div>
-                                                                    
+
                                                 </div>
 
                                                 {/* List of Ingregients */}
@@ -148,7 +147,7 @@ x
                                                     {
                                                         this.state.new_ingredients.map((e, i) => {
                                                             return (
-                                                                <li className="collection-item" key={i}><div>{e.ingredient_name} - {e.ingredient_weight} {e.ingredient_type}<a href="#!" className="secondary-content"><i class="material-icons"></i></a></div></li>
+                                                                <li className="collection-item" key={i}><div>{e.ingredient_name} - {e.ingredient_weight} {e.ingredient_type}<a href="#!" className="secondary-content"><i className="material-icons"></i></a></div></li>
                                                             )
                                                         })
                                                     }
@@ -162,6 +161,9 @@ x
                                                 </div>
                                             </div>
                                         </div>
+                                        <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.handleRecipeSubmit}>Add Recipe
+                                                <i className="material-icons right">send</i>
+                                        </button>
                                     </div>
 
                                 </>
