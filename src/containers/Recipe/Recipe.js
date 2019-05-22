@@ -21,6 +21,7 @@ class AddRecipe extends React.Component {
 
         this.state = {
             db_ingredients: [],
+            health_tag: ['vegetarian', 'vegan', 'pescatarian', 'sugar-conscious', 'paleo', 'kosher', 'keto-friendly', 'soy-free', 'red-meat-free', 'pork-free', 'wheat-free', 'low-sugar', 'gluten-free', 'low-potassium', 'tree-nut-free', 'shellfish-free', 'peanut-free', 'gluten-free', 'dairy-free', 'crustacean-free', 'alcohol-free'],
             I_type: ['Select Measurement','teaspoon', 'tablespoon', 'dessertspoon', 'fluid ounce', 'cup', 'cup liquid', 'pint', 'pint liquid', 'pound', 'kilo', 'litre', 'gallon'],
             new_ingredients: [],
             recipe_name: '',
