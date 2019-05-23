@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from '../../firebase';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 
 
 //CONTEXT
@@ -38,7 +38,7 @@ class Signup extends React.Component {
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(() => {
-        this.props.history.push('/preferences')
+        this.props.history.push('/preference')
       })
 
       .catch(err => {
@@ -89,6 +89,9 @@ class Signup extends React.Component {
                 </>
               )
             }
+           else {
+             return <Redirect to='/preference'/>
+           } 
           }
         }
       </AuthContext.Consumer>

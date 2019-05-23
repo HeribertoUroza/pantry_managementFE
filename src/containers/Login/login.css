@@ -1,12 +1,13 @@
 .loginContainer {
-    background-image: url('../../assets/Photos/basil-delicious-food-459469.jpg');
+    background-image: url('../../assets/Photos/birme/basil-delicious-food-459469.jpg');
     background-size: cover;
     height: 100%;
-    opacity: 0.80;
+    opacity: 1;
 }
 
 .navy {
     background-color: navy;
+    color: white;
 }
 
 .landingLinkLogin {
