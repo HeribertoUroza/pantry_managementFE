@@ -214,7 +214,7 @@ class UserPreference extends React.Component {
                                                     <div className="col">
                                                         <p className="py-3">Dietary Preferences</p>
                                                         <p>
-                                                            <label>
+                                                                <label> 
                                                                 <input type="checkbox" id="inlineCheckbox1" value="vegetarian" onClick={this.handleClickDietPre} />
                                                                 <span htmlFor="inlineCheckbox1" data-toggle="tooltip" data-placement="right" title="No meat, poultry, or fish">Vegetarian</span>
                                                             </label></p>
@@ -244,7 +244,7 @@ class UserPreference extends React.Component {
                                                         </label></p>
                                                     </div>
                                                     <div className="col">
-                                                        <p className="py-3">Food Limitations</p>
+                                                            <p className="py-3">Food Limitations</p> 
                                                         <p> <label>
                                                             <input type="checkbox" id="inlineCheckbox4" value="soy-free" onClick={this.handleClickFoodLimi} />
                                                             <span htmlFor="inlineCheckbox4" data-toggle="tooltip" data-placement="right" title="No soy or products containing soy">Soy Free</span>
@@ -276,7 +276,7 @@ class UserPreference extends React.Component {
 
                                                     </div>
                                                     <div className="col">
-                                                        <p className="py-3">Food Allergies</p>
+                                                            <p className="py-3">Food Allergies</p> 
                                                         <p><label>
                                                             <input type="checkbox" id="inlineCheckbox7" value="tree-nut-free" onClick={this.handleClickAllergies} />
                                                             <span htmlFor="inlineCheckbox7" data-toggle="tooltip" data-placement="right" title="No tree nuts or products containing tree nuts">Tree Nuts</span>
@@ -294,7 +294,7 @@ class UserPreference extends React.Component {
                                                             <span htmlFor="inlineCheckbox10" data-toggle="tooltip" data-placement="right" title="No ingredients containing gluten">Gluten Free</span>
                                                         </label></p>
                                                         <p><label>
-                                                            <input type="checkbox" id="inlineCheckbox11" value="gluten-free" onClick={this.handleClickAllergies} />
+                                                            <input type="checkbox" id="inlineCheckbox11" value="dairy-free" onClick={this.handleClickAllergies} />
                                                             <span htmlFor="inlineCheckbox11" data-toggle="tooltip" data-placement="right" title="No dairy; no lactose">Dairy</span>
                                                         </label></p>
                                                         <p><label>
