@@ -1,5 +1,5 @@
 .signUpContainer {
-    background-image: url('../../assets/Photos/broccoli-carrots-close-up-952482.jpg');
+    background-image: url('../../assets/Photos/birme/broccoli-carrots-close-up-952482.jpg');
     background-size: cover;
     height: 100%;
 }
@@ -35,4 +35,5 @@
 
 .brown {
     background-color: #654321;
+    color: white;
 }

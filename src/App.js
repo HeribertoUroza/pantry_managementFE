@@ -9,6 +9,7 @@ import Logout from './containers/Logout/Logout';
 import Landing from './containers/Landing/Landing'
 import Error404 from './components/Error404/Error404';
 import UserPref from './containers/UserPref/UserPref';
+import Dashboard from './containers/Dashboard/Dashboard';
 
 
 
@@ -54,6 +55,7 @@ class App extends Component {
               <Route path='/login' exact component={ Login } />
               <Route path='/logout' exact component={ Logout } />
               <Route path='/preference' exact component={UserPref}/>
+              <Route path='/dashboard' exact component={Dashboard}/>
               <Route component={Error404}/>
             </Switch>
           </AuthContext.Provider>
