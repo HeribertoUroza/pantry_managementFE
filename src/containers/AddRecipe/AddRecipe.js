@@ -1,5 +1,4 @@
 import React from 'react';
-import firebase from '../../firebase';
 import { Link, withRouter } from 'react-router-dom';
 
 
@@ -7,7 +6,7 @@ import { Link, withRouter } from 'react-router-dom';
 import AuthContext from '../../context/auth';
 
 //CSS
-import './recipe.css';
+import './addrecipe.css';
 
 //ASSETS
 import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
@@ -20,8 +19,9 @@ class AddRecipe extends React.Component {
         super(props)
 
         this.state = {
+            current_userID: '',
             db_ingredients: [],
-            health_tag: ['vegetarian', 'vegan', 'pescatarian', 'sugar-conscious', 'paleo', 'kosher', 'keto-friendly', 'soy-free', 'red-meat-free', 'pork-free', 'wheat-free', 'low-sugar', 'gluten-free', 'low-potassium', 'tree-nut-free', 'shellfish-free', 'peanut-free', 'gluten-free', 'dairy-free', 'crustacean-free', 'alcohol-free'],
+            h_tag: ['vegetarian', 'vegan', 'pescatarian', 'sugar-conscious', 'paleo', 'kosher', 'keto-friendly', 'soy-free', 'red-meat-free', 'pork-free', 'wheat-free', 'low-sugar', 'gluten-free', 'low-potassium', 'tree-nut-free', 'shellfish-free', 'peanut-free', 'gluten-free', 'dairy-free', 'crustacean-free', 'alcohol-free'],
             I_type: ['Select Measurement','teaspoon', 'tablespoon', 'dessertspoon', 'fluid ounce', 'cup', 'cup liquid', 'pint', 'pint liquid', 'pound', 'kilo', 'litre', 'gallon'],
             new_ingredients: [],
             recipe_name: '',
@@ -30,12 +30,15 @@ class AddRecipe extends React.Component {
             ingredient_type: '',
             recipe_ID: '',
             product_url: '',
-            recipe_desc: ''
+            recipe_desc: '',
+            health_tag: '',
+            error: ''
         }
     }
     
     componentDidMount() {
-        M.AutoInit()
+        M.AutoInit();
+        console.log(this.props)
         
     }
 
@@ -51,22 +54,28 @@ class AddRecipe extends React.Component {
 
     createIngredients = (e) => {
         e.preventDefault();
-        const { ingredient_name, ingredient_weight, ingredient_type } = this.state
+        const { ingredient_name, ingredient_weight, ingredient_type, product_url } = this.state
         let new_ingredientsArr = [...this.state.new_ingredients]
-        let ingredient_obj = { ingredient_name, ingredient_weight, ingredient_type }
+        let ingredient_obj = { ingredient_name, ingredient_weight, ingredient_type, product_url }
 
         new_ingredientsArr.push(ingredient_obj)
-
-        this.setState({
-            new_ingredients: new_ingredientsArr,
-            ingredient_name: '',
-            ingredient_weight: '',
-            ingredient_type: 'Select Measurement'
-        })
+        if(ingredient_name === '' || ingredient_weight === '' || ingredient_type === '') {
+            this.setState({
+                error: 'Please Enter Ingredient Information'
+            })
+        } else {
+            this.setState({
+                new_ingredients: new_ingredientsArr,
+                ingredient_name: '',
+                ingredient_weight: '',
+                product_url: '',
+                ingredient_type: 'Select Measurement'
+            })
+        }
     }
 
     render() {
-        const { ingredients, recipe_ID } = this.state;
+        const { error } = this.state;
         console.log(this.state)
         return (
             <AuthContext.Consumer>
@@ -75,6 +84,7 @@ class AddRecipe extends React.Component {
                         if (user) {
                             return (
                                 <>
+                                    {error}
                                     <div className='container'>
                                         <div className="row">
                                             <div className="col s12">
@@ -101,7 +111,6 @@ class AddRecipe extends React.Component {
 
                                                             <div className="input-field col s3">
                                                                 <select name='ingredient_type' value={this.state.ingredient_type} onChange={this.handleChange}>
-
                                                                     {
                                                                         this.state.I_type.map((e, i) => {
                                                                             return (
@@ -159,6 +168,7 @@ class AddRecipe extends React.Component {
                                 </>
                             )
                         }
+                        
                     }
                 }
             </AuthContext.Consumer>
