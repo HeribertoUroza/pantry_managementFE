@@ -21,7 +21,7 @@ class AddRecipe extends React.Component {
         this.state = {
             current_userID: '',
             db_ingredients: [],
-            h_tag: ['vegetarian', 'vegan', 'pescatarian', 'sugar-conscious', 'paleo', 'kosher', 'keto-friendly', 'soy-free', 'red-meat-free', 'pork-free', 'wheat-free', 'low-sugar', 'gluten-free', 'low-potassium', 'tree-nut-free', 'shellfish-free', 'peanut-free', 'gluten-free', 'dairy-free', 'crustacean-free', 'alcohol-free'],
+            h_tag: ['Select','vegetarian', 'vegan', 'pescatarian', 'sugar-conscious', 'paleo', 'kosher', 'keto-friendly', 'soy-free', 'red-meat-free', 'pork-free', 'wheat-free', 'low-sugar', 'gluten-free', 'low-potassium', 'tree-nut-free', 'shellfish-free', 'peanut-free', 'gluten-free', 'dairy-free', 'crustacean-free', 'alcohol-free'],
             I_type: ['Select Measurement','teaspoon', 'tablespoon', 'dessertspoon', 'fluid ounce', 'cup', 'cup liquid', 'pint', 'pint liquid', 'pound', 'kilo', 'litre', 'gallon'],
             new_ingredients: [],
             recipe_name: '',
@@ -89,11 +89,25 @@ class AddRecipe extends React.Component {
                                         <div className="row">
                                             <div className="col s12">
                                                 <div className="row">
-                                                    <div className="input-field col s12">
+                                                    <div className="input-field col s11">
                                                         <i className="material-icons prefix"></i>
                                                         <input type="text" name='recipe_name' id="Recipe Name" className="" onChange={this.handleChange} />
                                                         <label htmlFor="Recipe Name">Recipe Name</label>
                                                     </div>
+
+                                                    <div className="input-field col s1">
+                                                        <select name='health_tag' value={this.state.health_tag} onChange={this.handleChange}>
+                                                            {
+                                                                this.state.h_tag.map((e, i) => {
+                                                                    return (
+                                                                        <option disabled={e === 'Select'} key={i} value={e}>{e}</option>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </select>
+                                                        <label>Health Tag</label>
+                                                    </div>
+
                                                 </div>
                                                 {/* Input Fields */}
 
@@ -114,7 +128,7 @@ class AddRecipe extends React.Component {
                                                                     {
                                                                         this.state.I_type.map((e, i) => {
                                                                             return (
-                                                                                <option disabled={e === 'Selected Measurement'} key={i} value={e}>{e}</option>
+                                                                                <option disabled={e === 'Select Measurement'} key={i} value={e}>{e}</option>
                                                                             )
                                                                         })
                                                                     }
