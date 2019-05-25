@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import axios from 'axios'
 
 
 //CONTEXT
@@ -20,9 +21,11 @@ class AddRecipe extends React.Component {
 
         this.state = {
             current_userID: '',
+            current_recipeID: '',
+            current_productID: '',
             db_ingredients: [],
-            h_tag: ['Select','vegetarian', 'vegan', 'pescatarian', 'sugar-conscious', 'paleo', 'kosher', 'keto-friendly', 'soy-free', 'red-meat-free', 'pork-free', 'wheat-free', 'low-sugar', 'gluten-free', 'low-potassium', 'tree-nut-free', 'shellfish-free', 'peanut-free', 'gluten-free', 'dairy-free', 'crustacean-free', 'alcohol-free'],
-            I_type: ['Select Measurement','teaspoon', 'tablespoon', 'dessertspoon', 'fluid ounce', 'cup', 'cup liquid', 'pint', 'pint liquid', 'pound', 'kilo', 'litre', 'gallon'],
+            h_tag: ['Select','Vegetarian', 'Vegan', 'Pescatarian', 'Sugar-Conscious', 'Paleo', 'Kosher', 'Keto-Friendly', 'Soy-Free', 'Red-Meat-Free', 'Pork-Free', 'Wheat-Free', 'Low-Sugar', 'Gluten-Free', 'Low-Potassium', 'Tree-Nut-Free', 'Shellfish-Free', 'Peanut-Free', 'Gluten-Free', 'Dairy-Free', 'Crustacean-Free', 'Alcohol-Free'],
+            I_type: ['Select Measurement','Teaspoon', 'Tablespoon', 'Dessert Spoon', 'Fluid Ounce', 'Cup', 'Cup Liquid', 'Pint', 'Pint Liquid', 'Pound', 'Kilo', 'Litre', 'Gallon'],
             new_ingredients: [],
             recipe_name: '',
             ingredient_name: '',
@@ -35,11 +38,25 @@ class AddRecipe extends React.Component {
             error: ''
         }
     }
+
+    static contextType = AuthContext;
     
-    componentDidMount() {
+    componentDidMount = async() => {
         M.AutoInit();
-        console.log(this.props)
         
+        const userEmail = await this.context.email
+        console.log(this.context)
+        console.log(userEmail)
+        axios.get(`http://localhost:11235/user/email/heribertouroza@pursuit.org`)
+            .then(res => {
+                console.log('res',res.data.data.user_id)
+                this.setState({
+                    current_userID: res.data.data.user_id
+                })
+            })
+            .catch(err => {
+                console.log(err.toString())
+            })
     }
 
     handleChange = (e) => {
@@ -49,7 +66,26 @@ class AddRecipe extends React.Component {
 
     handleRecipeSubmit = (e) => {
         e.preventDefault();
+        const { recipe_name, health_tag, current_userID, recipe_desc } = this.state
+        
+        axios.post(`http://localhost:11235/recipe/`, {
+            recipe_name: recipe_name,
+            health_tags: health_tag,
+            recipe_owner: current_userID,
+            recipe_notes: recipe_desc
 
+        })
+        .then(res => {
+            console.log('res', res.data.data.recipe_id)
+            this.setState({
+                current_recipeID: res.data.data.recipe_id
+            })
+            
+        })
+        .catch(err => {
+            console.log(err.toString())
+        })
+        
     }
 
     createIngredients = (e) => {
@@ -59,7 +95,7 @@ class AddRecipe extends React.Component {
         let ingredient_obj = { ingredient_name, ingredient_weight, ingredient_type, product_url }
 
         new_ingredientsArr.push(ingredient_obj)
-        if(ingredient_name === '' || ingredient_weight === '' || ingredient_type === '') {
+        if(ingredient_name === '' || ingredient_weight === '' || ingredient_type === '' || product_url === '') {
             this.setState({
                 error: 'Please Enter Ingredient Information'
             })
