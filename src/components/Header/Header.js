@@ -6,10 +6,13 @@ import firebase from '../../firebase';
 //CSS
 import './header.css'
 
-//ASSETS
-import logoDot from '../../assets/Branding/PossiblePantryLogoGreenDott.png';
-import logoName from '../../assets/Branding/PossiblePantryLogoGreenName.png';
 
+
+//ASSETS
+import logoDot from '../../assets/Branding/PossiblePantryLogoDotWhite.png';
+import logoName from '../../assets/Branding/PossiblePantryLogoNameWhite.png';
+
+import SideNav from '../SideNav/SideNav'
 
 
 
@@ -58,17 +61,17 @@ class Header extends React.Component {
     }
 
     render() {
-            const date = new Date ()
+        const date = new Date()
         return (<>
-            <div className='row mx-auto py-3 headerContainer' style={{borderBottom: "solid 1px lightgray"}}>
+            <div className='row mx-auto py-3 mt-3 headerContainer' style={{ borderBottom: "solid 1px lightgray" }}>
                 <span className="col-1" onClick={this.handleClickLogo}><img src={logoDot} alt="logo" /></span>
-                <span className="col-1 align-middle" onClick={this.handleClickLogo}><img src={logoName} alt="logo" style={{marginTop: "25px"}} /></span>
+                <span className="col-1 align-middle" onClick={this.handleClickLogo}><img src={logoName} alt="logo" style={{ marginTop: "25px" }} /></span>
                 <div className="col-9 my-auto text-center">
-                    
+
                 </div>
                 <div className="col-1 mx-auto my-auto">
                     <div className="row">
-                        <Link to='/logout'><i className="material-icons right green-text">input</i></Link>
+                        <SideNav options={{ edge: 'right', closeOnClick: true }}/>
                     </div>
                 </div>
             </div>

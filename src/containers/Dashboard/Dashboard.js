@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import firebase from '../../firebase';
 import Clock from 'react-live-clock';
 
@@ -8,21 +8,77 @@ import Clock from 'react-live-clock';
 
 
 //CONTEXT
-import AuthContext from '../../context/auth'
+import AuthContext from '../../context/auth';
 
 //CSS
-import './dashboard.css'
+import './dashboard.css';
+import '../../components/Header/header.css';
 
 //SERVICES
 //import { postUser, postUserPrefTopics, postUserPrefTV } from '../services/main';
 
 
 //COMPONENTS
-import Header from '../../components/Header/Header'
-import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView'
+import Header from '../../components/Header/Header';
+import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
+import Pantry from '../../components/Pantry/Pantry';
+import { readdir } from 'fs';
 
 
+const productTestRed = () => {
+    let product = {
+        name: "Jif Peanut Butter",
+        original_weight: "400",
+        current_weight: "50",
+        image: "https://jetimages.jetcdn.net/md5/b5dd9b619c01f664ec255318d9092789?odnBound=500"
+    }
+    product.percentage = product.current_weight / product.original_weight
+    return product
+};
 
+const productTestOrange = () => {
+    let product = {
+        name: "Jif Peanut Butter",
+        original_weight: "400",
+        current_weight: "100",
+        image: "https://jetimages.jetcdn.net/md5/b5dd9b619c01f664ec255318d9092789?odnBound=500"
+    }
+    product.percentage = product.current_weight / product.original_weight
+    return product
+};
+
+const productTestYellow = () => {
+    let product = {
+        name: "Jif Peanut Butter",
+        original_weight: "400",
+        current_weight: "180",
+        image: "https://jetimages.jetcdn.net/md5/b5dd9b619c01f664ec255318d9092789?odnBound=500"
+    }
+    product.percentage = product.current_weight / product.original_weight
+    return product
+};
+
+const productTestBlue = () => {
+    let product = {
+        name: "Jif Peanut Butter",
+        original_weight: "400",
+        current_weight: "250",
+        image: "https://jetimages.jetcdn.net/md5/b5dd9b619c01f664ec255318d9092789?odnBound=500"
+    }
+    product.percentage = product.current_weight / product.original_weight
+    return product
+};
+
+const productTestGreen = () => {
+    let product = {
+        name: "Jif Peanut Butter",
+        original_weight: "400",
+        current_weight: "350",
+        image: "https://jetimages.jetcdn.net/md5/b5dd9b619c01f664ec255318d9092789?odnBound=500"
+    }
+    product.percentage = product.current_weight / product.original_weight
+    return product
+};
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -35,8 +91,11 @@ class Dashboard extends React.Component {
             foodAllergies: [],
             firebaseUID: '',
             date: new Date(),
+            pantry: [productTestOrange(), productTestRed(), productTestYellow(), productTestBlue(), productTestGreen(), productTestGreen(), productTestGreen()],
         }
     }
+
+
 
 
 
@@ -57,8 +116,6 @@ class Dashboard extends React.Component {
 
 
     render() {
-        var offset = new Date().getTimezoneOffset()
-        console.log(offset)
         return (
             <AuthContext.Consumer>
                 {
@@ -67,21 +124,39 @@ class Dashboard extends React.Component {
                             return (<>
                                 <div className="container-fluid">
                                     <Header />
-                                        <div className="container-fluid" style={{backgroundColor: "black", color: "white"}}>
-                                            <span className="col text-right align-middle " style={{height: "50px"}}>
-                                                <p style={{fontSize: "25px"}}>Welcome Back {this.state.name}</p>
-                                                <Clock
-                                                    format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
-                                                    ticking={true}
-                                                     />
-                                            </span>
+                                    <div className="container-fluid">
+                                        <div className="row" style={{marginBottom: "0px"}}>
+                                            <div className="col-9">
+                                                <div className="row" style={{
+                                                   backgroundColor: "#3bb78f",
+                                                   backgroundImage: "linear-gradient(315deg, #166D3B 0%, #000000 74%)", height: "35px",
+                                                }}>
+                                                    <p className="m-auto" style={{color: "white", fontSize: "22px" }} >Your Recipes For The Week Of...</p>
+                                                </div>
+                                            </div>
+                                            <div className="col">
+                                                <div className="row align-middle ml-2" style={{
+                                                    width: "15", height: "35px", backgroundColor: "#06174c", backgroundImage: "linear-gradient(315deg, #000000 0%, #06174c 74%)",
+                                                    color: "white"
+                                                }}>
+                                                    <Clock
+                                                        style={{ fontSize: "20px", fontFamily: "Raleway", textAlign: "center", paddingLeft: "25px" }}
+                                                        format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
+                                                        ticking={true}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="row">
-                                        Your Recipes For the Week of
-                                        </div>
-                                        <WeekRecipe/>
+                                                    <WeekRecipe />
+                                                </div>
+                                    </div>
                                 </div>
                             </>)
+                        }
+                        else {
+                            return <Redirect to='/signup' />
+
                         }
                     }
                 }
@@ -91,3 +166,27 @@ class Dashboard extends React.Component {
 }
 
 export default withRouter(Dashboard);
+
+/*<section class="shelf">
+<div>
+
+</div>
+</section>
+<section class="shelf">
+<div>
+
+</div>
+</section>*/
+
+
+/*
+                                                <div className="row ml-2 headerContainer" style={{ scroll: "overflow", maxHeight: "469.172px" }}>
+                                                    <div className="col">
+                                                        {
+                                                            this.state.pantry.length > 0 ? <> <Pantry pantry={this.state.pantry} />
+
+                                                            </> : <p class="text-center" style={{ fontWeight: "bold" }}>No items in your pantry...</p>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                */

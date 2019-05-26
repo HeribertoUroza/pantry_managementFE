@@ -58,8 +58,7 @@ class Signup extends React.Component {
               return (
                 <>
                   <div className="container-fluid signUpContainer">
-                    <div className="row">
-                      <div className="col"></div>
+                    <div className="row reverseFlip">
                       <div className="col">
                       <img src={logo} alt="logo" className="signUpLogo" />
                       </div>
@@ -84,13 +83,14 @@ class Signup extends React.Component {
                           </div>
                         </div>
                       </div>
+                      <div className="col"></div>
                     </div>
                   </div>
                 </>
               )
             }
            else {
-             return <Redirect to='/preference'/>
+             return <Redirect to='/dashboard'/>
            } 
           }
         }
