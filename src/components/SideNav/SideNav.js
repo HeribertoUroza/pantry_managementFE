@@ -86,6 +86,8 @@ class SideNavBar extends React.Component {
     }
 
     render() {
+        console.log("Mike", this.props.userInfo)
+         console.log(this.props)
         return (<>
 
             <ul id="slide-out" class="sidenav collapsible">
@@ -94,17 +96,25 @@ class SideNavBar extends React.Component {
                         <div class="background">
                             <img src={headImage} />
                         </div>
-                        <img class="circle" src="images/yuna.jpg" />
-                        <span class="white-text name">John Doe</span>
-                        <span class="white-text email">jdandturk@gmail.com</span>
+                        <button class="circle"><span>{this.props.userName.charAt(0)}</span></button>
+                        <span class="white-text name">{this.props.userName}</span>
+                        <span class="white-text email">{this.props.email}</span>
                     </div>
                 </li>
+                <li>
+                    <div class="collapsible-header">
+                        <span><i class="material-icons">calendar_today</i>Plan Your Meals</span>
+                    </div>
+                    <div class="collapsible-body">
+                    </div>
+                </li>
+                <li><div class="divider"></div></li>
                 <li>
                     <div class="collapsible-header">
                         <span><i class="material-icons">storage</i>Your Pantry</span>
                     </div>
                     <div class="collapsible-body">
-                        <Pantry pantry={this.state.pantry} />
+                    <Pantry pantry={this.state.pantry} />
                     </div>
                 </li>
                 <li>
@@ -123,15 +133,14 @@ class SideNavBar extends React.Component {
                         <Pantry pantry={this.state.pantry} />
                     </div>
                 </li>
-                <li><div class="divider"></div></li>
                 <li>
-                    <div class="collapsible-header">
+                    <div class="collapsible-header" onClick={this.props.recipeDB}>
                         <span><i class="material-icons">fastfood</i>Your Recipes</span>
                     </div>
                     <div class="collapsible-body">
-                        <Pantry pantry={this.state.pantry} />
                     </div>
                 </li>
+                <li><div class="divider"></div></li>
                 <li>
                     <div class="collapsible-header">
                         <a href='#'><i class="material-icons">note_add</i>Add A Recipes</a>

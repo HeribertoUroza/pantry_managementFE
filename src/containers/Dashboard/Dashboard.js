@@ -15,7 +15,7 @@ import './dashboard.css';
 import '../../components/Header/header.css';
 
 //SERVICES
-//import { postUser, postUserPrefTopics, postUserPrefTV } from '../services/main';
+import { readUser, readMealSchedule, readIngredient } from '../../services/main';
 
 
 //COMPONENTS
@@ -85,31 +85,49 @@ class Dashboard extends React.Component {
         super(props)
 
         this.state = {
-            name: 'Jane Doe',
+            name: '',
+            user_id: 0,
+            email: '',
             recipes: [],
             dietaryPref: [],
             foodAllergies: [],
-            firebaseUID: '',
             date: new Date(),
+            userRecipeDB: false,
             pantry: [productTestOrange(), productTestRed(), productTestYellow(), productTestBlue(), productTestGreen(), productTestGreen(), productTestGreen()],
         }
     }
 
 
+    handleClickRecipeDB = () => {
+        this.setState({ userRecipeDB: !this.state.userRecipeDB })
+    }
 
 
 
-    componentDidUpdate() {
+    componentDidMount() {
+        this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+            readUser(user.email)
+                .then((response) => {
+                    const rootObj = response.data.data
+                    this.setState({
+                        diet_preference: rootObj.diet_preference,
+                        food_allergies: rootObj.food_allergies,
+                        food_limitations: rootObj.food_limitations,
+                        name: rootObj.name,
+                        user_id: rootObj.user_id,
+                        username: rootObj.username,
+                    }, () => {
+                        readMealSchedule(this.state.user_id)
+                            .then((resp) => {
+                                this.setState({ recipes: resp.data.data })
+                            })
+                    })
+                })
+        })
+    }
 
-        /* readUser(email)
-             .then((response) => {
-                 
-                     })
-                     .catch((error) => {
-                         console.log(error)
-                     })
-             })*/
-
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
 
@@ -121,41 +139,45 @@ class Dashboard extends React.Component {
                 {
                     (user) => {
                         if (user) {
-                            return (<>
+                            return (<div className="container-fluid">
+                                <Header recipes={this.state.recipes} userName={this.state.name} email={this.state.email} click={this.handleClickRecipeDB} />
                                 <div className="container-fluid">
-                                    <Header />
-                                    <div className="container-fluid">
-                                        <div className="row" style={{marginBottom: "0px"}}>
-                                            <div className="col-9">
-                                                <div className="row" style={{
-                                                   backgroundColor: "#3bb78f",
-                                                   backgroundImage: "linear-gradient(315deg, #166D3B 0%, #000000 74%)", height: "35px",
-                                                }}>
-                                                    <p className="m-auto" style={{color: "white", fontSize: "22px" }} >Your Recipes For The Week Of...</p>
+                                    {
+                                        this.state.userRecipeDB ? <>
+                                        </> : <>
+                                                <div className="row" style={{ marginBottom: "0px" }}>
+                                                    <div className="col-9">
+                                                        <div className="row" style={{
+                                                            backgroundColor: "#3bb78f",
+                                                            backgroundImage: "linear-gradient(315deg, #166D3B 0%, #000000 74%)", height: "35px",
+                                                        }}>
+                                                            <p className="m-auto" style={{ color: "white", fontSize: "22px" }} >Your Recipes For The Week Of...</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col">
+                                                        <div className="row align-middle ml-2" style={{
+                                                            width: "15", height: "35px", backgroundColor: "#06174c", backgroundImage: "linear-gradient(315deg, #000000 0%, #06174c 74%)",
+                                                            color: "white"
+                                                        }}>
+                                                            <Clock
+                                                                style={{ fontSize: "20px", fontFamily: "Raleway", textAlign: "center", paddingLeft: "25px" }}
+                                                                format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
+                                                                ticking={true}
+                                                            />
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="col">
-                                                <div className="row align-middle ml-2" style={{
-                                                    width: "15", height: "35px", backgroundColor: "#06174c", backgroundImage: "linear-gradient(315deg, #000000 0%, #06174c 74%)",
-                                                    color: "white"
-                                                }}>
-                                                    <Clock
-                                                        style={{ fontSize: "20px", fontFamily: "Raleway", textAlign: "center", paddingLeft: "25px" }}
-                                                        format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
-                                                        ticking={true}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row">
+                                                <div className="row">
                                                     <WeekRecipe />
                                                 </div>
-                                    </div>
+                                            </>
+                                    }
                                 </div>
-                            </>)
+                            </div>
+                            )
                         }
                         else {
-                            return <Redirect to='/signup' />
+                            return <Redirect to='/login' />
 
                         }
                     }

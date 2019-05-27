@@ -13,17 +13,13 @@ import AuthContext from '../../context/auth'
 
 //CSS
 import './userpref.css'
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 //SERVICES
-//import { postUser, postUserPrefTopics, postUserPrefTV } from '../services/main';
-import ImageService from '../../services/ImageServices'
+import { postUser } from '../../services/main';
 
-//COMPONENTS
-import Upload from '../../components/Upload/Upload';
 
-//JQUERY ITIALIZATION
 
 
 
@@ -37,11 +33,10 @@ class UserPreference extends React.Component {
             username: '',
             email: '',
             dob: '',
-            age: null,
+            age: 0,
             dietaryPref: [],
             foodAllergies: [],
             foodLimitations: [],
-            firebaseUID: '',
             date: '',
             phone_number: '',
         }
@@ -113,7 +108,6 @@ class UserPreference extends React.Component {
             age,
             dietaryPref,
             foodAllergies,
-           // profileurl: ImageService.getImages()[0].url,
             firebaseUID: firebase.auth().currentUser.uid
         })
 
@@ -128,32 +122,21 @@ class UserPreference extends React.Component {
         username,
         email,
         dob,
-        age,
         dietaryPref,
         foodAllergies,
         foodLimitations,
         firebaseUID,
-        date,
-        phone_number, } = this.state;
+        phone_number } = this.state;
 
 
 
-        /* postUser(email, name, username, dob, age, phone_number, firebaseUID)
-             .then((response) => {
-                 console.log("User", response)
-                 const userid = response.data.id;
-                 const [dietaryPref_1, dietaryPref_2, dietaryPref_3, dietaryPref_4, dietaryPref_5, dietaryPref_6, dietaryPref_7] = this.state.dietaryPref
-                 const [foodAllergies_1, foodAllergies_2, foodAllergies_3, foodAllergies_4, foodAllergies_5, foodAllergies_6, foodAllergies_7] = this.state.foodAllergies
-                 const [foodLimitations_1, foodLimitations_2, foodLimitations_3, foodLimitations_4, foodLimitations_5, foodLimitations_6, foodLimitations_7] = this.state.foodLimitations
-                 postUserDietPref(userid, ...this.state.dietaryPref, ...this.state.foodAllergies, ...this.state.foodLimitations)
-                     .then((response) => {
-                         console.log("Resp", response)
+        postUser(name, username, email, dob, phone_number, dietaryPref, foodLimitations, foodAllergies)
+             .then(() => {
                          this.props.history.push('/dashboard')
                      })
                      .catch((error) => {
                          console.log(error)
                      })
-             })*/
 
     }
 
@@ -202,7 +185,7 @@ class UserPreference extends React.Component {
                                                     </div>
                                                     <div className="col-6">
                                                     <label htmlFor="exampleFormControlInputNumber">Phone Number</label>
-                                                    <input type="email" className="form-control" id="exampleFormControlInputNumber" placeholder="555-555-5555"  name="phone_number" value={this.state.phone_number} required onChange={this.handleChange}/>
+                                                    <input type="email" className="form-control" id="exampleFormControlInputNumber" placeholder="5555555555"  name="phone_number" value={this.state.phone_number} required onChange={this.handleChange}/>
                                                    </div>
                                                    <div className="col-6">
                                                     <label htmlFor="exampleFormControlUserName">User Name</label>
@@ -307,7 +290,6 @@ class UserPreference extends React.Component {
                                                         </label></p>
                                                     </div>
                                                 </div>
-                                                <Upload />
                                                <button className="btn waves-effect waves-light navy" style={{borderRadius: "50px", color: "white"}} type="submit" name="action" onClick={this.handleSubmit}>Submit</button>
                                             </form> :                                             <p className="text-center"> You must be 18 years or older to use Possible Pantry</p>
 
