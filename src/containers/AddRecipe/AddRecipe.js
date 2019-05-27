@@ -80,7 +80,27 @@ class AddRecipe extends React.Component {
             this.setState({
                 current_recipeID: res.data.data.recipe_id
             })
-            
+        })
+        .then( _=> {
+            const { new_ingredients, current_userID } = this.state
+            new_ingredients.map( (e,i) => {
+                console.log(e.ingredient_name, e.product_url)
+                return axios.post(`http://localhost:11235/product/`, {
+                    product_name: e.ingredient_name,
+                    product_url: e.product_url,
+                    product_owner: current_userID
+                })
+                .then(res => {
+                    console.log('res inside loop',res.data.data.product_id)
+                    
+                })
+                .catch(err => {
+                    console.log(err.toString())
+                })
+            })
+        })
+        .then(res => {
+            console.log('after loop',res)
         })
         .catch(err => {
             console.log(err.toString())
