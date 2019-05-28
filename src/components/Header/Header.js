@@ -71,9 +71,10 @@ class Header extends React.Component {
                 </div>
                 <div className="col-1 mx-auto my-auto">
                     <div className="row">
-                        <SideNav options={{ edge: 'right', closeOnClick: true }} recipeDB={this.props.recipes} userName={this.props.userName} email={this.props.email} recipeDB={this.props.click}/>
+                        <SideNav options={{ edge: 'right', closeOnClick: true }} recipeDB={this.props.recipes} userName={this.props.userName} email={this.props.email} recipeDB={this.props.click} addRecipe={this.props.clickAddR} back={this.props.clickDash}/>
                     </div>
                 </div>
+        
             </div>
         </>
         )

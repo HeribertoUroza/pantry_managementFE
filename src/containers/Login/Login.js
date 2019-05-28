@@ -82,7 +82,7 @@ class Login extends React.Component {
               )
             }
             else {
-              return (<Redirect to='/' />)
+              return (<Redirect to='/dashboard' />)
             }
           }
         }

@@ -22,7 +22,9 @@ import { readUser, readMealSchedule, readIngredient } from '../../services/main'
 import Header from '../../components/Header/Header';
 import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
 import Pantry from '../../components/Pantry/Pantry';
+import AddRecipe from '../AddRecipe/AddRecipe';
 import { readdir } from 'fs';
+import Recipes from '../Recipes/Recipes';
 
 
 const productTestRed = () => {
@@ -88,11 +90,12 @@ class Dashboard extends React.Component {
             name: '',
             user_id: 0,
             email: '',
-            recipes: [],
+            mealSchedule: [],
             dietaryPref: [],
             foodAllergies: [],
             date: new Date(),
             userRecipeDB: false,
+            addRecipe: false,
             pantry: [productTestOrange(), productTestRed(), productTestYellow(), productTestBlue(), productTestGreen(), productTestGreen(), productTestGreen()],
         }
     }
@@ -100,6 +103,15 @@ class Dashboard extends React.Component {
 
     handleClickRecipeDB = () => {
         this.setState({ userRecipeDB: !this.state.userRecipeDB })
+    }
+
+    handleClickAddRecipe = () => {
+        this.setState({ addRecipe: !this.state.addRecipe })
+    }
+
+    handleClickBack = () => {
+        this.setState({ addRecipe: false, 
+        userRecipeDB: false })
     }
 
 
@@ -119,7 +131,7 @@ class Dashboard extends React.Component {
                     }, () => {
                         readMealSchedule(this.state.user_id)
                             .then((resp) => {
-                                this.setState({ recipes: resp.data.data })
+                                this.setState({ mealSchedule: resp.data.data })
                             })
                     })
                 })
@@ -140,11 +152,12 @@ class Dashboard extends React.Component {
                     (user) => {
                         if (user) {
                             return (<div className="container-fluid">
-                                <Header recipes={this.state.recipes} userName={this.state.name} email={this.state.email} click={this.handleClickRecipeDB} />
+                                <Header recipes={this.state.recipes} userName={this.state.name} email={this.state.email} click={this.handleClickRecipeDB} clickAddR = {this.handleClickAddRecipe} clickDash={this.handleClickBack}/>
                                 <div className="container-fluid">
                                     {
-                                        this.state.userRecipeDB ? <>
-                                        </> : <>
+                                        this.state.userRecipeDB ? <Recipes click={this.handleClickBack} id={this.state.user_id}/>
+                                        : this.state.addRecipe ? <AddRecipe click={this.handleClickBack}/> 
+                                        : <>
                                                 <div className="row" style={{ marginBottom: "0px" }}>
                                                     <div className="col-9">
                                                         <div className="row" style={{

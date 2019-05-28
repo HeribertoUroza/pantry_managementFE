@@ -48,9 +48,19 @@ const port = 9999;
     };
 
 
+//RECIPES
+    //READ 
+    const readRecipes = (user_id) => {
+        return axios({
+            method: 'get',
+            url: `http://localhost:${port}/recipe/user/${user_id}`,
+        });
+    };
+
 export {
     postUser,
     readUser,
     readMealSchedule,
     readIngredient,
+    readRecipes
 }

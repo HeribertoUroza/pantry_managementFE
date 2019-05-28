@@ -85,6 +85,11 @@ class AddRecipe extends React.Component {
                             return (
                                 <>
                                     {error}
+                                    <div className='container-fluid'>
+                                        <div className="row">
+                                        <span onClick={this.props.click} style={{cursor: "pointer"}}><i class="material-icons">keyboard_backspace</i></span>
+                                        </div>
+                                    </div>
                                     <div className='container'>
                                         <div className="row">
                                             <div className="col s12">
