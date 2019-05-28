@@ -45,11 +45,9 @@ class AddRecipe extends React.Component {
         M.AutoInit();
         
         const userEmail = await this.context.email
-        console.log(this.context)
         console.log(userEmail)
         axios.get(`http://localhost:11235/user/email/heribertouroza@pursuit.org`)
             .then(res => {
-                console.log('res',res.data.data.user_id)
                 this.setState({
                     current_userID: res.data.data.user_id
                 })
@@ -76,7 +74,6 @@ class AddRecipe extends React.Component {
 
         })
         .then(res => {
-            console.log('res', res.data.data.recipe_id)
             this.setState({
                 current_recipeID: res.data.data.recipe_id
             })
@@ -84,7 +81,6 @@ class AddRecipe extends React.Component {
         .then( _=> {
             const { new_ingredients, current_userID } = this.state
             new_ingredients.map( (e,i) => {
-                console.log(e.ingredient_name, e.product_url)
                 return axios.post(`http://localhost:11235/product/`, {
                     product_name: e.ingredient_name,
                     product_url: e.product_url,
@@ -101,17 +97,13 @@ class AddRecipe extends React.Component {
                         ingredient_weight_type: e.ingredient_type
                     })
                 })
-                .then(res => {
-                    console.log('after ingredient post req',res)
-                })
                 .catch(err => {
                     console.log(err.toString())
                 })
             })
         })
         .then(res => {
-            console.log('after loop',res)
-            this.context.history.push('/recipe')
+            this.props.history.push('/recipe') //to be routed to all recipes
         })
         .catch(err => {
             console.log(err.toString())
@@ -144,7 +136,6 @@ class AddRecipe extends React.Component {
 
     render() {
         const { error } = this.state;
-        console.log(this.state)
         return (
             <AuthContext.Consumer>
                 {
