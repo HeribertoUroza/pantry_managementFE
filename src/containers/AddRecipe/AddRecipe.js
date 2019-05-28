@@ -91,8 +91,18 @@ class AddRecipe extends React.Component {
                     product_owner: current_userID
                 })
                 .then(res => {
-                    console.log('res inside loop',res.data.data.product_id)
+                    const { current_recipeID } = this.state
                     
+                    return axios.post(`http://localhost:11235/ingredient/`, {
+                        ingredient_name: e.ingredient_name,
+                        recipe_id: current_recipeID,
+                        product_id: res.data.data.product_id,
+                        ingredient_weight: e.ingredient_weight,
+                        ingredient_weight_type: e.ingredient_type
+                    })
+                })
+                .then(res => {
+                    console.log('after ingredient post req',res)
                 })
                 .catch(err => {
                     console.log(err.toString())
@@ -101,6 +111,7 @@ class AddRecipe extends React.Component {
         })
         .then(res => {
             console.log('after loop',res)
+            this.context.history.push('/recipe')
         })
         .catch(err => {
             console.log(err.toString())
@@ -125,7 +136,8 @@ class AddRecipe extends React.Component {
                 ingredient_name: '',
                 ingredient_weight: '',
                 product_url: '',
-                ingredient_type: 'Select Measurement'
+                ingredient_type: 'Select Measurement',
+                error: ''
             })
         }
     }
