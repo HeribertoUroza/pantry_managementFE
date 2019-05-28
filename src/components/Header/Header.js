@@ -61,6 +61,7 @@ class Header extends React.Component {
     }
 
     render() {
+        console.log("Id", this.props.id)
         const date = new Date()
         return (<>
             <div className='row mx-auto py-3 mt-3 headerContainer' style={{ borderBottom: "solid 1px lightgray" }}>
@@ -71,7 +72,7 @@ class Header extends React.Component {
                 </div>
                 <div className="col-1 mx-auto my-auto">
                     <div className="row">
-                        <SideNav options={{ edge: 'right', closeOnClick: true }} recipeDB={this.props.recipes} userName={this.props.userName} email={this.props.email} recipeDB={this.props.click} addRecipe={this.props.clickAddR} back={this.props.clickDash}/>
+                        <SideNav options={{ edge: 'right', closeOnClick: true }} recipeDB={this.props.recipes} userName={this.props.userName} email={this.props.email} id={this.props.id} recipeDB={this.props.click} addRecipe={this.props.clickAddR} back={this.props.clickDash} id={this.props.id}/>
                     </div>
                 </div>
         

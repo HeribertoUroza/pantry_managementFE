@@ -15,19 +15,18 @@ import './dashboard.css';
 import '../../components/Header/header.css';
 
 //SERVICES
-import { readUser, readMealSchedule, readIngredient } from '../../services/main';
+import { readUser, readMealSchedule,readPantry} from '../../services/main';
 
 
 //COMPONENTS
 import Header from '../../components/Header/Header';
 import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
-import Pantry from '../../components/Pantry/Pantry';
 import AddRecipe from '../AddRecipe/AddRecipe';
 import { readdir } from 'fs';
 import Recipes from '../Recipes/Recipes';
 
 
-const productTestRed = () => {
+/*const productTestRed = () => {
     let product = {
         name: "Jif Peanut Butter",
         original_weight: "400",
@@ -80,7 +79,9 @@ const productTestGreen = () => {
     }
     product.percentage = product.current_weight / product.original_weight
     return product
-};
+};*/
+
+
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -96,7 +97,7 @@ class Dashboard extends React.Component {
             date: new Date(),
             userRecipeDB: false,
             addRecipe: false,
-            pantry: [productTestOrange(), productTestRed(), productTestYellow(), productTestBlue(), productTestGreen(), productTestGreen(), productTestGreen()],
+            pantry: [],
         }
     }
 
@@ -129,14 +130,14 @@ class Dashboard extends React.Component {
                         user_id: rootObj.user_id,
                         username: rootObj.username,
                     }, () => {
-                        readMealSchedule(this.state.user_id)
-                            .then((resp) => {
-                                this.setState({ mealSchedule: resp.data.data })
+                        
+                                    
+                            })
                             })
                     })
-                })
-        })
-    }
+                }
+       
+    
 
     componentWillUnmount() {
         this.unsubscribe();
@@ -152,7 +153,7 @@ class Dashboard extends React.Component {
                     (user) => {
                         if (user) {
                             return (<div className="container-fluid">
-                                <Header recipes={this.state.recipes} userName={this.state.name} email={this.state.email} click={this.handleClickRecipeDB} clickAddR = {this.handleClickAddRecipe} clickDash={this.handleClickBack}/>
+                                <Header recipes={this.state.recipes} userName={this.state.name} email={this.state.email} id={this.state.user_id} click={this.handleClickRecipeDB} clickAddR = {this.handleClickAddRecipe} clickDash={this.handleClickBack} pantry={this.state.pantry}/>
                                 <div className="container-fluid">
                                     {
                                         this.state.userRecipeDB ? <Recipes click={this.handleClickBack} id={this.state.user_id}/>

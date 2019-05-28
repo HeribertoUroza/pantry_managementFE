@@ -54,7 +54,6 @@ class AddRecipe extends React.Component {
 
 
     render() {
-        console.log("Boo", this.state)
         return (
             <AuthContext.Consumer>
                 {

@@ -10,9 +10,8 @@ import './pantry.css'
 
 
 
-
-
 export default (props) => {
+    console.log("Bob", props.pantry)
     let redPercentage = []; //<=20%
     let orangePercentage = []; //<=40%
     let yellowPercentage = []; //<=60%
@@ -20,23 +19,28 @@ export default (props) => {
     let greenPercentage = []; //<=100%
 
     props.pantry.sort().map((e, i) => {
+        e.percentage = e.weight_left/e.product_gram_weight
         if (e.percentage <= 0.20) {
             redPercentage.push(e)
             return redPercentage
         }
         else if (e.percentage <= 0.40 && e.percentage > 0.20) {
+            e.percentage = e.weight_left/e.product_gram_weight
             orangePercentage.push(e)
             return orangePercentage
         }
         else if (e.percentage <= 0.60 && e.percentage > 0.40) {
+            e.percentage = e.weight_left/e.product_gram_weight
             yellowPercentage.push(e)
             return yellowPercentage
         }
         else if (e.percentage <= 0.80 && e.percentage > 0.60) {
+            e.percentage = e.weight_left/e.product_gram_weight
             bluePercentage.push(e)
             return bluePercentage
         }
         else {
+            e.percentage = e.weight_left/e.product_gram_weight
             greenPercentage.push(e)
             return greenPercentage
         }
@@ -58,7 +62,7 @@ export default (props) => {
                                     return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
                                         <div>
                                             <div className="img">
-                                                <span><img src={e.image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
+                                                <span><img src={e.percentage_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +84,7 @@ export default (props) => {
                                     return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
                                         <div>
                                             <div className="img">
-                                                <span><img src={e.image} style={{ height: "70px", opacity: ".95" }} className="effect8" data-position="bottom" data-tooltip="I am a tooltip" /></span>
+                                                <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" data-position="bottom" data-tooltip="I am a tooltip" /></span>
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +107,7 @@ export default (props) => {
                                     return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
                                         <div>
                                             <div className="img">
-                                                <span><img src={e.image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
+                                                <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
                                             </div>
                                         </div>
                                     </div>
@@ -124,10 +128,10 @@ export default (props) => {
 
                             {
                                 bluePercentage.map((e, i) => {
-                                    return <div className="col-4" style={{ display: "inline-block" }} >
+                                    return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'} >
                                         <div>
                                             <div className="img">
-                                                <span><img src={e.image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
+                                                <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
                                             </div>
                                         </div>
                                     </div>
@@ -146,10 +150,10 @@ export default (props) => {
                         <p style={{display: "inline-block", fontWeight: "bold", color: "white"}}>Over 80%</p>
                             {
                                 greenPercentage.map((e, i) => {
-                                    return <div className="col-4" style={{ display: "inline-block" }}>
+                                    return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
                                         <div>
                                             <div className="img">
-                                                <span><img src={e.image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
+                                                <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
                                             </div>
                                         </div>
                                     </div>

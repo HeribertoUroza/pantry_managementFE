@@ -57,10 +57,20 @@ const port = 9999;
         });
     };
 
+//PANTRY
+    //READ
+        const readPantry = (user_id) =>{
+            return axios({
+                method: 'get',
+                url: `http://localhost:${port}/currentPantry/user/1`,
+            });
+        }
+
 export {
     postUser,
     readUser,
     readMealSchedule,
     readIngredient,
-    readRecipes
+    readRecipes,
+    readPantry
 }
