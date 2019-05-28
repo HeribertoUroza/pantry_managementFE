@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-
+import axios from 'axios';
 
 //CONTEXT
 import AuthContext from '../../context/auth';
@@ -10,8 +10,22 @@ class RecipeSearch extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            user_id :'',
         }
+    }
+
+    componentDidMount() {
+        //const userEmail = this.props.match.params.email;
+        const userEmail = 'joserodriguez@pursuit.org';
+        axios.get(`http://localhost:11235/user/email/${userEmail}`)
+            .then(data => {
+                const userData = data.data.data;
+                this.setState({ user_id: userData.user_id })
+                console.log(userData);
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
 
@@ -32,7 +46,7 @@ class RecipeSearch extends React.Component {
                         if (!user) {
                             return (
                                 <>
-                               <h1>Recipe Search</h1>
+                                    <h1>Recipe Search</h1>
                                 </>
                             )
                         }
