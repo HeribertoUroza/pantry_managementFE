@@ -11,6 +11,7 @@ import Error404 from './components/Error404/Error404';
 import UserPref from './containers/UserPref/UserPref';
 import Dashboard from './containers/Dashboard/Dashboard';
 import AddRecipe from './containers/AddRecipe/AddRecipe';
+import RecipeSearch from './containers/RecipeSearch/RecipeSearch';
 
 
 
@@ -57,6 +58,7 @@ class App extends Component {
               <Route path='/preference' exact component={UserPref}/>
               <Route path='/dashboard' exact component={Dashboard}/>
               <Route path='/addrecipe' exact component={ AddRecipe } />
+              <Route path='/recipeSearch' exact component={ RecipeSearch }/>
               <Route component={Error404}/>
             </Switch>
           </AuthContext.Provider>
