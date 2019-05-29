@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import axios from 'axios'
 
 
 //CONTEXT
@@ -20,9 +21,11 @@ class AddRecipe extends React.Component {
 
         this.state = {
             current_userID: '',
+            current_recipeID: '',
+            current_productID: '',
             db_ingredients: [],
-            h_tag: ['vegetarian', 'vegan', 'pescatarian', 'sugar-conscious', 'paleo', 'kosher', 'keto-friendly', 'soy-free', 'red-meat-free', 'pork-free', 'wheat-free', 'low-sugar', 'gluten-free', 'low-potassium', 'tree-nut-free', 'shellfish-free', 'peanut-free', 'gluten-free', 'dairy-free', 'crustacean-free', 'alcohol-free'],
-            I_type: ['Select Measurement','teaspoon', 'tablespoon', 'dessertspoon', 'fluid ounce', 'cup', 'cup liquid', 'pint', 'pint liquid', 'pound', 'kilo', 'litre', 'gallon'],
+            h_tag: ['Select','Vegetarian', 'Vegan', 'Pescatarian', 'Sugar-Conscious', 'Paleo', 'Kosher', 'Keto-Friendly', 'Soy-Free', 'Red-Meat-Free', 'Pork-Free', 'Wheat-Free', 'Low-Sugar', 'Gluten-Free', 'Low-Potassium', 'Tree-Nut-Free', 'Shellfish-Free', 'Peanut-Free', 'Gluten-Free', 'Dairy-Free', 'Crustacean-Free', 'Alcohol-Free'],
+            I_type: ['Select Measurement','Teaspoon', 'Tablespoon', 'Dessert Spoon', 'Fluid Ounce', 'Cup', 'Cup Liquid', 'Pint', 'Pint Liquid', 'Pound', 'Kilo', 'Litre', 'Gallon'],
             new_ingredients: [],
             recipe_name: '',
             ingredient_name: '',
@@ -35,11 +38,23 @@ class AddRecipe extends React.Component {
             error: ''
         }
     }
+
+    static contextType = AuthContext;
     
-    componentDidMount() {
+    componentDidMount = async() => {
         M.AutoInit();
-        console.log(this.props)
         
+        const userEmail = await this.context.email
+        console.log(userEmail)
+        axios.get(`http://localhost:11235/user/email/heribertouroza@pursuit.org`)
+            .then(res => {
+                this.setState({
+                    current_userID: res.data.data.user_id
+                })
+            })
+            .catch(err => {
+                console.log(err.toString())
+            })
     }
 
     handleChange = (e) => {
@@ -49,7 +64,51 @@ class AddRecipe extends React.Component {
 
     handleRecipeSubmit = (e) => {
         e.preventDefault();
+        const { recipe_name, health_tag, current_userID, recipe_desc } = this.state
+        
+        axios.post(`http://localhost:11235/recipe/`, {
+            recipe_name: recipe_name,
+            health_tags: health_tag,
+            recipe_owner: current_userID,
+            recipe_notes: recipe_desc
 
+        })
+        .then(res => {
+            this.setState({
+                current_recipeID: res.data.data.recipe_id
+            })
+        })
+        .then( _=> {
+            const { new_ingredients, current_userID } = this.state
+            new_ingredients.map( (e,i) => {
+                return axios.post(`http://localhost:11235/product/`, {
+                    product_name: e.ingredient_name,
+                    product_url: e.product_url,
+                    product_owner: current_userID
+                })
+                .then(res => {
+                    const { current_recipeID } = this.state
+                    
+                    return axios.post(`http://localhost:11235/ingredient/`, {
+                        ingredient_name: e.ingredient_name,
+                        recipe_id: current_recipeID,
+                        product_id: res.data.data.product_id,
+                        ingredient_weight: e.ingredient_weight,
+                        ingredient_weight_type: e.ingredient_type
+                    })
+                })
+                .catch(err => {
+                    console.log(err.toString())
+                })
+            })
+        })
+        .then(res => {
+            this.props.history.push('/recipe') //to be routed to all recipes
+        })
+        .catch(err => {
+            console.log(err.toString())
+        })
+        
     }
 
     createIngredients = (e) => {
@@ -59,7 +118,7 @@ class AddRecipe extends React.Component {
         let ingredient_obj = { ingredient_name, ingredient_weight, ingredient_type, product_url }
 
         new_ingredientsArr.push(ingredient_obj)
-        if(ingredient_name === '' || ingredient_weight === '' || ingredient_type === '') {
+        if(ingredient_name === '' || ingredient_weight === '' || ingredient_type === '' || product_url === '') {
             this.setState({
                 error: 'Please Enter Ingredient Information'
             })
@@ -69,14 +128,14 @@ class AddRecipe extends React.Component {
                 ingredient_name: '',
                 ingredient_weight: '',
                 product_url: '',
-                ingredient_type: 'Select Measurement'
+                ingredient_type: 'Select Measurement',
+                error: ''
             })
         }
     }
 
     render() {
         const { error } = this.state;
-        console.log(this.state)
         return (
             <AuthContext.Consumer>
                 {
@@ -89,11 +148,25 @@ class AddRecipe extends React.Component {
                                         <div className="row">
                                             <div className="col s12">
                                                 <div className="row">
-                                                    <div className="input-field col s12">
+                                                    <div className="input-field col s11">
                                                         <i className="material-icons prefix"></i>
                                                         <input type="text" name='recipe_name' id="Recipe Name" className="" onChange={this.handleChange} />
                                                         <label htmlFor="Recipe Name">Recipe Name</label>
                                                     </div>
+
+                                                    <div className="input-field col s1">
+                                                        <select name='health_tag' value={this.state.health_tag} onChange={this.handleChange}>
+                                                            {
+                                                                this.state.h_tag.map((e, i) => {
+                                                                    return (
+                                                                        <option disabled={e === 'Select'} key={i} value={e}>{e}</option>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </select>
+                                                        <label>Health Tag</label>
+                                                    </div>
+
                                                 </div>
                                                 {/* Input Fields */}
 
@@ -114,7 +187,7 @@ class AddRecipe extends React.Component {
                                                                     {
                                                                         this.state.I_type.map((e, i) => {
                                                                             return (
-                                                                                <option disabled={e === 'Selected Measurement'} key={i} value={e}>{e}</option>
+                                                                                <option disabled={e === 'Select Measurement'} key={i} value={e}>{e}</option>
                                                                             )
                                                                         })
                                                                     }
