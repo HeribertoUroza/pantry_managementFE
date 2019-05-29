@@ -23,7 +23,7 @@ import Header from '../../components/Header/Header';
 import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
 import AddRecipe from '../AddRecipe/AddRecipe';
 import { readdir } from 'fs';
-import Recipes from '../Recipes/Recipes';
+import Recipes from '../RecipesSearch/RecipesSearch';
 
 
 /*const productTestRed = () => {

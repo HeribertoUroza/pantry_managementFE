@@ -14,7 +14,7 @@ import M from 'materialize-css'
 //SERVICES
 import { readRecipes, readIngredient } from '../../services/main'
 
-class AddRecipe extends React.Component {
+class RecipeSearch extends React.Component {
     constructor(props) {
         super(props)
 
@@ -135,5 +135,5 @@ class AddRecipe extends React.Component {
     }
 }
 
-export default withRouter(AddRecipe)
+export default withRouter(RecipeSearch)
 
