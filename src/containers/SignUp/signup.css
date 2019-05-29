@@ -1,8 +1,12 @@
 .signUpContainer {
-    background-image: url('../../assets/Photos/birme/broccoli-carrots-close-up-952482.jpg');
+    background-image: url('../../assets/Photos/apple-color-delicious-1161467.jpg');
     background-size: cover;
     height: 100%;
+    position: relative;
+    overflow: hidden;
+    /*transform: scaleX(-1)*/
 }
+
 
 .textCenter {
     text-align: center;
