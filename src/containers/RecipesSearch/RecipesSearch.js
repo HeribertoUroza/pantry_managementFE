@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import 'bulma/css/bulma.css'
 import { Media, Image, Content } from 'reactbulma';
+import axios from 'axios';
 
 
 //CONTEXT
@@ -11,8 +12,6 @@ import AuthContext from '../../context/auth';
 //MATERIALIZE
 import M from 'materialize-css'
 
-//SERVICES
-import { readRecipes, readIngredient } from '../../services/main'
 
 class RecipeSearch extends React.Component {
     constructor(props) {
@@ -27,29 +26,34 @@ class RecipeSearch extends React.Component {
         }
     }
 
-    handletyping = (e) => {
-        const type = e.target.value;
-        console.log("type", type)
-        
-        const filterRecipeList = (list) => {
-            const results = this.state.recipes.filter(recipes => recipes.recipe_name.toLowerCase().includes(list) /*recipes.toLowerCase().includes(list)*/)
-            this.setState({ display: results, inputValue: type })
+    handleOnChange = (e) => {
+        const query = e.target.value;
+        console.log("query", query)
+
+        const filterRecipeList = (query) => {
+            const results = this.state.recipes.filter(recipes => recipes.recipe_name.toLowerCase().includes(query) /*recipes.toLowerCase().includes(list)*/)
+            this.setState({ display: results, inputValue: query })
         }
-      if (type.length === 0 || type === "" || Number(type)) {
+        if (query.length === 0 || query === "" || Number(query)) {
             this.setState({ display: this.state.recipes, inputValue: "" })
         }
         else {
-            filterRecipeList(type)
+            filterRecipeList(query)
         }
     }
 
     componentDidMount() {
         M.AutoInit();
-
-        readRecipes(this.props.id)
-        .then((response)=>{
-            this.setState({recipes: response.data.data})
-        })
+        //const user_id = this.props.id;
+        axios.get(`http://localhost:11235/recipe/user/1`)
+            .then((response) => {
+                const data = response.data.data
+                this.setState({ recipes: data })
+                return data;
+            })
+            .then((data) => {
+                console.log(data);
+            })
     }
 
 
@@ -58,70 +62,58 @@ class RecipeSearch extends React.Component {
             <AuthContext.Consumer>
                 {
                     (user) => {
-                        if (user) {
+                        if (!user) {
                             return (
                                 <>
-                                    <div className='container-fluid'>
-                                        <div className="row">
-                                            <span onClick={this.props.click} style={{ cursor: "pointer" }}><i class="material-icons">keyboard_backspace</i></span>
-                                        </div>
-                                    </div>
                                     <div className='container'>
-                                            <div class="row">
+                                        <div className="row">
                                             <div className="col"></div>
                                             <div className="col">
                                                 <form>
-                                                    <div class="row">
-                                                        <div class="input-field col s12">
-                                                            <textarea id="search" class="materialize-textarea" onChange={this.handletyping}></textarea>
-                                                            <label for="search">Search Your Recipes</label>
-                                                            <i class="material-icons prefix">search</i>
+                                                    <div className="row">
+                                                        <div className="input-field col s12">
+                                                            <textarea id="search" className="materialize-textarea" onChange={this.handleOnChange}></textarea>
+                                                            <label htmlFor="search">Search Your Recipes</label>
+                                                            <i className="material-icons prefix">search</i>
                                                         </div>
                                                     </div>
                                                 </form>
                                                 {
-                                                    this.state.display.map((e,i)=>{
-                                                       return <div className="row my-1">
-                                                       <Media>
-                                                        <Media.Left>
-                                                            {
-                                                                !e.image ? <Image is='64x64' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Vegetarian_diet.jpg/250px-Vegetarian_diet.jpg' /> : <Image is='64x64' src={e.image} />
-                                                            }
-                                                        </Media.Left>
-                                                        <Media.Content>
-                                                            <Content >
-                                                                <p>
-                                                                    <strong>{e.recipe_name}</strong> 
-                                                                    <br />
-                                                                    {e.recipe_notes}
+                                                    this.state.display.map((recipe, i) => {
+                                                        return <div className="row my-1">
+                                                            <Media>
+                                                                <Media.Left>
                                                                     {
-                                                                        e.health_tags ==="None" ? null :
-                                                                        e.health_tags.map((e,i)=>{
-                                                                            return <span class="chip">
-                                                                             {e}
-                                                                           </span>
-                                                                    })
-                                                                }
-                                                                <div className="row ml-1">
-                                                                    <div style={{fontWeight: "bold"}}>Ingredients</div>
-                                                                        {
-                                                                        Object.keys(e).map((key, ind)=>{
-                                                                        })
-                                                                        }
-                                                                        </div>
-                                                                    <br />
-                                                                </p>
-                                                            </Content>
-                                                        </Media.Content>
-                                                    </Media>
-                                                    </div>
+                                                                        !recipe.image ? <Image is='64x64' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Vegetarian_diet.jpg/250px-Vegetarian_diet.jpg' /> : <Image is='64x64' src={recipe.image} />
+                                                                    }
+                                                                </Media.Left>
+                                                                <Media.Content>
+                                                                    <Content >
+                                                                        <p>
+                                                                            <strong>{recipe.recipe_name}</strong>
+                                                                            <br />
+                                                                            {recipe.recipe_notes}
+                                                                            {
+                                                                                recipe.health_tags === "None" ? null :
+                                                                                    recipe.health_tags.map((e, i) => {
+                                                                                        return <span className="chip">
+                                                                                            {recipe}
+                                                                                        </span>
+                                                                                    })
+                                                                            }
+                                                                            <br />
+                                                                        </p>
+                                                                    </Content>
+                                                                </Media.Content>
+                                                            </Media>
+                                                        </div>
                                                     })
                                                 }
-                                                </div>
-                                             <div className="col"></div>
-                                               
                                             </div>
-                                            </div>
+                                            <div className="col"></div>
+
+                                        </div>
+                                    </div>
 
                                 </>
                             )
