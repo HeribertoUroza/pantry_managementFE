@@ -184,6 +184,7 @@ class Dashboard extends React.Component {
                                                 <div className="row">
                                                     <WeekRecipe />
                                                 </div>
+                                                    <a class="waves-effect waves-light btn-large"><i class="material-icons left">textsms</i>Text Me My Groceries</a>
                                             </>
                                     }
                                 </div>
