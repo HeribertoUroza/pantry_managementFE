@@ -12,8 +12,7 @@ const port = 11235;
     };
 
     //POST
-    const postUser = (name, username, email, dob, phone_number, diet_preference, food_limitations, food_allergies) => {
-        console.log(email, 'main js')
+    const postUser = (name, username, email, dob, phone_number, diet_preference, food_limitations, food_allergies,firebase_uid) => {
         return axios({
             method: 'post',
             url: `http://localhost:${port}/user/`,
@@ -26,6 +25,7 @@ const port = 11235;
                 diet_preference: diet_preference,
                 food_limitations: food_limitations, 
                 food_allergies: food_allergies, 
+                firebase_uid: firebase_uid
             }
         });
     };

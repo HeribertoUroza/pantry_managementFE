@@ -108,7 +108,7 @@ class UserPreference extends React.Component {
             age,
             dietaryPref,
             foodAllergies,
-            firebaseUID: firebase.auth().currentUser.uid
+            firebase_uid: firebase.auth().currentUser.uid
         }, () => {
             const { name,
                 username,
@@ -117,10 +117,10 @@ class UserPreference extends React.Component {
                 dietaryPref,
                 foodAllergies,
                 foodLimitations,
-                firebaseUID,
+                firebase_uid,
                 phone_number } = this.state;
 
-            postUser(name, username, email, dob, phone_number, dietaryPref, foodLimitations, foodAllergies)
+            postUser(name, username, email, dob, phone_number, dietaryPref, foodLimitations, foodAllergies, firebase_uid)
                 .then((res) => {
                     this.props.history.push('/dashboard')
                 })
