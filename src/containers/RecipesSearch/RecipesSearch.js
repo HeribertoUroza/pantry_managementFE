@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import 'bulma/css/bulma.css'
-import { Media, Image, Content } from 'reactbulma';
 import axios from 'axios';
+
+import { Weekdays } from '../../components/RecipeSearch/WeekdaysContainer';
+import { SearchResults } from '../../components/RecipeSearch/SearchResults';
 
 
 //CONTEXT
@@ -19,8 +20,18 @@ class RecipeSearch extends React.Component {
 
         this.state = {
             recipes: [],
-            ingredients: [],
-            display: [],
+            user_id: null,
+            queryResults: [],
+            token: '',
+            current_week: '',
+            weekday_id: 1,
+            weekdays: [
+                { weekday_name: 'Monday', weekday_id: 1, date: 'June 1, 2019', scheduled: false },
+                { weekday_name: 'Tuesday', weekday_id: 2, date: 'June 1, 2019', scheduled: false },
+                { weekday_name: 'Wednesday', weekday_id: 3, date: 'June 1, 2019', scheduled: false },
+                { weekday_name: 'Thursday', weekday_id: 4, date: 'June 1, 2019', scheduled: false },
+                { weekday_name: 'Friday', weekday_id: 5, date: 'June 1, 2019', scheduled: false }
+            ],
             inputValue: "",
             error: ''
         }
@@ -32,10 +43,10 @@ class RecipeSearch extends React.Component {
 
         const filterRecipeList = (query) => {
             const results = this.state.recipes.filter(recipes => recipes.recipe_name.toLowerCase().includes(query) /*recipes.toLowerCase().includes(list)*/)
-            this.setState({ display: results, inputValue: query })
+            this.setState({ queryResults: results, inputValue: query })
         }
         if (query.length === 0 || query === "" || Number(query)) {
-            this.setState({ display: this.state.recipes, inputValue: "" })
+            this.setState({ queryResults: this.state.recipes, inputValue: "" })
         }
         else {
             filterRecipeList(query)
@@ -58,6 +69,8 @@ class RecipeSearch extends React.Component {
 
 
     render() {
+        const { weekdays, queryResults } = this.state;
+
         return (
             <AuthContext.Consumer>
                 {
@@ -65,56 +78,24 @@ class RecipeSearch extends React.Component {
                         if (!user) {
                             return (
                                 <>
-                                    <div className='container'>
-                                        <div className="row">
-                                            <div className="col"></div>
-                                            <div className="col">
-                                                <form>
-                                                    <div className="row">
-                                                        <div className="input-field col s12">
-                                                            <textarea id="search" className="materialize-textarea" onChange={this.handleOnChange}></textarea>
-                                                            <label htmlFor="search">Search Your Recipes</label>
-                                                            <i className="material-icons prefix">search</i>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                {
-                                                    this.state.display.map((recipe, i) => {
-                                                        return <div className="row my-1">
-                                                            <Media>
-                                                                <Media.Left>
-                                                                    {
-                                                                        !recipe.image ? <Image is='64x64' src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Vegetarian_diet.jpg/250px-Vegetarian_diet.jpg' /> : <Image is='64x64' src={recipe.image} />
-                                                                    }
-                                                                </Media.Left>
-                                                                <Media.Content>
-                                                                    <Content >
-                                                                        <p>
-                                                                            <strong>{recipe.recipe_name}</strong>
-                                                                            <br />
-                                                                            {recipe.recipe_notes}
-                                                                            {
-                                                                                recipe.health_tags === "None" ? null :
-                                                                                    recipe.health_tags.map((e, i) => {
-                                                                                        return <span className="chip">
-                                                                                            {recipe}
-                                                                                        </span>
-                                                                                    })
-                                                                            }
-                                                                            <br />
-                                                                        </p>
-                                                                    </Content>
-                                                                </Media.Content>
-                                                            </Media>
-                                                        </div>
-                                                    })
-                                                }
-                                            </div>
-                                            <div className="col"></div>
-
+                                    <div className='container' style={{marginTop:"40px"}}>
+                                        <div><h1 style={{fontWeight:"bold", fontSize:"30px"}}>Plan your meals</h1></div>
+                                        <div className='row'>
+                                            <Weekdays weekdays={weekdays} />
                                         </div>
                                     </div>
-
+                                    <div className='container'>
+                                        <form>
+                                            <div class="row">
+                                                <div className="input-field col s12">
+                                                    <textarea id="search" className="materialize-textarea" onChange={this.handleOnChange}></textarea>
+                                                    <label for="search">Search Your Recipes</label>
+                                                    <i className="material-icons prefix">search</i>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <SearchResults queryResults={queryResults}/>
+                                    </div>
                                 </>
                             )
                         }
