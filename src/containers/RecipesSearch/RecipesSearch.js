@@ -14,7 +14,7 @@ import AuthContext from '../../context/auth';
 import M from 'materialize-css'
 
 
-class RecipeSearch extends React.Component {
+class RecipesSearch extends React.Component {
     constructor(props) {
         super(props)
 
@@ -75,11 +75,11 @@ class RecipeSearch extends React.Component {
             <AuthContext.Consumer>
                 {
                     (user) => {
-                        if (!user) {
+                        if (user) {
                             return (
                                 <>
-                                    <div className='container' style={{marginTop:"40px"}}>
-                                        <div><h1 style={{fontWeight:"bold", fontSize:"30px"}}>Plan your meals</h1></div>
+                                    <div className='container' style={{ marginTop: "40px" }}>
+                                        <div><h1 style={{ fontWeight: "bold", fontSize: "30px" }}>Plan your meals</h1></div>
                                         <div className='row'>
                                             <Weekdays weekdays={weekdays} />
                                         </div>
@@ -94,7 +94,7 @@ class RecipeSearch extends React.Component {
                                                 </div>
                                             </div>
                                         </form>
-                                        <SearchResults queryResults={queryResults}/>
+                                        <SearchResults queryResults={queryResults} />
                                     </div>
                                 </>
                             )
@@ -108,5 +108,5 @@ class RecipeSearch extends React.Component {
     }
 }
 
-export default withRouter(RecipeSearch)
+export default withRouter(RecipesSearch)
 

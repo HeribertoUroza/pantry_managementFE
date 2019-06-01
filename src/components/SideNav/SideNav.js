@@ -164,7 +164,6 @@ class SideNavBar extends React.Component {
                         <span><i class="material-icons">search</i>Search For Recipes</span>
                     </div>
                     <div class="collapsible-body">
-                        <input />
                     </div>
                 </li>
                 <li><div class="divider"></div></li>
