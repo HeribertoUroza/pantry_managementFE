@@ -37,20 +37,19 @@ class RecipesSearch extends React.Component {
         }
     }
 
-    handleOnChange = (e) => {
-        const query = e.target.value;
-        console.log("query", query)
-
-        const filterRecipeList = (query) => {
-            const results = this.state.recipes.filter(recipes => recipes.recipe_name.toLowerCase().includes(query) /*recipes.toLowerCase().includes(list)*/)
-            this.setState({ queryResults: results, inputValue: query })
-        }
+    filterListByQuery = (query) => {
         if (query.length === 0 || query === "" || Number(query)) {
-            this.setState({ queryResults: this.state.recipes, inputValue: "" })
+            this.setState({ queryResults: [], inputValue: "" });
         }
         else {
-            filterRecipeList(query)
+            const results = this.state.recipes.filter(recipes => recipes.recipe_name.toLowerCase().includes(query) /*recipes.toLowerCase().includes(list)*/)
+            this.setState({ queryResults: results, inputValue: query });
         }
+    }
+
+    handleOnChange = (e) => {
+        const query = e.target.value;
+        this.filterListByQuery(query);    
     }
 
     componentDidMount() {
@@ -65,6 +64,10 @@ class RecipesSearch extends React.Component {
             .then((data) => {
                 console.log(data);
             })
+    }
+
+    addRecipeToWeek = (recipe) => {
+        console.log(recipe);
     }
 
 
@@ -89,12 +92,12 @@ class RecipesSearch extends React.Component {
                                             <div class="row">
                                                 <div className="input-field col s12">
                                                     <textarea id="search" className="materialize-textarea" onChange={this.handleOnChange}></textarea>
-                                                    <label for="search">Search Your Recipes</label>
+                                                    <label htmlFor="search">Search Your Recipes</label>
                                                     <i className="material-icons prefix">search</i>
                                                 </div>
                                             </div>
                                         </form>
-                                        <SearchResults queryResults={queryResults} />
+                                        <SearchResults queryResults={queryResults} onClick={this.addRecipeToWeek} />
                                     </div>
                                 </>
                             )

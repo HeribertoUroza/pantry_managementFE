@@ -4,11 +4,20 @@ const DayCard = (props) => {
     const { day } = props;
 
     return <>
-        <div className="card" style={{width: "18rem"}}>
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-                <h5 className="card-title">{day.weekday_name}</h5>
-                <p className="card-text">Recipe Name</p>
+        <div className="row">
+            <div className="col s12 m7">
+                <div className="card">
+                    <div className="card-image">
+                        <img src="https://images.pexels.com/photos/769289/pexels-photo-769289.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
+                        <span className="card-title" style={{ fontWeight: "bolder", fontSize: "28px", textShadow: "2px 2px #000000" }}>{day.weekday_name}</span>
+                    </div>
+                    <div className="card-content">
+                        <p>Recipe Notes</p>
+                    </div>
+                    <div className="card-action">
+                        {/* <a href="#">This is a link</a> */}
+                    </div>
+                </div>
             </div>
         </div>
     </>
