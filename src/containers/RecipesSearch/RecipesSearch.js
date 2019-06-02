@@ -161,7 +161,7 @@ class RecipesSearch extends React.Component {
                                     </div>
                                     <div className="fixed-action-btn">
                                         <a className="btn-floating btn-large red">
-                                            <i className="large material-icons" onClick={this.saveMealSchedule}>mode_edit</i>
+                                            <i className="large material-icons" onClick={this.saveMealSchedule}>done</i>
                                         </a>
                                     </div>
                                 </>
