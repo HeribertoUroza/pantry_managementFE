@@ -203,7 +203,7 @@ class Dashboard extends React.Component {
                                                         <WeekRecipe token={this.state.token} id={this.state.user_id} />
                                                     </div>
                                                     <div className="row">
-                                                        <div className="col">
+                                                        <div className="col-6">
                                                             <div className="card">
                                                                 <div className="card-content">
                                                                     <h5 className="pt-1 card-title">Shopping List</h5>
@@ -218,7 +218,7 @@ class Dashboard extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col">
+                                                        <div className="col-6">
                                                             <div className="card">
                                                                 <div className="card-content">
                                                                     <h5 className="pt-1 card-title">Your Pantry</h5>
