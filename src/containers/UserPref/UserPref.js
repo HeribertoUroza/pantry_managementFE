@@ -108,46 +108,32 @@ class UserPreference extends React.Component {
             age,
             dietaryPref,
             foodAllergies,
-            firebaseUID: firebase.auth().currentUser.uid
+            firebase_uid: firebase.auth().currentUser.uid
+        }, () => {
+            const { name,
+                username,
+                email,
+                dob,
+                dietaryPref,
+                foodAllergies,
+                foodLimitations,
+                firebase_uid,
+                phone_number } = this.state;
+
+            postUser(name, username, email, dob, phone_number, dietaryPref, foodLimitations, foodAllergies, firebase_uid)
+                .then((res) => {
+                    this.props.history.push('/dashboard')
+                })
+                .catch((error) => {
+                    console.log(error.toString())
+                })
         })
-
-        this.props.history.push('/dashboard')
-
     }
-
-
-
-    componentDidUpdate() {
-        const { name,
-        username,
-        email,
-        dob,
-        dietaryPref,
-        foodAllergies,
-        foodLimitations,
-        firebaseUID,
-        phone_number } = this.state;
-
-
-
-        postUser(name, username, email, dob, phone_number, dietaryPref, foodLimitations, foodAllergies)
-             .then(() => {
-                         this.props.history.push('/dashboard')
-                     })
-                     .catch((error) => {
-                         console.log(error)
-                     })
-
-    }
-
-
-
 
     render() {
         const { error, name, username } = this.state;
         const displayError = error === '' ? '' : <div className="alert alert-danger" role="alert">{error}</div>
         //                                {displayError}
-
         return (
             <AuthContext.Consumer>
                 {
@@ -300,9 +286,9 @@ class UserPreference extends React.Component {
                                 </div>
                             </>)
                         }
-                        else {
-                            return (<Redirect to='/signup' />)
-                          }                        
+                        // else {
+                        //     return (<Redirect to='/signup' />)
+                        //   }                        
                     }
                 }
             </AuthContext.Consumer>

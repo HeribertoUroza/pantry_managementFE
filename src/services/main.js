@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const port = 9999;
+const port = 11235;
 
 //USERS
     //READ
@@ -12,7 +12,7 @@ const port = 9999;
     };
 
     //POST
-    const postUser = (name, username, email, dob, phone_number, diet_preference, food_limitations, food_allergies,firebaseUID) => {
+    const postUser = (name, username, email, dob, phone_number, diet_preference, food_limitations, food_allergies,firebase_uid) => {
         return axios({
             method: 'post',
             url: `http://localhost:${port}/user/`,
@@ -25,6 +25,7 @@ const port = 9999;
                 diet_preference: diet_preference,
                 food_limitations: food_limitations, 
                 food_allergies: food_allergies, 
+                firebase_uid: firebase_uid
             }
         });
     };
