@@ -9,6 +9,9 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import logoDot from '../../assets/Branding/PossiblePantryLogoGreenDott.png';
 import logoName from '../../assets/Branding/PossiblePantryLogoGreenName.png';
 
+//COMPONENTS
+import {readMealSchedule} from '../../services/main';
+
 
 const recipes = {
     "q" : "chicken",
@@ -1763,6 +1766,10 @@ class WeekRecipeView extends React.Component {
 
     componentDidMount() {
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+          readMealSchedule(this.props.user_id)
+          .then((response)=>{
+            console.log(response)
+          })
             /*readUserRecipes(user.email)
                 .then((response) => {
                     const rootObj = response.data.data
