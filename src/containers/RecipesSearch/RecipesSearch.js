@@ -26,15 +26,30 @@ class RecipesSearch extends React.Component {
             current_week: '',
             weekday_id: 1,
             weekdays: [
-                { weekday_name: 'Monday', weekday_id: 1, date: 'June 1, 2019', scheduled: false, recipe:{} },
-                { weekday_name: 'Tuesday', weekday_id: 2, date: 'June 1, 2019', scheduled: false, recipe:{} },
-                { weekday_name: 'Wednesday', weekday_id: 3, date: 'June 1, 2019', scheduled: false, recipe:{} },
-                { weekday_name: 'Thursday', weekday_id: 4, date: 'June 1, 2019', scheduled: false, recipe:{} },
-                { weekday_name: 'Friday', weekday_id: 5, date: 'June 1, 2019', scheduled: false, recipe:{} }
+                { weekday_name: 'Monday', weekday_id: 1, date: 'June 1, 2019', scheduled: false, recipe: {} },
+                { weekday_name: 'Tuesday', weekday_id: 2, date: 'June 1, 2019', scheduled: false, recipe: {} },
+                { weekday_name: 'Wednesday', weekday_id: 3, date: 'June 1, 2019', scheduled: false, recipe: {} },
+                { weekday_name: 'Thursday', weekday_id: 4, date: 'June 1, 2019', scheduled: false, recipe: {} },
+                { weekday_name: 'Friday', weekday_id: 5, date: 'June 1, 2019', scheduled: false, recipe: {} }
             ],
             inputValue: "",
             error: ''
         }
+    }
+
+    componentDidMount() {
+        M.AutoInit();
+        //const user_id = this.props.id;
+        console.log('token', this.props.token)
+        axios.get(`http://localhost:11235/recipe/user/1`)
+            .then((response) => {
+                const data = response.data.data;
+                this.setState({ recipes: data });
+                return data;
+            })
+            .then((data) => {
+                console.log(data);
+            })
     }
 
     filterListByQuery = (query) => {
@@ -52,27 +67,13 @@ class RecipesSearch extends React.Component {
         this.filterListByQuery(query);
     }
 
-    componentDidMount() {
-        M.AutoInit();
-        //const user_id = this.props.id;
-        axios.get(`http://localhost:11235/recipe/user/1`)
-            .then((response) => {
-                const data = response.data.data;
-                this.setState({ recipes: data });
-                return data;
-            })
-            .then((data) => {
-                console.log(data);
-            })
-    }
-
     addRecipeToWeek = (recipe) => {
         const weekday = this.state.weekday_id - 1;
         const weekdays = this.state.weekdays;
         const newWeekdays = weekdays;
-        if(weekday > 4) {
-            this.setState({ weekday_id:1 })
-        }else{
+        if (weekday > 4) {
+            this.setState({ weekday_id: 1 })
+        } else {
             newWeekdays[weekday].recipe = recipe;
             this.setState({ weekdays: newWeekdays, weekday_id: weekday + 2 })
         }
@@ -94,12 +95,17 @@ class RecipesSearch extends React.Component {
                                             <Weekdays weekdays={weekdays} />
                                         </div>
                                         <div className='container'>
-                                        <WeekdayDisplay weekday_id={weekday_id} />
+                                            <WeekdayDisplay weekday_id={weekday_id} />
                                         </div>
                                     </div>
                                     <div className='container'>
                                         <SearchForm onChange={this.handleOnChange} />
                                         <SearchResults queryResults={queryResults} onClick={this.addRecipeToWeek} />
+                                    </div>
+                                    <div class="fixed-action-btn">
+                                        <a class="btn-floating btn-large red">
+                                            <i class="large material-icons">mode_edit</i>
+                                        </a>
                                     </div>
                                 </>
                             )

@@ -4,8 +4,8 @@ const SearchForm = (props) => {
 
     return <>
         <form>
-            <div class="row">
-                <div className="input-field col s12">
+            <div className="row justify-content-md-center">
+                <div className="input-field" style={{width:"70%"}}>
                     <textarea id="search" className="materialize-textarea" onChange={e => {props.onChange(e)}}></textarea>
                     <label htmlFor="search">Search Your Recipes</label>
                     <i className="material-icons prefix">search</i>
