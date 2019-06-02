@@ -1,18 +1,19 @@
 import axios from 'axios';
 
-const port = 9999;
+const port = 11235;
 
 //USERS
     //READ
-    const readUser = (email) => {
+    const readUser = (token, email) => {
         return axios({
             method: 'get',
+            headers: {'token': token},
             url: `http://localhost:${port}/user/email/${email}`,
         });
     };
 
     //POST
-    const postUser = (name, username, email, dob, phone_number, diet_preference, food_limitations, food_allergies,firebaseUID) => {
+    const postUser = (name, username, email, dob, phone_number, diet_preference, food_limitations, food_allergies,firebase_uid) => {
         return axios({
             method: 'post',
             url: `http://localhost:${port}/user/`,
@@ -25,6 +26,7 @@ const port = 9999;
                 diet_preference: diet_preference,
                 food_limitations: food_limitations, 
                 food_allergies: food_allergies, 
+                firebase_uid: firebase_uid
             }
         });
     };

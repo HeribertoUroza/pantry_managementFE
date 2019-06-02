@@ -118,36 +118,51 @@ class Dashboard extends React.Component {
 
 
 
-    componentDidMount() {
+    componentDidMount= () => {
+        
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-            readUser(user.email)
-                .then((response) => {
-                    const rootObj = response.data.data
-                    this.setState({
-                        diet_preference: rootObj.diet_preference,
-                        food_allergies: rootObj.food_allergies,
-                        food_limitations: rootObj.food_limitations,
-                        name: rootObj.name,
-                        user_id: rootObj.user_id,
-                        username: rootObj.username,
-                    }, () => {
-                        
-                                    
-                            })
-                            })
+            // this.getFirebaseIdToken()
+            firebase.auth().currentUser.getIdToken(false)
+            .then((token) => {
+                console.log('herherherhe')
+                this.setState({ token: token })
+            })
+            .then(() => {
+                readUser(this.state.token, user.email)
+                    .then((response) => {
+                        console.log('user', response.data.data)
+                        const rootObj = response.data.data
+                        this.setState({
+                            diet_preference: rootObj.diet_preference,
+                            food_allergies: rootObj.food_allergies,
+                            food_limitations: rootObj.food_limitations,
+                            name: rootObj.name,
+                            user_id: rootObj.user_id,
+                            username: rootObj.username,
+                        })
                     })
-                }
-       
+            })
+                
+        })
+    }
+    
     
 
     componentWillUnmount() {
         this.unsubscribe();
     }
 
-
+    getFirebaseIdToken = () => {
+        firebase.auth().currentUser.getIdToken(false).then((token) => {
+            this.setState({ token: token })
+        }).catch((error) => {
+            console.log(error.toString)
+        });
+    }
 
 
     render() {
+        console.log(this.state)
         return (
             <AuthContext.Consumer>
                 {
@@ -186,6 +201,7 @@ class Dashboard extends React.Component {
                                                 <div className="row">
                                                     <WeekRecipe />
                                                 </div>
+                                                <a class="waves-effect waves-light btn-large"><i class="material-icons left">textsms</i>Text Me My Groceries</a>
                                             </>
                                     }
                                 </div>
