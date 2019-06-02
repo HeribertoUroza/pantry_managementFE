@@ -11,7 +11,6 @@ import './pantry.css'
 
 
 export default (props) => {
-    console.log("Bob", props.pantry)
     let redPercentage = []; //<=20%
     let orangePercentage = []; //<=40%
     let yellowPercentage = []; //<=60%

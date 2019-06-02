@@ -36,7 +36,8 @@ const port = 11235;
     const readMealSchedule = (user_id) => {
         return axios({
             method: 'get',
-            url: `http://localhost:${port}/mealSchedule/user/${user_id}`,
+            url: `http://localhost:${port}/mealSchedule/user/${user_id}
+            `,
         });
     };
 
@@ -61,10 +62,10 @@ const port = 11235;
 
 //PANTRY
     //READ
-        const readPantry = (user_id) =>{
+        const readPantry = (id) =>{
             return axios({
                 method: 'get',
-                url: `http://localhost:${port}/currentPantry/user/1`,
+                url: `http://localhost:${port}/currentPantry/user/${id}`,
             });
         }
 
