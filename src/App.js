@@ -11,8 +11,6 @@ import Error404 from './components/Error404/Error404';
 import UserPref from './containers/UserPref/UserPref';
 import Dashboard from './containers/Dashboard/Dashboard';
 import AddRecipe from './containers/AddRecipe/AddRecipe';
-import RecipeSearch from './containers/RecipesSearch/RecipesSearch';
-
 
 
 // ---- CONTEXT

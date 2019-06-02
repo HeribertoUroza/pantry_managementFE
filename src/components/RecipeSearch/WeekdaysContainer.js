@@ -5,6 +5,7 @@ import { DayCard } from './DayCard';
 const Weekdays = (props) => {
 
     const weekdays = props.weekdays;
+    console.log(weekdays)
 
     return weekdays.map((day, index) => {
         return <div className="col" style={{width:"20%"}} key={index}>

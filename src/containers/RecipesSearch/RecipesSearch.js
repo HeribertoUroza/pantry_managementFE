@@ -1,18 +1,17 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+//COMPONENTS
 import { Weekdays } from '../../components/RecipeSearch/WeekdaysContainer';
 import { SearchResults } from '../../components/RecipeSearch/SearchResults';
-
+import { SearchForm } from '../../components/RecipeSearch/SearchForm';
 
 //CONTEXT
 import AuthContext from '../../context/auth';
 
-
 //MATERIALIZE
 import M from 'materialize-css'
-
 
 class RecipesSearch extends React.Component {
     constructor(props) {
@@ -26,11 +25,11 @@ class RecipesSearch extends React.Component {
             current_week: '',
             weekday_id: 1,
             weekdays: [
-                { weekday_name: 'Monday', weekday_id: 1, date: 'June 1, 2019', scheduled: false },
-                { weekday_name: 'Tuesday', weekday_id: 2, date: 'June 1, 2019', scheduled: false },
-                { weekday_name: 'Wednesday', weekday_id: 3, date: 'June 1, 2019', scheduled: false },
-                { weekday_name: 'Thursday', weekday_id: 4, date: 'June 1, 2019', scheduled: false },
-                { weekday_name: 'Friday', weekday_id: 5, date: 'June 1, 2019', scheduled: false }
+                { weekday_name: 'Monday', weekday_id: 1, date: 'June 1, 2019', scheduled: false, recipe:{} },
+                { weekday_name: 'Tuesday', weekday_id: 2, date: 'June 1, 2019', scheduled: false, recipe:{} },
+                { weekday_name: 'Wednesday', weekday_id: 3, date: 'June 1, 2019', scheduled: false, recipe:{} },
+                { weekday_name: 'Thursday', weekday_id: 4, date: 'June 1, 2019', scheduled: false, recipe:{} },
+                { weekday_name: 'Friday', weekday_id: 5, date: 'June 1, 2019', scheduled: false, recipe:{} }
             ],
             inputValue: "",
             error: ''
@@ -49,7 +48,7 @@ class RecipesSearch extends React.Component {
 
     handleOnChange = (e) => {
         const query = e.target.value;
-        this.filterListByQuery(query);    
+        this.filterListByQuery(query);
     }
 
     componentDidMount() {
@@ -57,8 +56,8 @@ class RecipesSearch extends React.Component {
         //const user_id = this.props.id;
         axios.get(`http://localhost:11235/recipe/user/1`)
             .then((response) => {
-                const data = response.data.data
-                this.setState({ recipes: data })
+                const data = response.data.data;
+                this.setState({ recipes: data });
                 return data;
             })
             .then((data) => {
@@ -67,9 +66,16 @@ class RecipesSearch extends React.Component {
     }
 
     addRecipeToWeek = (recipe) => {
-        console.log(recipe);
+        const weekday = this.state.weekday_id - 1;
+        const weekdays = this.state.weekdays;
+        const newWeekdays = weekdays;
+        if(weekday > 4) {
+            this.setState({ weekday_id:1 })
+        }else{
+            newWeekdays[weekday].recipe = recipe;
+            this.setState({ weekdays: newWeekdays, weekday_id: weekday + 2 })
+        }
     }
-
 
     render() {
         const { weekdays, queryResults } = this.state;
@@ -88,15 +94,7 @@ class RecipesSearch extends React.Component {
                                         </div>
                                     </div>
                                     <div className='container'>
-                                        <form>
-                                            <div class="row">
-                                                <div className="input-field col s12">
-                                                    <textarea id="search" className="materialize-textarea" onChange={this.handleOnChange}></textarea>
-                                                    <label htmlFor="search">Search Your Recipes</label>
-                                                    <i className="material-icons prefix">search</i>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        <SearchForm onChange={this.handleOnChange} />
                                         <SearchResults queryResults={queryResults} onClick={this.addRecipeToWeek} />
                                     </div>
                                 </>
