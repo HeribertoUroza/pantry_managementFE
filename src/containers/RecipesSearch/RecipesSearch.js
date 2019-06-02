@@ -54,36 +54,31 @@ class RecipesSearch extends React.Component {
                             return token;
                         })
                         .then((token) => {
-                            console.log('token', token)
-                            return axios({
-                                method: 'get',
-                                url: `http://localhost:11235/recipe/user/1`,
-                                headers: { 'token': token }
-                            })
-                        })
-                        .then((response) => {
-                            const data = response.data.data;
-                            this.setState({ recipes: data });
-                            return data;
-                        })
-                        .then((data) => {
-                            console.log(data);
+                            this.getAllUserRecipes(token)
                         })
                         .catch((error) => {
-                            // Handle error
                             console.log(error);
                         });
-
                 })
-
-            }
-            else {
-                // ..... The user is logged out
             }
         })
-
     }
 
+    getAllUserRecipes = (token) => {
+        return axios({
+            method: 'get',
+            url: `http://localhost:11235/recipe/user/1`,
+            headers: { 'token': token }
+        })
+            .then((response) => {
+                const data = response.data.data;
+                this.setState({ recipes: data });
+                return data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
 
     filterListByQuery = (query) => {
@@ -120,9 +115,16 @@ class RecipesSearch extends React.Component {
                 const requestBody = {
                     user_id: 1,
                     recipe_id: weekdays[i].recipe.recipe_id,
-                    day_id: weekdays[i].weekday_id
+                    day_id: weekdays[i].weekday_id,
+                    date: '06/02/2019',
+                    cooked: false,
                 };
-                axios.post('http://localhost:11235/mealSchedule/', requestBody)
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:11235/mealSchedule/',
+                    headers: { 'token': this.state.token },
+                    data:  requestBody 
+                })
                     .then((res) => {
                         console.log(res)
                         this.setState({ alertMessage: 'You have succesfully scheduled your meals!', showAlert: true })
