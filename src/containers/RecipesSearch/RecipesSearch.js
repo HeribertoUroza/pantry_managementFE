@@ -33,7 +33,9 @@ class RecipesSearch extends React.Component {
                 { weekday_name: 'Friday', weekday_id: 5, date: 'June 1, 2019', scheduled: false, recipe: {} }
             ],
             inputValue: "",
-            error: ''
+            error: '',
+            showAlert: false,
+            alertMessage: ''
         }
     }
 
@@ -71,8 +73,8 @@ class RecipesSearch extends React.Component {
         const weekday = this.state.weekday_id - 1;
         const weekdays = this.state.weekdays;
         const newWeekdays = weekdays;
-        if (weekday > 4) {
-            this.setState({ weekday_id: 1 })
+        if (this.state.weekday_id > 5) {
+            this.setState({ weekday_id: 1, inputValue:"", queryResults:[], showAlert: true, alertMessage:'You have a full week scheduled! Save your selections!' })
         } else {
             newWeekdays[weekday].recipe = recipe;
             this.setState({ weekdays: newWeekdays, weekday_id: weekday + 2 })
@@ -89,15 +91,18 @@ class RecipesSearch extends React.Component {
                     day_id: weekdays[i].weekday_id
                 };
                 axios.post('http://localhost:11235/mealSchedule/', requestBody)
-                .then((res)=>{
-                    console.log(res)
-                })
+                    .then((res) => {
+                        console.log(res)
+                        this.setState({ alertMessage: 'You have succesfully scheduled your meals!', showAlert: true })
+                    })
             }
         }
     }
 
     render() {
-        const { weekdays, queryResults, weekday_id } = this.state;
+        const { weekdays, queryResults, weekday_id, showAlert, alertMessage, inputValue } = this.state;
+        const alert = <div className="alert alert-success" role="alert">
+            {alertMessage}</div>
 
         return (
             <AuthContext.Consumer>
@@ -116,7 +121,8 @@ class RecipesSearch extends React.Component {
                                         </div>
                                     </div>
                                     <div className='container'>
-                                        <SearchForm onChange={this.handleOnChange} />
+                                        {showAlert ? alert : <br></br>}
+                                        <SearchForm onChange={this.handleOnChange} inputValue={inputValue}/>
                                         <SearchResults queryResults={queryResults} onClick={this.addRecipeToWeek} />
                                     </div>
                                     <div className="fixed-action-btn">

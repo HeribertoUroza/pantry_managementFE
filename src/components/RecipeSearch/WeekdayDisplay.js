@@ -1,5 +1,4 @@
 import React from 'react';
-import { identifier } from '@babel/types';
 
 const WeekdayDisplay = (props) => {
 
