@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import firebase from 'firebase';
 
 //COMPONENTS
 import { Weekdays } from '../../components/RecipeSearch/WeekdaysContainer';
@@ -35,24 +36,55 @@ class RecipesSearch extends React.Component {
             inputValue: "",
             error: '',
             showAlert: false,
-            alertMessage: ''
+            alertMessage: '',
+            token: ''
         }
     }
 
     componentDidMount() {
         M.AutoInit();
-        //const user_id = this.props.id;
-        console.log('token', this.props.token)
-        axios.get(`http://localhost:11235/recipe/user/1`)
-            .then((response) => {
-                const data = response.data.data;
-                this.setState({ recipes: data });
-                return data;
-            })
-            .then((data) => {
-                console.log(data);
-            })
+        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // ..... DO YOUR LOGGED IN LOGIC
+                this.setState({ userEmail: user.email, userId: user.uid }, () => {
+
+                    firebase.auth().currentUser.getIdToken(false)
+                        .then((token) => {
+                            this.setState({ token });
+                            return token;
+                        })
+                        .then((token) => {
+                            console.log('token', token)
+                            return axios({
+                                method: 'get',
+                                url: `http://localhost:11235/recipe/user/1`,
+                                headers: { 'token': token }
+                            })
+                        })
+                        .then((response) => {
+                            const data = response.data.data;
+                            this.setState({ recipes: data });
+                            return data;
+                        })
+                        .then((data) => {
+                            console.log(data);
+                        })
+                        .catch((error) => {
+                            // Handle error
+                            console.log(error);
+                        });
+
+                })
+
+            }
+            else {
+                // ..... The user is logged out
+            }
+        })
+
     }
+
+
 
     filterListByQuery = (query) => {
         if (query.length === 0 || query === "" || Number(query)) {
@@ -74,7 +106,7 @@ class RecipesSearch extends React.Component {
         const weekdays = this.state.weekdays;
         const newWeekdays = weekdays;
         if (this.state.weekday_id > 5) {
-            this.setState({ weekday_id: 1, inputValue:"", queryResults:[], showAlert: true, alertMessage:'You have a full week scheduled! Save your selections!' })
+            this.setState({ weekday_id: 1, inputValue: "", queryResults: [], showAlert: true, alertMessage: 'You have a full week scheduled! Save your selections!' })
         } else {
             newWeekdays[weekday].recipe = recipe;
             this.setState({ weekdays: newWeekdays, weekday_id: weekday + 2 })
@@ -122,7 +154,7 @@ class RecipesSearch extends React.Component {
                                     </div>
                                     <div className='container'>
                                         {showAlert ? alert : <br></br>}
-                                        <SearchForm onChange={this.handleOnChange} inputValue={inputValue}/>
+                                        <SearchForm onChange={this.handleOnChange} inputValue={inputValue} />
                                         <SearchResults queryResults={queryResults} onClick={this.addRecipeToWeek} />
                                     </div>
                                     <div className="fixed-action-btn">
