@@ -145,7 +145,7 @@ class RecipesSearch extends React.Component {
                         if (user) {
                             return (
                                 <>
-                                    <div className='container' style={{ marginTop: "40px" }}>
+                                    <div className='container fluid' style={{ marginTop: "40px" }}>
                                         <div><h1 style={{ fontWeight: "bold", fontSize: "30px" }}>Plan your meals for the upcoming week!</h1></div>
                                         <div className='row'>
                                             <Weekdays weekdays={weekdays} />
