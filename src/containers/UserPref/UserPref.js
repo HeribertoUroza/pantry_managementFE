@@ -300,9 +300,9 @@ class UserPreference extends React.Component {
                                 </div>
                             </>)
                         }
-                        else {
-                            return (<Redirect to='/signup' />)
-                          }                        
+                        // else {
+                        //     return (<Redirect to='/signup' />)
+                        //   }                        
                     }
                 }
             </AuthContext.Consumer>
