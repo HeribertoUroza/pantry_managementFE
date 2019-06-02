@@ -79,6 +79,23 @@ class RecipesSearch extends React.Component {
         }
     }
 
+    saveMealSchedule = () => {
+        const weekdays = this.state.weekdays;
+        for (let i = 0; i < weekdays.length; i++) {
+            if (weekdays[i].recipe.recipe_name) {
+                const requestBody = {
+                    user_id: 1,
+                    recipe_id: weekdays[i].recipe.recipe_id,
+                    day_id: weekdays[i].weekday_id
+                };
+                axios.post('http://localhost:11235/mealSchedule/', requestBody)
+                .then((res)=>{
+                    console.log(res)
+                })
+            }
+        }
+    }
+
     render() {
         const { weekdays, queryResults, weekday_id } = this.state;
 
@@ -102,9 +119,9 @@ class RecipesSearch extends React.Component {
                                         <SearchForm onChange={this.handleOnChange} />
                                         <SearchResults queryResults={queryResults} onClick={this.addRecipeToWeek} />
                                     </div>
-                                    <div class="fixed-action-btn">
-                                        <a class="btn-floating btn-large red">
-                                            <i class="large material-icons">mode_edit</i>
+                                    <div className="fixed-action-btn">
+                                        <a className="btn-floating btn-large red">
+                                            <i className="large material-icons" onClick={this.saveMealSchedule}>mode_edit</i>
                                         </a>
                                     </div>
                                 </>
