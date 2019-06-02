@@ -28,7 +28,8 @@ const SearchResults = (props) => {
                                     })
                             }
                         </p>
-                        <a class="waves-effect waves-light btn-small" onClick={e => {props.onClick(recipe)}}>Add</a>
+                        {/* <a class="waves-effect waves-light btn-small" onClick={e => {props.onClick(recipe)}}>Add</a> */}
+                        <a class="btn-floating btn-small waves-effect waves-light" onClick={e => {props.onClick(recipe)}}><i class="material-icons">add</i></a>
                     </Content>
                 </Media.Content>
             </Media>

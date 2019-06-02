@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Weekdays } from '../../components/RecipeSearch/WeekdaysContainer';
 import { SearchResults } from '../../components/RecipeSearch/SearchResults';
 import { SearchForm } from '../../components/RecipeSearch/SearchForm';
+import { WeekdayDisplay } from '../../components/RecipeSearch/WeekdayDisplay';
 
 //CONTEXT
 import AuthContext from '../../context/auth';
@@ -78,7 +79,7 @@ class RecipesSearch extends React.Component {
     }
 
     render() {
-        const { weekdays, queryResults } = this.state;
+        const { weekdays, queryResults, weekday_id } = this.state;
 
         return (
             <AuthContext.Consumer>
@@ -88,9 +89,12 @@ class RecipesSearch extends React.Component {
                             return (
                                 <>
                                     <div className='container' style={{ marginTop: "40px" }}>
-                                        <div><h1 style={{ fontWeight: "bold", fontSize: "30px" }}>Plan your meals</h1></div>
+                                        <div><h1 style={{ fontWeight: "bold", fontSize: "30px" }}>Plan your meals for the upcoming week!</h1></div>
                                         <div className='row'>
                                             <Weekdays weekdays={weekdays} />
+                                        </div>
+                                        <div className='container'>
+                                        <WeekdayDisplay weekday_id={weekday_id} />
                                         </div>
                                     </div>
                                     <div className='container'>
