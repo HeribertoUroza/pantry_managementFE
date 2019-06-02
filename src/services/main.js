@@ -4,9 +4,10 @@ const port = 11235;
 
 //USERS
     //READ
-    const readUser = (email) => {
+    const readUser = (token, email) => {
         return axios({
             method: 'get',
+            headers: {'token': token},
             url: `http://localhost:${port}/user/email/${email}`,
         });
     };
