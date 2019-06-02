@@ -32,7 +32,12 @@ class AddRecipe extends React.Component {
             ingredient_weight: '',
             ingredient_type: '',
             recipe_ID: '',
+            product_name: '',
             product_url: '',
+            product_original_weight: '',
+            product_original_weight_type: '',
+            product_price: '',
+            product_image: '',
             recipe_desc: '',
             health_tag: '',
             error: ''
@@ -82,9 +87,14 @@ class AddRecipe extends React.Component {
             const { new_ingredients, current_userID } = this.state
             new_ingredients.map( (e,i) => {
                 return axios.post(`http://localhost:11235/product/`, {
-                    product_name: e.ingredient_name,
+                    product_name: e.product_name,
                     product_url: e.product_url,
-                    product_owner: current_userID
+                    product_owner: current_userID,
+                    product_image: e.product_image,
+                    product_original_weight: e.product_original_weight,
+                    product_original_weight_type: e.product_original_weight_type,
+                    product_price: e.product_price
+
                 })
                 .then(res => {
                     const { current_recipeID } = this.state
@@ -113,22 +123,35 @@ class AddRecipe extends React.Component {
 
     createIngredients = (e) => {
         e.preventDefault();
-        const { ingredient_name, ingredient_weight, ingredient_type, product_url } = this.state
+        const { ingredient_name, ingredient_weight, ingredient_type, product_name, product_url, product_original_weight, product_original_weight_type, product_price, product_image } = this.state
         let new_ingredientsArr = [...this.state.new_ingredients]
-        let ingredient_obj = { ingredient_name, ingredient_weight, ingredient_type, product_url }
+        let ingredient_obj = { ingredient_name, ingredient_weight, ingredient_type, product_name, product_url, product_original_weight, product_original_weight_type, product_price, product_image }
 
         new_ingredientsArr.push(ingredient_obj)
-        if(ingredient_name === '' || ingredient_weight === '' || ingredient_type === '' || product_url === '') {
+        if (ingredient_name === '' || 
+        ingredient_weight === '' || 
+        ingredient_type === '' || 
+        product_name === '' ||
+        product_url === '' ||
+        product_original_weight === '' ||
+        product_original_weight_type === '' ||
+        product_price === ''
+        ) {
             this.setState({
-                error: 'Please Enter Ingredient Information'
+                error: 'Missing Ingredient Information or Product Information'
             })
         } else {
             this.setState({
                 new_ingredients: new_ingredientsArr,
                 ingredient_name: '',
                 ingredient_weight: '',
-                product_url: '',
                 ingredient_type: 'Select Measurement',
+                product_name: '',
+                product_url: '',
+                product_price: '',
+                product_original_weight: '',
+                product_image: '',
+                product_original_weight_type: 'Select Measurement',
                 error: ''
             })
         }
@@ -136,6 +159,7 @@ class AddRecipe extends React.Component {
 
     render() {
         const { error } = this.state;
+        console.log(this.state)
         return (
             <AuthContext.Consumer>
                 {
@@ -146,7 +170,7 @@ class AddRecipe extends React.Component {
                                     {error}
                                     <div className='container-fluid'>
                                         <div className="row">
-                                        <span onClick={this.props.click} style={{cursor: "pointer"}}><i class="material-icons">keyboard_backspace</i></span>
+                                        <span onClick={this.props.click} style={{cursor: "pointer"}}><i className="material-icons">keyboard_backspace</i></span>
                                         </div>
                                     </div>
                                     <div className='container'>
@@ -206,17 +230,56 @@ class AddRecipe extends React.Component {
                                                 <div className='row'>
                                                     <div className='col s12'>
                                                         <div className='row'>
-                                                            <div className="input-field col s6">
-                                                                <input id="Product Url" name='product_url' type="text" className="validate" onChange={this.handleChange} />
-                                                                <label htmlFor="Product Url">Product Url for {this.state.ingredient_name}</label>
+                                                            <div className="input-field col s3">
+                                                                <input id="product_name" name='product_name' type="text" className="validate" value={this.state.product_name} onChange={this.handleChange} />
+                                                                <label htmlFor="product_name">Product Name for {this.state.ingredient_name}</label>
                                                             </div>
-                                                            <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.createIngredients}>Add Ingredient
-                                                                <i className="material-icons right">send</i>
-                                                            </button>
+                                                            <div className="input-field col s3">
+                                                                <input id="Product Url" name='product_url' type="text" className="validate" value={this.state.product_url}onChange={this.handleChange} />
+                                                                <label htmlFor="Product Url">Product Url for {this.state.product_name}</label>
+                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
-
                                                 </div>
+                                                {/* Product Input Feilds */}
+                                                <div className='row'>
+                                                    <div className='col s12'>
+                                                        <div className='row'>
+                                                            <div className="input-field col s3">
+                                                                <input id="product_original_weight" name='product_original_weight' value={this.state.product_original_weight} type="number" className="validate" onChange={this.handleChange} />
+                                                                <label htmlFor="product_original_weight">Product Original Weight</label>
+                                                            </div>
+
+                                                            <div className="input-field col s3">
+                                                                <select name='product_original_weight_type' value={this.state.product_original_weight_type} onChange={this.handleChange}>
+                                                                    {
+                                                                        this.state.I_type.map((e, i) => {
+                                                                            return (
+                                                                                <option disabled={e === 'Select Measurement'} key={i} value={e}>{e}</option>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                                <label>Product Weight Type</label>
+                                                            </div>
+
+                                                            <div className="input-field col s3">
+                                                                <input id="product_price" name='product_price' value={this.state.product_price} type="number" className="validate" onChange={this.handleChange} />
+                                                                <label htmlFor="product_price">Product Price</label>
+                                                            </div>
+                                                            <div className="input-field col s3">
+                                                                <input id="product_image" name='product_image' value={this.state.product_image} type="text" className="validate" onChange={this.handleChange} />
+                                                                <label htmlFor="product_image">Product Image</label>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.createIngredients}>Add Ingredient and Product
+                                                                <i className="material-icons right">send</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
 
                                                 {/* List of Ingregients */}
                                                 <ul className="collection with-header">
