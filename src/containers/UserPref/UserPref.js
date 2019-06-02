@@ -117,29 +117,6 @@ class UserPreference extends React.Component {
 
 
 
-    componentDidUpdate() {
-        const { name,
-        username,
-        email,
-        dob,
-        dietaryPref,
-        foodAllergies,
-        foodLimitations,
-        firebaseUID,
-        phone_number } = this.state;
-
-
-
-        postUser(name, username, email, dob, phone_number, dietaryPref, foodLimitations, foodAllergies)
-             .then(() => {
-                         this.props.history.push('/dashboard')
-                     })
-                     .catch((error) => {
-                         console.log(error)
-                     })
-
-    }
-
 
 
 
@@ -299,10 +276,7 @@ class UserPreference extends React.Component {
                                     </div>
                                 </div>
                             </>)
-                        }
-                        else {
-                            return (<Redirect to='/signup' />)
-                          }                        
+                        }                   
                     }
                 }
             </AuthContext.Consumer>
