@@ -8,6 +8,7 @@ import { Weekdays } from '../../components/RecipeSearch/WeekdaysContainer';
 import { SearchResults } from '../../components/RecipeSearch/SearchResults';
 import { SearchForm } from '../../components/RecipeSearch/SearchForm';
 import { WeekdayDisplay } from '../../components/RecipeSearch/WeekdayDisplay';
+import Dates from '../../components/RecipeSearch/Dates';
 
 //CONTEXT
 import AuthContext from '../../context/auth';
@@ -37,7 +38,8 @@ class RecipesSearch extends React.Component {
             error: '',
             showAlert: false,
             alertMessage: '',
-            token: ''
+            token: '',
+            startDate: new Date()
         }
     }
 
@@ -55,6 +57,9 @@ class RecipesSearch extends React.Component {
                         })
                         .then((token) => {
                             this.getAllUserRecipes(token)
+                        })
+                        .then(()=>{
+                            this.getNextWeekDates()
                         })
                         .catch((error) => {
                             console.log(error);
@@ -127,10 +132,19 @@ class RecipesSearch extends React.Component {
                 })
                     .then((res) => {
                         console.log(res)
-                        this.setState({ alertMessage: 'You have succesfully scheduled your meals!', showAlert: true })
+                        this.setState({ alertMessage: 'You have succesfully scheduled your meals!', showAlert: true, inputValue:"" })
                     })
             }
         }
+    }
+
+    getNextWeekDates = () => {
+        const today = new Date();
+        const dd = today.getDate;
+        const mm = today.getMonth;
+        const yyyy = today.getFullYear;
+        const weekday = today.getDay;
+        console.log(today);
     }
 
     render() {
@@ -146,9 +160,11 @@ class RecipesSearch extends React.Component {
                             return (
                                 <>
                                     <div className='container fluid' style={{ marginTop: "40px" }}>
-                                        <div><h1 style={{ fontWeight: "bold", fontSize: "30px" }}>Plan your meals for the upcoming week!</h1></div>
+                                        <div><h1 style={{ fontWeight: "bold", fontSize: "30px" }}>Plan your meals for the upcoming week!</h1>
+                                        <Dates></Dates>
+                                        </div>
                                         <div className='row'>
-                                            <Weekdays weekdays={weekdays} />
+                                            <Weekdays weekdays={weekdays}/>
                                         </div>
                                         <div className='container'>
                                             <WeekdayDisplay weekday_id={weekday_id} />

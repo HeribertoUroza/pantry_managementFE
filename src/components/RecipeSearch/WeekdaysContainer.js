@@ -8,7 +8,7 @@ const Weekdays = (props) => {
 
     return weekdays.map((day, index) => {
         return <div className="col s12 m6" style={{width:"100%", height:"auto"}} key={index}>
-            <DayCard day={day} />
+            <DayCard day={day}/>
         </div>
     })
 }

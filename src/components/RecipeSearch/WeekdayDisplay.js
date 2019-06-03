@@ -4,6 +4,8 @@ const WeekdayDisplay = (props) => {
 
     const { weekday_id } = props;
     let dayName = '';
+    let message = 'Add your meal for';
+
     if (weekday_id === 1) {
         dayName = 'Monday'
     }
@@ -19,9 +21,12 @@ const WeekdayDisplay = (props) => {
     if (weekday_id === 5) {
         dayName = 'Friday'
     }
+    if(weekday_id > 5) {
+        message= 'Selection Completed!'
+    }
     return <>
         <div class="row">
-        <h1 style={{ fontWeight: "bold", fontSize: "50px" }}>Add your meal for {dayName}!</h1>
+        <h1 style={{ fontWeight: "bold", fontSize: "50px" }}>{message} {dayName}!</h1>
         </div>
     </>
 }
