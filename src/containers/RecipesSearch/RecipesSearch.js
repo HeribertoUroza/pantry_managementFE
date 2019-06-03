@@ -160,7 +160,7 @@ class RecipesSearch extends React.Component {
                             return (
                                 <>
                                     <div className='container fluid' style={{ marginTop: "40px" }}>
-                                        <div><h1 style={{ fontWeight: "bold", fontSize: "30px" }}>Plan your meals for the upcoming week!</h1>
+                                        <div><h1 style={{ fontWeight: "bold", fontSize: "30px" }}>Plan your meals for the new week!</h1>
                                         <Dates></Dates>
                                         </div>
                                         <div className='row'>

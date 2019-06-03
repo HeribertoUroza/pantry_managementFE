@@ -9,7 +9,7 @@ export default class MyComponent extends React.Component {
         const weekday_id = this.props.weekday_id;
         console.log('weeee', weekday_id)
         let daysToAdd = 0;
-        let daysToEnd = 5;
+        let daysToEnd = 4;
         if (day === 0) { //sunday
             daysToAdd = 1;
             daysToEnd = 5;
