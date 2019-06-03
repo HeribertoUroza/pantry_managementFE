@@ -1765,23 +1765,25 @@ class WeekRecipeView extends React.Component {
    
 
     componentDidMount() {
-        this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-          readMealSchedule(this.props.user_id)
-          .then((response)=>{
-            console.log(response)
+      this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+        firebase.auth().currentUser.getIdToken(false)
+          .then((token) => {
+            this.setState({ token: token })
           })
-            /*readUserRecipes(user.email)
-                .then((response) => {
-                    const rootObj = response.data.data
-                    this.setState({
-                        id: rootObj.id,
-                        email: rootObj.email,
-                        firebaseUID: rootObj.firebaseuid,
-                        name: rootObj.nameofuser,
-                        username: rootObj.username,
-                    })
-                })*/
-        })
+          .then(() => {
+            
+            readMealSchedule(this.state.token, this.props.id)
+              .then((response) => {
+                //console.log("readMealSchedule", response.data.data)
+    
+              })
+              .catch(error => {
+                console.log(error.toString())
+              })
+          })
+
+      })
+
     }
 
     render() {

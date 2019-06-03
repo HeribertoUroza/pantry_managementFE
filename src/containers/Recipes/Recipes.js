@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import 'bulma/css/bulma.css'
 import { Media, Image, Content } from 'reactbulma';
-
+import firebase from '../../firebase';
 
 //CONTEXT
 import AuthContext from '../../context/auth';
@@ -46,9 +46,21 @@ class AddRecipe extends React.Component {
     componentDidMount() {
         M.AutoInit();
 
-        readRecipes(this.props.id)
-        .then((response)=>{
-            this.setState({recipes: response.data.data})
+        this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+            firebase.auth().currentUser.getIdToken(false)
+                .then((token) => {
+                    this.setState({ token: token })
+                })
+                .then(() => {
+                    readRecipes(this.state.token, this.props.id)
+                        .then((response) => {
+                            this.setState({ recipes: response.data.data })
+                        })
+                        .catch( error => {
+                            console.log(error.toString())
+                        })
+                })
+
         })
     }
 
