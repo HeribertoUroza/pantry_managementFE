@@ -40,7 +40,8 @@ class AddRecipe extends React.Component {
             product_image: '',
             recipe_desc: '',
             health_tag: '',
-            error: ''
+            error: '',
+            requestFailed: false,  
         }
     }
 
@@ -63,9 +64,37 @@ class AddRecipe extends React.Component {
     }
 
     handleChange = (e) => {
+        if(e.target.name === "product_url"){
+
+        }
         this.setState({ [e.target.name]: e.target.value });
 
     }
+
+    handleFill = (e) =>{
+        this.setState({
+            current_userID: '',
+            current_recipeID: '',
+            current_productID: '',
+            db_ingredients: [],
+            h_tag: ['Select','Vegetarian', 'Vegan', 'Pescatarian', 'Sugar-Conscious', 'Paleo', 'Kosher', 'Keto-Friendly', 'Soy-Free', 'Red-Meat-Free', 'Pork-Free', 'Wheat-Free', 'Low-Sugar', 'Gluten-Free', 'Low-Potassium', 'Tree-Nut-Free', 'Shellfish-Free', 'Peanut-Free', 'Gluten-Free', 'Dairy-Free', 'Crustacean-Free', 'Alcohol-Free'],
+            I_type: ['Select Measurement','Teaspoon', 'Tablespoon', 'Dessert Spoon', 'Fluid Ounce', 'Cup', 'Cup Liquid', 'Pint', 'Pint Liquid', 'Pound', 'Kilo', 'Litre', 'Gallon'],
+            new_ingredients: [],
+            recipe_name: '',
+            ingredient_name: '',
+            ingredient_weight: '',
+            ingredient_type: '',
+            recipe_ID: '',
+            product_name: '',
+            product_url: '',
+            product_original_weight: '',
+            product_original_weight_type: '',
+            product_price: '',
+            product_image: '',
+            recipe_desc: '',
+            health_tag: '',
+        })
+      }
 
     handleRecipeSubmit = (e) => {
         e.preventDefault();
@@ -170,11 +199,16 @@ class AddRecipe extends React.Component {
                                     {error}
                                     <div className='container-fluid'>
                                         <div className="row">
-                                        <span onClick={this.props.click} style={{cursor: "pointer"}}><i className="material-icons">keyboard_backspace</i></span>
+                                        <button className="btn waves-effect waves-light mt-5" type="submit" name="action" style={{ marginLeft: "auto", borderRadius: '50px', marginBottom: "0px" }} onClick={this.handleFill}>DEMO
+                        </button> 
+                        </div>
+                        <div className="row">
+                                        <span onClick={this.props.click} style={{cursor: "pointer", marginRight:"auto" }}><i className="material-icons">keyboard_backspace</i></span>
                                         </div>
                                     </div>
                                     <div className='container'>
                                         <div className="row">
+
                                             <div className="col s12">
                                                 <div className="row">
                                                     <div className="input-field col s11">
@@ -235,7 +269,7 @@ class AddRecipe extends React.Component {
                                                                 <label htmlFor="product_name">Product Name for {this.state.ingredient_name}</label>
                                                             </div>
                                                             <div className="input-field col s3">
-                                                                <input id="Product Url" name='product_url' type="text" className="validate" value={this.state.product_url}onChange={this.handleChange} />
+                                                                <input id="Product Url" name='product_url' type="text" className="validate" value={this.state.product_url} onChange={this.handleChange} />
                                                                 <label htmlFor="Product Url">Product Url for {this.state.product_name}</label>
                                                             </div>
                                                             
@@ -256,7 +290,7 @@ class AddRecipe extends React.Component {
                                                                     {
                                                                         this.state.I_type.map((e, i) => {
                                                                             return (
-                                                                                <option disabled={e === 'Select Measurement'} key={i} value={e}>{e}</option>
+                                                                                <option disabled selected={e === 'Select Measurement'} key={i} value={e}>{e}</option>
                                                                             )
                                                                         })
                                                                     }
