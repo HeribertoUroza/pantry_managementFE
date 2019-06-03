@@ -114,7 +114,10 @@ class AddRecipe extends React.Component {
                     }
                 })
                 .then(()=> {
-                    //this.props.history.push('/dashboard') to be set later 
+                    this.setState({
+                        recipe_name: ''
+                    })
+                     this.props.click()
                 })
                 .catch(err => {
                     console.log(err.toString())
