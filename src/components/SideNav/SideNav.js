@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import M from 'materialize-css';
-
+import firebase from '../../firebase';
 
 
 import headImage from '../../assets/Photos/bread-close-up-colors-1667427.jpg';
@@ -84,12 +84,15 @@ class SideNavBar extends React.Component {
 
     componentDidMount() {
         M.AutoInit();
-        readPantry()
-        .then((response)=>{
-             this.setState({pantry: response.data.data })
-
+        
+        readPantry(this.state.user_id)
+            .then((response) => {
+            console.log("pantry", response.data.data)
+            this.setState({ pantry: response.data.data })
         })
-
+        .catch(err => {
+            console.log(err.toString())
+        })
     }
 
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import axios from 'axios'
-
+import firebase from '../../firebase';
+import axios from 'axios';
+import { createRecipe, createProduct, createIngredient } from '../../services/main'
 
 //CONTEXT
 import AuthContext from '../../context/auth';
@@ -14,6 +15,10 @@ import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
 
 //MATERIALIZE
 import M from 'materialize-css'
+
+//SERVICES
+import { readUser,} from '../../services/main';
+import { async } from '@firebase/util';
 
 class AddRecipe extends React.Component {
     constructor(props) {
@@ -50,16 +55,31 @@ class AddRecipe extends React.Component {
         M.AutoInit();
         
         const userEmail = await this.context.email
-        console.log(userEmail)
-        axios.get(`http://localhost:11235/user/email/heribertouroza@pursuit.org`)
-            .then(res => {
+        
+        this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+            firebase.auth().currentUser.getIdToken(false)
+                .then((token) => {
+                    console.log('token', token)
+                    this.setState({ token: token })
+                })
+                .then(() => {
+                    readUser(this.state.token, userEmail)
+                        .then((response) => {
                 this.setState({
-                    current_userID: res.data.data.user_id
+                     current_userID: response.data.data.user_id
                 })
             })
+                })
             .catch(err => {
                 console.log(err.toString())
             })
+
+        })
+
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     handleChange = (e) => {
@@ -71,52 +91,34 @@ class AddRecipe extends React.Component {
         e.preventDefault();
         const { recipe_name, health_tag, current_userID, recipe_desc } = this.state
         
-        axios.post(`http://localhost:11235/recipe/`, {
-            recipe_name: recipe_name,
-            health_tags: health_tag,
-            recipe_owner: current_userID,
-            recipe_notes: recipe_desc
-
+        this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+            firebase.auth().currentUser.getIdToken(false)
+                .then((token) => {
+                    this.setState({ token: token })
         })
-        .then(res => {
+                .then(() => {
+                    return createRecipe(this.state.token, recipe_name, health_tag, current_userID, recipe_desc  )
+                })
+                .then((res) => {
             this.setState({
                 current_recipeID: res.data.data.recipe_id
             })
+                    return res.data.data
         })
-        .then( _=> {
-            const { new_ingredients, current_userID } = this.state
-            new_ingredients.map( (e,i) => {
-                return axios.post(`http://localhost:11235/product/`, {
-                    product_name: e.product_name,
-                    product_url: e.product_url,
-                    product_owner: current_userID,
-                    product_image: e.product_image,
-                    product_original_weight: e.product_original_weight,
-                    product_original_weight_type: e.product_original_weight_type,
-                    product_price: e.product_price
+                .then( async(recipe_id) => {
+                    const { new_ingredients, } = this.state
+                    for(let Ingredient of new_ingredients){
+                        const postProduct = await createProduct(this.state.token, Ingredient.product_name, Ingredient.product_url, current_userID, Ingredient.product_image, Ingredient.product_original_weight, Ingredient.product_original_weight_type, Ingredient.product_price)
 
+                        const postIngredient = await createIngredient(this.state.token, Ingredient.ingredient_name, this.state.current_recipeID, postProduct.data.data.product_id.product_id, Ingredient.ingredient_weight, Ingredient.ingredient_type)
+                    }
                 })
-                .then(res => {
-                    const { current_recipeID } = this.state
-                    
-                    return axios.post(`http://localhost:11235/ingredient/`, {
-                        ingredient_name: e.ingredient_name,
-                        recipe_id: current_recipeID,
-                        product_id: res.data.data.product_id,
-                        ingredient_weight: e.ingredient_weight,
-                        ingredient_weight_type: e.ingredient_type
-                    })
+                .then(()=> {
+                    //this.props.history.push('/dashboard') to be set later 
                 })
                 .catch(err => {
                     console.log(err.toString())
                 })
-            })
-        })
-        .then(res => {
-            this.props.history.push('/recipe') //to be routed to all recipes
-        })
-        .catch(err => {
-            console.log(err.toString())
         })
         
     }
@@ -159,7 +161,6 @@ class AddRecipe extends React.Component {
 
     render() {
         const { error } = this.state;
-        console.log(this.state)
         return (
             <AuthContext.Consumer>
                 {

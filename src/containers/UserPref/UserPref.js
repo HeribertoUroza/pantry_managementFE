@@ -119,14 +119,24 @@ class UserPreference extends React.Component {
                 foodLimitations,
                 firebase_uid,
                 phone_number } = this.state;
+            
+            this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+                firebase.auth().currentUser.getIdToken(false)
+                    .then((token) => {
+                        this.setState({ token: token })
+                    })
+                    .then(() => {
+                        postUser(this.state.token, name, username, email, dob, phone_number, dietaryPref, foodLimitations, foodAllergies, firebase_uid)
+                            .then((res) => {
+                                this.props.history.push('/dashboard')
+                            })
+                            .catch((error) => {
+                                console.log(error.toString())
+                            })
+                    })
 
-            postUser(name, username, email, dob, phone_number, dietaryPref, foodLimitations, foodAllergies, firebase_uid)
-                .then((res) => {
-                    this.props.history.push('/dashboard')
-                })
-                .catch((error) => {
-                    console.log(error.toString())
-                })
+            })
+            
         })
     }
 

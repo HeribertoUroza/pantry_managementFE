@@ -13,6 +13,7 @@ import logoDot from '../../assets/Branding/PossiblePantryLogoDotWhite.png';
 import logoName from '../../assets/Branding/PossiblePantryLogoNameWhite.png';
 
 import SideNav from '../SideNav/SideNav'
+import { readUser } from '../../services/main';
 
 
 
@@ -47,18 +48,28 @@ class Header extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-            /*readUser(user.email)
-                .then((response) => {
-                    const rootObj = response.data.data
-                    this.setState({
-                        name: rootObj.nameofuser,
-                        username: rootObj.username,
-                    })
-                })*/
-        })
-    }
+    // componentDidMount() {
+    //     this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    //         firebase.auth().currentUser.getIdToken(false)
+    //             .then( (token) => {
+    //                 this.setState({ token: token})
+    //             })
+    //             .then( () => {
+    //                 readUser(this.state.token, 'joserodriguez@pursuit.org')
+    //                     .then(res => {
+    //                         console.log('ressss',res)
+    //                         const rootObj = res.data.data
+    //                         this.setState({
+    //                             name: rootObj.nameofuser,
+    //                             username: rootObj.username,
+    //                         })
+    //                     })
+    //             })
+    //             .catch(err => {
+    //                 console.log(err.toString())
+    //             })
+    //     })
+    // }
 
     render() {
         console.log("Id", this.props.id)
@@ -72,7 +83,7 @@ class Header extends React.Component {
                 </div>
                 <div className="col-1 mx-auto my-auto">
                     <div className="row">
-                        <SideNav options={{ edge: 'right', closeOnClick: true }} recipeDB={this.props.recipes} userName={this.props.userName} email={this.props.email} id={this.props.id} recipeDB={this.props.click} addRecipe={this.props.clickAddR} back={this.props.clickDash} id={this.props.id}/>
+                        <SideNav options={{ edge: 'right', closeOnClick: true }} recipeDB={this.props.recipes} userName={this.props.userName} email={this.props.email} id={this.props.id} recipeDB={this.props.click} addRecipe={this.props.clickAddR} back={this.props.clickDash} />
                     </div>
                 </div>
         
