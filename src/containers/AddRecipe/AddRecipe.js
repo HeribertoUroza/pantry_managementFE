@@ -164,7 +164,6 @@ class AddRecipe extends React.Component {
 
     render() {
         const { error } = this.state;
-        console.log('props',this.props)
         return (
             <AuthContext.Consumer>
                 {
