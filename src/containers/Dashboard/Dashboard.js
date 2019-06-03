@@ -124,7 +124,6 @@ class Dashboard extends React.Component {
     componentDidMount = () => {
 
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-            // this.getFirebaseIdToken()
             firebase.auth().currentUser.getIdToken(false)
                 .then((token) => {
                     this.setState({ token: token })
@@ -132,7 +131,6 @@ class Dashboard extends React.Component {
                 .then(() => {
                     readUser(this.state.token, user.email)
                         .then((response) => {
-                            console.log("Boo", response.data.data)
                             const rootObj = response.data.data
                             this.setState({
                                 diet_preference: rootObj.diet_preference,
