@@ -28,18 +28,18 @@ class RecipesSearch extends React.Component {
             current_week: '',
             weekday_id: 1,
             weekdays: [
-                { weekday_name: 'Monday', weekday_id: 1, date: 'June 1, 2019', scheduled: false, recipe: {} },
-                { weekday_name: 'Tuesday', weekday_id: 2, date: 'June 1, 2019', scheduled: false, recipe: {} },
-                { weekday_name: 'Wednesday', weekday_id: 3, date: 'June 1, 2019', scheduled: false, recipe: {} },
-                { weekday_name: 'Thursday', weekday_id: 4, date: 'June 1, 2019', scheduled: false, recipe: {} },
-                { weekday_name: 'Friday', weekday_id: 5, date: 'June 1, 2019', scheduled: false, recipe: {} }
+                { weekday_name: 'Monday', weekday_id: 1, scheduled: false, recipe: {ingredients:[]} },
+                { weekday_name: 'Tuesday', weekday_id: 2, scheduled: false, recipe: {ingredients:[]} },
+                { weekday_name: 'Wednesday', weekday_id: 3, scheduled: false, recipe: {ingredients:[]} },
+                { weekday_name: 'Thursday', weekday_id: 4, scheduled: false, recipe: {ingredients:[]} },
+                { weekday_name: 'Friday', weekday_id: 5, scheduled: false, recipe: {ingredients:[]} }
             ],
             inputValue: "",
-            error: '',
             showAlert: false,
             alertMessage: '',
             token: '',
-            startDate: new Date()
+            startDate: new Date(),
+            selectedIngredients: []
         }
     }
 
@@ -58,7 +58,7 @@ class RecipesSearch extends React.Component {
                         .then((token) => {
                             this.getAllUserRecipes(token)
                         })
-                        .then(()=>{
+                        .then(() => {
                             this.getNextWeekDates()
                         })
                         .catch((error) => {
@@ -108,9 +108,33 @@ class RecipesSearch extends React.Component {
         if (this.state.weekday_id > 5) {
             this.setState({ weekday_id: 1, inputValue: "", queryResults: [], showAlert: true, alertMessage: 'You have a full week scheduled! Save your selections!' })
         } else {
-            newWeekdays[weekday].recipe = recipe;
-            this.setState({ weekdays: newWeekdays, weekday_id: weekday + 2 })
+            this.getIngredientsByRecipeID(recipe.recipe_id)
+                .then((ingredients) => {
+                    newWeekdays[weekday].recipe = recipe;
+                    return ingredients
+
+                })
+                .then((ingredients) => {
+                    console.log(ingredients)
+                    newWeekdays[weekday].recipe.ingredients = ingredients;
+                    this.setState({ weekdays: newWeekdays, weekday_id: weekday + 2, selectedIngredients: ingredients })
+                })
         }
+    }
+
+    getIngredientsByRecipeID = (recipeID) => {
+        return axios({
+            method: 'get',
+            url: `http://localhost:11235/ingredient/recipe/${recipeID}`
+        })
+            .then((response) => {
+                const data = response.data.data;
+                this.setState({ selectedIngredients: data });
+                return data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     saveMealSchedule = () => {
@@ -128,11 +152,11 @@ class RecipesSearch extends React.Component {
                     method: 'post',
                     url: 'http://localhost:11235/mealSchedule/',
                     headers: { 'token': this.state.token },
-                    data:  requestBody 
+                    data: requestBody
                 })
                     .then((res) => {
                         console.log(res)
-                        this.setState({ alertMessage: 'You have succesfully scheduled your meals!', showAlert: true, inputValue:"" })
+                        this.setState({ alertMessage: 'You have succesfully scheduled your meals!', showAlert: true, inputValue: "" })
                     })
             }
         }
@@ -161,10 +185,10 @@ class RecipesSearch extends React.Component {
                                 <>
                                     <div className='container fluid' style={{ marginTop: "40px" }}>
                                         <div><h1 style={{ fontWeight: "bold", fontSize: "30px" }}>Plan your meals for the new week!</h1>
-                                        <Dates></Dates>
+                                            <Dates></Dates>
                                         </div>
                                         <div className='row'>
-                                            <Weekdays weekdays={weekdays}/>
+                                            <Weekdays weekdays={weekdays} />
                                         </div>
                                         <div className='container'>
                                             <WeekdayDisplay weekday_id={weekday_id} />

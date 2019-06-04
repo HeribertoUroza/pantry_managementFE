@@ -19,7 +19,7 @@ const SearchResults = (props) => {
                             <strong>{recipe.recipe_name}</strong>
                             <br />
                             {recipe.recipe_notes}
-                            <a class="btn-floating btn-small" style={{float:"right"}} onClick={e => {props.onClick(recipe)}}><i class="material-icons">add</i></a>
+                            <a class="btn-floating btn-small hoverable" style={{float:"right"}} onClick={e => {props.onClick(recipe)}}><i class="material-icons">add</i></a>
                             {
                                 recipe.health_tags === "None" ? null :
                                     recipe.health_tags.map((e, i) => {

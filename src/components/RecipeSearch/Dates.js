@@ -6,14 +6,11 @@ export default class MyComponent extends React.Component {
     render() {
         const date = new Date();
         const day = date.getDay();
-        const weekday_id = this.props.weekday_id;
-        console.log('weeee', weekday_id)
         let daysToAdd = 0;
         let daysToEnd = 4;
         if (day === 0) { //sunday
             daysToAdd = 1;
             daysToEnd = 5;
-            console.log(day)
         }
         if (day === 2) {//Tuesday
             daysToAdd = 6;
@@ -42,23 +39,23 @@ export default class MyComponent extends React.Component {
                     <div className='row'>
                         <div className="col s12 m7">
                             <h5 style={{ fontWeight: "bold" }}>Start of the week:</h5>
-                            <Moment format="dddd MMMM DD, YYYY" add={{ days: daysToAdd }}>{date}</Moment>
+                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd }}>{date}</Moment>
                         </div>
                         <div className="col s12 m7 hide-on-med-and-down center-align">
                         <h1 style={{color:"white"}}>. </h1>
-                            <Moment format="dddd MMMM DD, YYYY" add={{ days: daysToAdd + 1 }}>{date}</Moment>
+                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd + 1 }}>{date}</Moment>
                         </div>
                         <div className="col s12 m7 hide-on-med-and-down center-align"> 
                         <h1 style={{color:"white"}}>. </h1>                          
-                            <Moment format="dddd MMMM DD, YYYY" add={{ days: daysToAdd + 2 }}>{date}</Moment>
+                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd + 2 }}>{date}</Moment>
                         </div>
                         <div className="col s12 m7 hide-on-med-and-down center-align">
                             <h1 style={{color:"white"}}>. </h1>
-                            <Moment format="dddd MMMM DD, YYYY" add={{ days: daysToAdd + 3 }}>{date}</Moment>
+                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd + 3 }}>{date}</Moment>
                         </div>
                         <div className="col s12 m7 right-align">
                             <h5 style={{ fontWeight: "bold" }}>End of the week:</h5>
-                            <Moment format="dddd MMMM DD, YYYY" add={{ days: daysToEnd }}>{date}</Moment>
+                            <Moment format="MMMM DD, YYYY" add={{ days: daysToEnd }}>{date}</Moment>
                         </div>
                     </div>
                 </div>
