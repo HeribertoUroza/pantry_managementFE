@@ -39,27 +39,28 @@ export default class MyComponent extends React.Component {
                     <div className='row'>
                         <div className="col s12 m7">
                             <h5 style={{ fontWeight: "bold" }}>Start of the week:</h5>
-                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd }}>{date}</Moment>
+                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd }} id="day1">{date}</Moment>
                         </div>
                         <div className="col s12 m7 hide-on-med-and-down center-align">
-                        <h1 style={{color:"white"}}>. </h1>
-                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd + 1 }}>{date}</Moment>
-                        </div>
-                        <div className="col s12 m7 hide-on-med-and-down center-align"> 
-                        <h1 style={{color:"white"}}>. </h1>                          
-                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd + 2 }}>{date}</Moment>
+                            <h1 style={{ color: "white" }}>. </h1>
+                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd + 1 }} id="day2">{date}</Moment>
                         </div>
                         <div className="col s12 m7 hide-on-med-and-down center-align">
-                            <h1 style={{color:"white"}}>. </h1>
-                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd + 3 }}>{date}</Moment>
+                            <h1 style={{ color: "white" }}>. </h1>
+                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd + 2 }} id="day3">{date}</Moment>
+                        </div>
+                        <div className="col s12 m7 hide-on-med-and-down center-align">
+                            <h1 style={{ color: "white" }}>. </h1>
+                            <Moment format="MMMM DD, YYYY" add={{ days: daysToAdd + 3 }} id="day4">{date}</Moment>
                         </div>
                         <div className="col s12 m7 right-align">
                             <h5 style={{ fontWeight: "bold" }}>End of the week:</h5>
-                            <Moment format="MMMM DD, YYYY" add={{ days: daysToEnd }}>{date}</Moment>
+                            <Moment format="MMMM DD, YYYY" add={{ days: daysToEnd }} id="day5">{date}</Moment>
                         </div>
                     </div>
                 </div>
             </>
 
-        )}
+        )
+    }
 }

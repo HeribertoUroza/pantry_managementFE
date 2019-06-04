@@ -4,8 +4,6 @@ import { IngredientsList } from './IngredientsList';
 const DayCard = (props) => {
     const { day, } = props;
     const  ingredients = day.recipe.ingredients;
-    console.log("ingredients******",ingredients)
-    console.log("ingredients******",day.recipe.ingredients)
 
     return <>
         <div className="row">

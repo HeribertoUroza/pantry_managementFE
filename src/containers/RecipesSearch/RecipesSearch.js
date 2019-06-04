@@ -141,11 +141,12 @@ class RecipesSearch extends React.Component {
         const weekdays = this.state.weekdays;
         for (let i = 0; i < weekdays.length; i++) {
             if (weekdays[i].recipe.recipe_name) {
+                const dayDate = document.getElementById(`day${weekdays[i].weekday_id}`).innerText;
                 const requestBody = {
                     user_id: 1,
                     recipe_id: weekdays[i].recipe.recipe_id,
                     day_id: weekdays[i].weekday_id,
-                    date: '06/02/2019',
+                    date: dayDate,
                     cooked: false,
                 };
                 axios({

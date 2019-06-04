@@ -10,7 +10,7 @@ const IngredientsList = (props) => {
     }
 
     return IngredientsList.map((ingredient, index) => {
-        return <li style={{listStyleType: "circle"}}><span key={index}>{ingredient.ingredient_name}  {ingredient.ingredient_weight} {ingredient.ingredient_weight_type}</span></li>
+        return <li style={{listStyleType: "circle"}} key={index}><span>{ingredient.ingredient_name}  {ingredient.ingredient_weight} {ingredient.ingredient_weight_type}</span></li>
     })
 }
 

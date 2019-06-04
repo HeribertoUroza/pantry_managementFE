@@ -29,7 +29,6 @@ const SearchResults = (props) => {
                                     })
                             }
                         </p>
-                        {/* <a class="waves-effect waves-light btn-small" onClick={e => {props.onClick(recipe)}}>Add</a> */}
                     </Content>
                 </Media.Content>
             </Media>
