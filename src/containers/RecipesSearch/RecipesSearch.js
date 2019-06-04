@@ -28,18 +28,19 @@ class RecipesSearch extends React.Component {
             current_week: '',
             weekday_id: 1,
             weekdays: [
-                { weekday_name: 'Monday', weekday_id: 1, recipe: {ingredients:[]} },
-                { weekday_name: 'Tuesday', weekday_id: 2, recipe: {ingredients:[]} },
-                { weekday_name: 'Wednesday', weekday_id: 3, recipe: {ingredients:[]} },
-                { weekday_name: 'Thursday', weekday_id: 4, recipe: {ingredients:[]} },
-                { weekday_name: 'Friday', weekday_id: 5, recipe: {ingredients:[]} }
+                { weekday_name: 'Monday', weekday_id: 1, recipe: { ingredients: [] } },
+                { weekday_name: 'Tuesday', weekday_id: 2, recipe: { ingredients: [] } },
+                { weekday_name: 'Wednesday', weekday_id: 3, recipe: { ingredients: [] } },
+                { weekday_name: 'Thursday', weekday_id: 4, recipe: { ingredients: [] } },
+                { weekday_name: 'Friday', weekday_id: 5, recipe: { ingredients: [] } }
             ],
             inputValue: "",
             showAlert: false,
             alertMessage: '',
             token: '',
             startDate: new Date(),
-            selectedIngredients: []
+            selectedIngredients: [],
+            saveAlert: false,
         }
     }
 
@@ -106,7 +107,7 @@ class RecipesSearch extends React.Component {
         const weekdays = this.state.weekdays;
         const newWeekdays = weekdays;
         if (this.state.weekday_id > 5) {
-            this.setState({ weekday_id: 1, inputValue: "", queryResults: [], showAlert: true, alertMessage: 'You have a full week scheduled! Save your selections!' })
+            this.setState({ weekday_id: 1, inputValue: "", queryResults: [], showAlert: true, alertMessage: 'You have a full week scheduled! Save your selections!', saveAlert: true })
         } else {
             this.getIngredientsByRecipeID(recipe.recipe_id)
                 .then((ingredients) => {
@@ -157,23 +158,14 @@ class RecipesSearch extends React.Component {
                 })
                     .then((res) => {
                         console.log(res)
-                        this.setState({ alertMessage: 'You have succesfully scheduled your meals!', showAlert: true, inputValue: "" })
+                        this.setState({ alertMessage: 'You have succesfully scheduled your meals!', showAlert: true, inputValue: "", saveAlert: false })
                     })
             }
         }
     }
 
-    getNextWeekDates = () => {
-        const today = new Date();
-        const dd = today.getDate;
-        const mm = today.getMonth;
-        const yyyy = today.getFullYear;
-        const weekday = today.getDay;
-        console.log(today);
-    }
-
     render() {
-        const { weekdays, queryResults, weekday_id, showAlert, alertMessage, inputValue } = this.state;
+        const { weekdays, queryResults, weekday_id, showAlert, alertMessage, inputValue, saveAlert } = this.state;
         const alert = <div className="alert alert-success" role="alert">
             {alertMessage}</div>
 
@@ -200,11 +192,12 @@ class RecipesSearch extends React.Component {
                                         <SearchForm onChange={this.handleOnChange} inputValue={inputValue} />
                                         <SearchResults queryResults={queryResults} onClick={this.addRecipeToWeek} />
                                     </div>
-                                    <div className="fixed-action-btn">
-                                        <a className="btn-floating btn-large red">
-                                            <i className="large material-icons" onClick={this.saveMealSchedule}>done</i>
-                                        </a>
-                                    </div>
+                                    <div className="fixed-action-btn">                                       
+                                            {
+                                                saveAlert === true ? <a class="btn-floating btn-large red pulse" onClick={this.saveMealSchedule}><i className="material-icons">done</i></a> :
+                                                <a className="btn-floating btn-large red"><i className="large material-icons" onClick={this.saveMealSchedule}>done</i> </a>
+                                            }                               
+                                        </div>
                                 </>
                             )
                         }
