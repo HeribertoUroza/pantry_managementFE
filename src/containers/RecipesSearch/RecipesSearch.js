@@ -28,11 +28,11 @@ class RecipesSearch extends React.Component {
             current_week: '',
             weekday_id: 1,
             weekdays: [
-                { weekday_name: 'Monday', weekday_id: 1, scheduled: false, recipe: {ingredients:[]} },
-                { weekday_name: 'Tuesday', weekday_id: 2, scheduled: false, recipe: {ingredients:[]} },
-                { weekday_name: 'Wednesday', weekday_id: 3, scheduled: false, recipe: {ingredients:[]} },
-                { weekday_name: 'Thursday', weekday_id: 4, scheduled: false, recipe: {ingredients:[]} },
-                { weekday_name: 'Friday', weekday_id: 5, scheduled: false, recipe: {ingredients:[]} }
+                { weekday_name: 'Monday', weekday_id: 1, recipe: {ingredients:[]} },
+                { weekday_name: 'Tuesday', weekday_id: 2, recipe: {ingredients:[]} },
+                { weekday_name: 'Wednesday', weekday_id: 3, recipe: {ingredients:[]} },
+                { weekday_name: 'Thursday', weekday_id: 4, recipe: {ingredients:[]} },
+                { weekday_name: 'Friday', weekday_id: 5, recipe: {ingredients:[]} }
             ],
             inputValue: "",
             showAlert: false,
