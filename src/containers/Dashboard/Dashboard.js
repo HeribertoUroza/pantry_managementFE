@@ -15,7 +15,7 @@ import './dashboard.css';
 import '../../components/Header/header.css';
 
 //SERVICES
-import { readUser, readMealSchedule,readPantry} from '../../services/main';
+import { readUser, readMealSchedule, readPantry } from '../../services/main';
 
 
 //COMPONENTS
@@ -25,6 +25,8 @@ import AddRecipe from '../AddRecipe/AddRecipe';
 import { readdir } from 'fs';
 import RecipesSearch from '../RecipesSearch/RecipesSearch';
 
+import Recipes from '../Recipes/Recipes';
+import Pantry from '../../components/Pantry/Pantry'
 
 /*const productTestRed = () => {
     let product = {
@@ -98,7 +100,8 @@ class Dashboard extends React.Component {
             userRecipeDB: true,
             addRecipe: false,
             pantry: [],
-
+            token: '',
+            shopping_list: [],
         }
     }
 
@@ -112,41 +115,40 @@ class Dashboard extends React.Component {
     }
 
     handleClickBack = () => {
-        this.setState({ addRecipe: false, 
-        userRecipeDB: false })
-    }
-
-
-
-    componentDidMount= () => {
-        
-        this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-            // this.getFirebaseIdToken()
-            firebase.auth().currentUser.getIdToken(false)
-            .then((token) => {
-                console.log('herherherhe')
-                this.setState({ token: token })
-            })
-            .then(() => {
-                readUser(this.state.token, user.email)
-                    .then((response) => {
-                        console.log('user', response.data.data)
-                        const rootObj = response.data.data
-                        this.setState({
-                            diet_preference: rootObj.diet_preference,
-                            food_allergies: rootObj.food_allergies,
-                            food_limitations: rootObj.food_limitations,
-                            name: rootObj.name,
-                            user_id: rootObj.user_id,
-                            username: rootObj.username,
-                        })
-                    })
-            })
-                
+        this.setState({
+            addRecipe: false,
+            userRecipeDB: false
         })
     }
-    
-    
+
+
+
+    componentDidMount = () => {
+
+        this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+            firebase.auth().currentUser.getIdToken(false)
+                .then((token) => {
+                    this.setState({ token: token })
+                })
+                .then(() => {
+                    readUser(this.state.token, user.email)
+                        .then((response) => {
+                            const rootObj = response.data.data
+                            this.setState({
+                                diet_preference: rootObj.diet_preference,
+                                food_allergies: rootObj.food_allergies,
+                                food_limitations: rootObj.food_limitations,
+                                name: rootObj.name,
+                                user_id: rootObj.user_id,
+                                username: rootObj.username,
+                            })
+                        })
+                })
+
+        })
+    }
+
+
 
     componentWillUnmount() {
         this.unsubscribe();
@@ -169,40 +171,63 @@ class Dashboard extends React.Component {
                     (user) => {
                         if (user) {
                             return (<div className="container-fluid">
-                                <Header recipes={this.state.recipes} userName={this.state.name} email={this.state.email} id={this.state.user_id} click={this.handleClickRecipeDB} clickAddR = {this.handleClickAddRecipe} clickDash={this.handleClickBack} pantry={this.state.pantry}/>
+                                <Header recipes={this.state.recipes} userName={this.state.name} email={this.state.email} id={this.state.user_id} click={this.handleClickRecipeDB} clickAddR={this.handleClickAddRecipe} clickDash={this.handleClickBack} pantry={this.state.pantry} />
                                 <div className="container-fluid">
                                     {
-                                        this.state.userRecipeDB ? <RecipesSearch click={this.handleClickRecipeDB} id={this.state.user_id}/>
-                                        : this.state.addRecipe ? <AddRecipe click={this.handleClickBack}/> 
-                                        :  
-                                        <>
-                                                <div className="row" style={{ marginBottom: "0px" }}>
-                                                    <div className="col-9">
-                                                        <div className="row" style={{
-                                                            backgroundColor: "#3bb78f",
-                                                            backgroundImage: "linear-gradient(315deg, #166D3B 0%, #000000 74%)", height: "35px",
-                                                        }}>
-                                                            <p className="m-auto" style={{ color: "white", fontSize: "22px" }} >Your Recipes For The Week Of...</p>
+                                        this.state.userRecipeDB ? <RecipesSearch click={this.handleClickBack} id={this.state.user_id} />
+                                            : this.state.addRecipe ? <AddRecipe click={this.handleClickBack} />
+                                                : <>
+                                                    <div className="row" style={{ marginBottom: "0px" }}>
+                                                        <div className="col-9">
+                                                            <div className="row" style={{
+                                                                backgroundColor: "#3bb78f",
+                                                                backgroundImage: "linear-gradient(315deg, #166D3B 0%, #000000 74%)", height: "35px",
+                                                            }}>
+                                                                <p className="m-auto" style={{ color: "white", fontSize: "22px" }} >Your Recipes For The Week Of...</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col">
+                                                            <div className="row align-middle ml-2" style={{
+                                                                width: "15", height: "35px", backgroundColor: "#06174c", backgroundImage: "linear-gradient(315deg, #000000 0%, #06174c 74%)",
+                                                                color: "white"
+                                                            }}>
+                                                                <Clock
+                                                                    style={{ fontSize: "20px", fontFamily: "Raleway", textAlign: "center", paddingLeft: "25px" }}
+                                                                    format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
+                                                                    ticking={true}
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col">
-                                                        <div className="row align-middle ml-2" style={{
-                                                            width: "15", height: "35px", backgroundColor: "#06174c", backgroundImage: "linear-gradient(315deg, #000000 0%, #06174c 74%)",
-                                                            color: "white"
-                                                        }}>
-                                                            <Clock
-                                                                style={{ fontSize: "20px", fontFamily: "Raleway", textAlign: "center", paddingLeft: "25px" }}
-                                                                format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
-                                                                ticking={true}
-                                                            />
+                                                    <div className="row">
+                                                        <WeekRecipe token={this.state.token} id={this.state.user_id} />
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-6">
+                                                            <div className="card">
+                                                                <div className="card-content">
+                                                                    <h5 className="pt-1 card-title">Shopping List</h5>
+                                                                    <a class="btn-floating halfway-fab waves-effect waves-light orange"><i class="material-icons">textsms</i></a>
+                                                                    <ul>
+                                                                        {
+                                                                            this.state.shopping_list.map((ele, i) => {
+                                                                                return <li style={{ fontSize: '.9rem' }} key={i}>{ele}</li>
+                                                                            })
+                                                                        }
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <div className="card">
+                                                                <div className="card-content">
+                                                                    <h5 className="pt-1 card-title">Your Pantry</h5>
+                                                                    <Pantry pantry={this.state.pantry} />
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className="row">
-                                                    <WeekRecipe />
-                                                </div>
-                                                <a class="waves-effect waves-light btn-large"><i class="material-icons left">textsms</i>Text Me My Groceries</a>
-                                            </>
+                                                </>
                                     }
                                 </div>
                             </div>
