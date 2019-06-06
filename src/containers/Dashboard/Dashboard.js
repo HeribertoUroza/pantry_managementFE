@@ -23,6 +23,8 @@ import Header from '../../components/Header/Header';
 import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
 import AddRecipe from '../AddRecipe/AddRecipe';
 import { readdir } from 'fs';
+import RecipesSearch from '../RecipesSearch/RecipesSearch';
+
 import Recipes from '../Recipes/Recipes';
 import Pantry from '../../components/Pantry/Pantry'
 
@@ -95,7 +97,7 @@ class Dashboard extends React.Component {
             dietaryPref: [],
             foodAllergies: [],
             date: new Date(),
-            userRecipeDB: false,
+            userRecipeDB: true,
             addRecipe: false,
             pantry: [],
             token: '',
@@ -194,7 +196,7 @@ class Dashboard extends React.Component {
                                 <Header recipes={this.state.recipes} userName={this.state.name} email={this.state.email} id={this.state.user_id} click={this.handleClickRecipeDB} clickAddR={this.handleClickAddRecipe} clickDash={this.handleClickBack} pantry={this.state.pantry} />
                                 <div className="container-fluid">
                                     {
-                                        this.state.userRecipeDB ? <Recipes click={this.handleClickBack} id={this.state.user_id} />
+                                        this.state.userRecipeDB ? <RecipesSearch click={this.handleClickBack} id={this.state.user_id} />
                                             : this.state.addRecipe ? <AddRecipe click={this.handleClickBack} />
                                                 : <>
                                                     <div className="row" style={{ marginBottom: "0px" }}>
