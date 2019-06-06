@@ -123,6 +123,15 @@ const createProduct = (token, product_name, product_url, current_userID, product
     })
 }
 
+//TEXT MESSAGES
+    //SEND
+const sendTextMessage = (user_id, phone_number) => {
+    return axios({
+        method: 'get',
+        url: `http://localhost:11235/sms/${user_id}/${phone_number}`,  
+    })
+}
+
 
 export {
     postUser,
@@ -133,5 +142,6 @@ export {
     readPantry,
     createRecipe,
     createProduct,
-    createIngredient
+    createIngredient,
+    sendTextMessage
 }
