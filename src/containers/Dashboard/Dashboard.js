@@ -22,6 +22,7 @@ import { readUser, readMealSchedule, readPantry, sendTextMessage } from '../../s
 import Header from '../../components/Header/Header';
 import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
 import AddRecipe from '../AddRecipe/AddRecipe';
+import RecipesSearch from '../RecipesSearch/RecipesSearch';
 import Recipes from '../Recipes/Recipes';
 import Pantry from '../../components/Pantry/Pantry'
 
@@ -40,7 +41,7 @@ class Dashboard extends React.Component {
             dietaryPref: [],
             foodAllergies: [],
             date: new Date(),
-            userRecipeDB: false,
+            userRecipeDB: true,
             addRecipe: false,
             pantry: [],
             token: '',
@@ -153,7 +154,7 @@ class Dashboard extends React.Component {
                                 </div>
                                 <div className="container-fluid" style={{backgroundColor: "black"}}>
                                     {
-                                        this.state.userRecipeDB ? <Recipes click={this.handleClickBack} id={this.state.user_id} />
+                                        this.state.userRecipeDB ? <RecipesSearch click={this.handleClickBack} id={this.state.user_id} />
                                             : this.state.addRecipe ? <AddRecipe click={this.handleClickBack} />
                                                 : <>
                                                     <div className="row my-0">
