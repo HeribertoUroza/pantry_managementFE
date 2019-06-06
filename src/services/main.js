@@ -139,9 +139,11 @@ const createIngredient = (token, ingredient_name, current_recipeID, product_id, 
 
 //PANTRY
 //READ
-const readPantry = (id) => {
+const readPantry = (token, id) => {
+    console.log("Lock")
     return axios({
         method: 'get',
+        headers: { 'token': token },
         url: `http://localhost:${port}/currentPantry/user/${id}`,
     });
 }

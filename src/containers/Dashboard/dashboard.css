@@ -3,3 +3,11 @@
     width: 100%;
     opacity: 1;
 }
+
+.jumbotronBackground {
+       background-image: url('../../assets/Photos/birme/table-2600954_1920.jpg');
+       width: 100%;
+       background-repeat: no-repeat;
+       background-size: cover;   
+       background-position: center;
+}

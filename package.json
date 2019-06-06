@@ -19,6 +19,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
     "reactbulma": "^3.0.4",
+    "reactstrap": "^8.0.0",
     "request": "^2.88.0"
   },
   "scripts": {
