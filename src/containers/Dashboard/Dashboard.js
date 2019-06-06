@@ -4,8 +4,8 @@ import firebase from '../../firebase';
 import Clock from 'react-live-clock';
 
 
-
-
+//MATERIALIZE
+import M from 'materialize-css'
 
 //CONTEXT
 import AuthContext from '../../context/auth';
@@ -15,7 +15,7 @@ import './dashboard.css';
 import '../../components/Header/header.css';
 
 //SERVICES
-import { readUser, readMealSchedule, readPantry } from '../../services/main';
+import { readUser, readMealSchedule, readPantry, sendTextMessage } from '../../services/main';
 
 
 //COMPONENTS
@@ -100,6 +100,8 @@ class Dashboard extends React.Component {
             pantry: [],
             token: '',
             shopping_list: [],
+            phone_number: '',
+            sms_alert: ''
         }
     }
 
@@ -139,6 +141,7 @@ class Dashboard extends React.Component {
                                 name: rootObj.name,
                                 user_id: rootObj.user_id,
                                 username: rootObj.username,
+                                phone_number: rootObj.phone_number
                             })
                         })
                 })
@@ -158,6 +161,25 @@ class Dashboard extends React.Component {
         }).catch((error) => {
             console.log(error.toString)
         });
+    }
+
+    handleText = e => {
+        e.preventDefault();
+        const { user_id, phone_number } = this.state
+
+        return sendTextMessage(user_id, phone_number)
+            .then( res => {
+                console.log(res.data.message)
+                this.setState({
+                    sms_alert: res.data.message
+                })
+            })
+            .then(() => {
+                M.toast({ html: this.state.sms_alert, classes: 'toast-rounded' });
+            })
+            .catch(err => {
+                console.log(err.toString())
+            })
     }
 
 
@@ -205,7 +227,7 @@ class Dashboard extends React.Component {
                                                             <div className="card">
                                                                 <div className="card-content">
                                                                     <h5 className="pt-1 card-title">Shopping List</h5>
-                                                                    <a class="btn-floating halfway-fab waves-effect waves-light orange"><i class="material-icons">textsms</i></a>
+                                                                    <a class="btn-floating halfway-fab waves-effect waves-light orange" onClick={this.handleText}><i class="material-icons">textsms</i></a>
                                                                     <ul>
                                                                         {
                                                                             this.state.shopping_list.map((ele, i) => {
