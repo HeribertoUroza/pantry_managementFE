@@ -49,7 +49,7 @@ class RecipesSearch extends React.Component {
         this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 // ..... DO YOUR LOGGED IN LOGIC
-                this.setState({ userEmail: user.email, userId: user.uid }, () => {
+                this.setState({ userEmail: user.email, userId: user.uid, user_id: this.props.id }, () => {
 
                     firebase.auth().currentUser.getIdToken(false)
                         .then((token) => {
@@ -73,7 +73,7 @@ class RecipesSearch extends React.Component {
     getAllUserRecipes = (token) => {
         return axios({
             method: 'get',
-            url: `http://localhost:11235/recipe/user/1`,
+            url: `http://localhost:11235/recipe/user/${this.props.id}`,
             headers: { 'token': token }
         })
             .then((response) => {
@@ -92,7 +92,7 @@ class RecipesSearch extends React.Component {
             this.setState({ queryResults: [], inputValue: "" });
         }
         else {
-            const results = this.state.recipes.filter(recipes => recipes.recipe_name.toLowerCase().includes(query) /*recipes.toLowerCase().includes(list)*/)
+            const results = this.state.recipes.filter(recipes => recipes.recipe_name.toLowerCase().includes(query))
             this.setState({ queryResults: results, inputValue: query });
         }
     }
@@ -116,7 +116,6 @@ class RecipesSearch extends React.Component {
 
                 })
                 .then((ingredients) => {
-                    console.log(ingredients)
                     newWeekdays[weekday].recipe.ingredients = ingredients;
                     this.setState({ weekdays: newWeekdays, weekday_id: weekday + 2, selectedIngredients: ingredients })
                 })
@@ -144,11 +143,12 @@ class RecipesSearch extends React.Component {
             if (weekdays[i].recipe.recipe_name) {
                 const dayDate = document.getElementById(`day${weekdays[i].weekday_id}`).innerText;
                 const requestBody = {
-                    user_id: 1,
+                    user_id: this.state.user_id,
                     recipe_id: weekdays[i].recipe.recipe_id,
                     day_id: weekdays[i].weekday_id,
                     date: dayDate,
                     cooked: false,
+                    current_week: false,
                 };
                 axios({
                     method: 'post',
@@ -201,7 +201,6 @@ class RecipesSearch extends React.Component {
                                 </>
                             )
                         }
-
                     }
                 }
             </AuthContext.Consumer>
