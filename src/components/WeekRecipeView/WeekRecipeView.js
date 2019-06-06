@@ -2923,13 +2923,14 @@ class WeekRecipeView extends React.Component {
       >
         <div class="card-image">
           <img src={item.recipe.image} className="materialboxed" style={{backgroundColor: "black", height: "200px"}}/>
-          <a class="btn-floating halfway-fab waves-effect waves-light gold"><i class="material-icons">add</i></a>
+          <a class="btn-floating halfway-fab waves-effect waves-light gold" style={{border: '1px solid navy'}}><i class="material-icons">add</i></a>
         </div>
         <div class="card-content">
-        <h5 class="card-title" style={{color: "black"}}>{item.recipe.label}</h5>
         {
-          index  === 0 ? <p>Monday</p> : index === 1 ? <p>Tuesday</p> : index === 2 ? <p>Wednesday</p> : index === 3 ? <p>Thursday</p> : index === 4 ? <p>Friday</p> : null
+          index  === 0 ? <p style={{color: '#06174c'}}>Monday</p> : index === 1 ? <p style={{color: '#06174c'}}>Tuesday</p> : index === 2 ? <p style={{color: '#06174c'}}>Wednesday</p> : index === 3 ? <p style={{color: '#06174c'}}>Thursday</p> : index === 4 ? <p style={{color: '#06174c'}}>Friday</p> : null
         }
+        <h5 class="card-title" style={{color: "black"}}>{item.recipe.label}</h5>
+        
         {
         /*<h6 className="pt-1">Ingredients</h6>*/
         }
