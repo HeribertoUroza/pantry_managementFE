@@ -52,7 +52,7 @@ class ShoppingList extends React.Component {
                     !list ? 
                     <>
                         <div className='container'>
-                            <div className='col-12 text-center'>
+                            <div className='col-4 my-5 py-5 text-center'>
                                 <Spinner color="dark" />
                             </div>
                         </div>
