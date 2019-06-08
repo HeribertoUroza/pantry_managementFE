@@ -3,8 +3,6 @@ import {Link,} from 'react-router-dom';
 import {withRouter,} from 'react-router';
 import {Spinner,} from 'reactstrap';
 
-//CSS
-
 //SERVICES
 import {getUpcomingMealsIngList,} from '../../services/main';
 
@@ -48,7 +46,7 @@ class ShoppingList extends React.Component {
     };
 
     render() {
-        const {list,} = this.state
+        const {list,} = this.state;
         return (
             <>
                 {
