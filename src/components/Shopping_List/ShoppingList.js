@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link,} from 'react-router-dom';
 import {withRouter,} from 'react-router';
 import {Spinner,} from 'reactstrap';
 
@@ -80,4 +79,3 @@ class ShoppingList extends React.Component {
 
 
 export default withRouter(ShoppingList);
-
