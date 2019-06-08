@@ -72,20 +72,21 @@ class Header extends React.Component {
     // }
 
     render() {
-        console.log("Id", this.props.id)
         const date = new Date()
         return (<>
-            <div className='row mx-auto py-3 mt-3 headerContainer' style={{ borderBottom: "solid 1px lightgray" }}>
-                <span className="col-1" onClick={this.handleClickLogo}><img src={logoDot} alt="logo" /></span>
-                <span className="col-1 align-middle" onClick={this.handleClickLogo}><img src={logoName} alt="logo" style={{ marginTop: "25px" }} /></span>
-                <div className="col-9 my-auto text-center">
+            <div className='row mx-auto py-3 mb-0 headerContainer' style={{ borderBottom: "solid 1px lightgray" }}>
+               <span className="col-1"></span>
+                <span className="col-1 mx-auto" onClick={this.handleClickLogo}><img src={logoDot} alt="logo" /></span>
+                <span className="col-1" onClick={this.handleClickLogo}><img src={logoName} alt="logo" style={{ marginTop: "25px" }} /></span>
+                <div className="col-7 my-auto text-center">
 
                 </div>
                 <div className="col-1 mx-auto my-auto">
                     <div className="row">
-                        <SideNav options={{ edge: 'right', closeOnClick: true }} recipeDB={this.props.recipes} userName={this.props.userName} email={this.props.email} id={this.props.id} recipeDB={this.props.click} addRecipe={this.props.clickAddR} back={this.props.clickDash} />
+                        <SideNav options={{ edge: 'right', closeOnClick: true }} recipeDB={this.props.recipes} userName={this.props.userName} email={this.props.email} id={this.props.id} recipeDB={this.props.click} addRecipe={this.props.clickAddR} back={this.props.clickDash} token={this.props.token} />
                     </div>
                 </div>
+                <div className="col-1"></div>
         
             </div>
         </>

@@ -1,6 +1,48 @@
 import axios from 'axios';
 
+import cheerio from 'cheerio'
+const request = require('request')
+
+
 const port = 11235;
+
+
+//WEBSCRAPING
+
+const scrape = (url) =>{
+    request(url, (error, response, html) => {
+        if (!error && response.statusCode === 200) {
+            const obj = {}
+            const rawHtml = cheerio.load(html)
+            rawHtml('.main-section').map((el, i) => {
+                const name = rawHtml(i).find('.product-title-name').text().split(',')[0]
+                const image = rawHtml(i).find('img').attr().src
+                const price = rawHtml(i).find('.price-display').text()
+                obj.name = name
+                obj.image = image
+                obj.price = price
+                return obj
+
+            })
+            rawHtml('#desktopspecificationtabcontent').map((el, i) => {
+                const root = rawHtml(i).find('.specs-table-heading').next().text().split('H')
+                const weight = root[root.length - 1]
+                obj.weight = weight
+                return obj
+            })
+            return ({
+                'data': obj
+            })
+        } else {
+            return ({
+                'msg': "Request failed, please enter product information manually",
+                'error': error.toString(),
+            })
+        }
+
+    })
+}
+
 
 //USERS
     //READ
@@ -38,10 +80,10 @@ const port = 11235;
         return axios({
             method: 'get',
             headers: { 'token': token },
-            url: `http://localhost:${port}/mealSchedule/user/${user_id}
-            `,
-        });
-    };
+            url: `http://localhost:${port}/mealSchedule/currentTrue/${user_id}`
+            ,
+    });
+};
 
 //INGREDIENT
     //READ
@@ -53,8 +95,18 @@ const port = 11235;
         });
     };
 
+    //READ SHOPPING LIST
+    const readShoppingList = (token,user_id) => {
+        return axios({
+            method: 'get',
+            headers: {'token': token},
+            url: `http://localhost:${port}/user/upcomingIngList/${user_id}
+            `
+        })
+    }
+
     //CREATE
-const createIngredient = (token, ingredient_name, current_recipeID, product_id, ingredient_weight, ingredient_type) => {
+    const createIngredient = (token, ingredient_name, current_recipeID, product_id, ingredient_weight, ingredient_type) => {
     return axios({
         method: 'post',
         headers: { 'token': token },
@@ -70,6 +122,7 @@ const createIngredient = (token, ingredient_name, current_recipeID, product_id, 
 }
 
 
+
 //RECIPES
     //READ 
     const readRecipes = (token, user_id) => {
@@ -79,6 +132,15 @@ const createIngredient = (token, ingredient_name, current_recipeID, product_id, 
             url: `http://localhost:${port}/recipe/user/${user_id}`,
         });
     };
+
+        //READ BY ID
+        const readRecipeById = (token, recipe_id) => {
+            return axios({
+                method: 'get',
+                headers: { 'token': token },
+                url: `http://localhost:${port}/recipe/${recipe_id}`,
+            });
+        };
 
     //CREATE
     const createRecipe = (token, recipe_name, health_tag, current_userID, recipe_desc) => {
@@ -96,17 +158,18 @@ const createIngredient = (token, ingredient_name, current_recipeID, product_id, 
     }
 
 //PANTRY
-    //READ
-        const readPantry = (id) =>{
-            return axios({
-                method: 'get',
-                url: `http://localhost:${port}/currentPantry/user/${id}`,
-            });
-        }
+//READ
+const readPantry = (token, id) => {
+    return axios({
+        method: 'get',
+        headers: { 'token': token },
+        url: `http://localhost:${port}/currentPantry/user/${id}`,
+    });
+}
 
 //PRODUCT
     //CREATE
-const createProduct = (token, product_name, product_url, current_userID, product_image, product_original_weight, product_original_weight_type, product_price) => {
+    const createProduct = (token, product_name, product_url, current_userID, product_image, product_original_weight, product_original_weight_type, product_price) => {
     return axios({
         method: 'post',
         headers: { 'token': token },
@@ -125,7 +188,7 @@ const createProduct = (token, product_name, product_url, current_userID, product
 
 //TEXT MESSAGES
     //SEND
-const sendTextMessage = (user_id, phone_number) => {
+    const sendTextMessage = (user_id, phone_number) => {
     return axios({
         method: 'get',
         url: `http://localhost:11235/sms/${user_id}/${phone_number}`,  
@@ -143,5 +206,8 @@ export {
     createRecipe,
     createProduct,
     createIngredient,
-    sendTextMessage
+    scrape,
+    sendTextMessage,
+    readShoppingList,
+    readRecipeById
 }

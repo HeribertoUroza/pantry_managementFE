@@ -1,53 +1,80 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import {Spinner} from 'reactstrap';
+
 
 
 //CSS
 import './pantry.css'
 
 //SERVICES
-//import { postUser, postUserPrefTopics, postUserPrefTV } from '../services/main';
+import { readPantry } from '../../services/main';
 
+let redPercentage = []; //<=20%
+let orangePercentage = []; //<=40%
+let yellowPercentage = []; //<=60%
+let bluePercentage = []; //<=80%
+let greenPercentage = []; //<=100%
 
+class Pantry extends React.Component {
 
-export default (props) => {
-    let redPercentage = []; //<=20%
-    let orangePercentage = []; //<=40%
-    let yellowPercentage = []; //<=60%
-    let bluePercentage = []; //<=80%
-    let greenPercentage = []; //<=100%
+    constructor(props) {
+        super(props)
 
-    props.pantry.sort().map((e, i) => {
-        e.percentage = e.weight_left/e.product_gram_weight
-        if (e.percentage <= 0.20) {
-            redPercentage.push(e)
-            return redPercentage
+        this.state = {
+            pantry: []
         }
-        else if (e.percentage <= 0.40 && e.percentage > 0.20) {
-            e.percentage = e.weight_left/e.product_gram_weight
-            orangePercentage.push(e)
-            return orangePercentage
-        }
-        else if (e.percentage <= 0.60 && e.percentage > 0.40) {
-            e.percentage = e.weight_left/e.product_gram_weight
-            yellowPercentage.push(e)
-            return yellowPercentage
-        }
-        else if (e.percentage <= 0.80 && e.percentage > 0.60) {
-            e.percentage = e.weight_left/e.product_gram_weight
-            bluePercentage.push(e)
-            return bluePercentage
-        }
-        else {
-            e.percentage = e.weight_left/e.product_gram_weight
-            greenPercentage.push(e)
-            return greenPercentage
-        }
-    })
+    }
 
+    componentDidMount() {
+        setTimeout(() => {
+            readPantry(this.props.token, this.props.id)
+                .then((response) => {
+                    console.log('STAR')
+                this.setState({ pantry: response.data.data })
+            })
+            .then(() => {
+                console.log("type", this.state.pantry)
+                if(this.state.pantry !== undefined){
+                    console.log('BAGS', this.state.pantry)
+                this.state.pantry.sort().map((e,i)=>{
+                    e.percentage = e.weight_left/e.product_gram_weight
+                    if (e.percentage <= 0.20) {
+                        redPercentage.push(e)
+                        return redPercentage
+                    }
+                    else if (e.percentage <= 0.40 && e.percentage > 0.20) {
+                        e.percentage = e.weight_left/e.product_gram_weight
+                        orangePercentage.push(e)
+                        return orangePercentage
+                    }
+                    else if (e.percentage <= 0.60 && e.percentage > 0.40) {
+                        e.percentage = e.weight_left/e.product_gram_weight
+                        yellowPercentage.push(e)
+                        return yellowPercentage
+                    }
+                    else if (e.percentage <= 0.80 && e.percentage > 0.60) {
+                        e.percentage = e.weight_left/e.product_gram_weight
+                        bluePercentage.push(e)
+                        return bluePercentage
+                    }
+                    else {
+                        e.percentage = e.weight_left/e.product_gram_weight
+                        greenPercentage.push(e)
+                        return greenPercentage
+                    }
+                })
+            }
+            })
+        }, 2000)
+    }
+
+render() {
     return (
         <>
             <div className="container" style={{height: "470px", overflow: "scroll"}}>
+            {
+                this.state.pantry.length < 1 ? <Spinner/> : <>
                 <section>
                     {
                         redPercentage.length > 0 ? <div className="p-3 mb-1" style={{
@@ -149,7 +176,7 @@ export default (props) => {
                         <p style={{display: "inline-block", fontWeight: "bold", color: "white"}}>Over 80%</p>
                             {
                                 greenPercentage.map((e, i) => {
-                                    return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
+                                    return <div className="col-1" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
                                         <div>
                                             <div className="img">
                                                 <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
@@ -160,11 +187,16 @@ export default (props) => {
                             }
                         </div> : null
                     }
-                </section>
-               
+                </section> 
+                </>
+            }
             </div>
 
         </>
     )
 }
+}
+
+
+export default withRouter(Pantry);
 

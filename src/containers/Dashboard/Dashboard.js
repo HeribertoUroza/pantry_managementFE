@@ -4,6 +4,7 @@ import firebase from '../../firebase';
 import Clock from 'react-live-clock';
 
 
+
 //MATERIALIZE
 import M from 'materialize-css'
 
@@ -22,67 +23,12 @@ import { readUser, readMealSchedule, readPantry, sendTextMessage } from '../../s
 import Header from '../../components/Header/Header';
 import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
 import AddRecipe from '../AddRecipe/AddRecipe';
-import { readdir } from 'fs';
 import RecipesSearch from '../RecipesSearch/RecipesSearch';
-
 import Recipes from '../Recipes/Recipes';
 import Pantry from '../../components/Pantry/Pantry'
+import ShoppingList from '../../components/Shopping_List/ShoppingList'
 
-/*const productTestRed = () => {
-    let product = {
-        name: "Jif Peanut Butter",
-        original_weight: "400",
-        current_weight: "50",
-        image: "https://jetimages.jetcdn.net/md5/b5dd9b619c01f664ec255318d9092789?odnBound=500"
-    }
-    product.percentage = product.current_weight / product.original_weight
-    return product
-};
-
-const productTestOrange = () => {
-    let product = {
-        name: "Jif Peanut Butter",
-        original_weight: "400",
-        current_weight: "100",
-        image: "https://jetimages.jetcdn.net/md5/b5dd9b619c01f664ec255318d9092789?odnBound=500"
-    }
-    product.percentage = product.current_weight / product.original_weight
-    return product
-};
-
-const productTestYellow = () => {
-    let product = {
-        name: "Jif Peanut Butter",
-        original_weight: "400",
-        current_weight: "180",
-        image: "https://jetimages.jetcdn.net/md5/b5dd9b619c01f664ec255318d9092789?odnBound=500"
-    }
-    product.percentage = product.current_weight / product.original_weight
-    return product
-};
-
-const productTestBlue = () => {
-    let product = {
-        name: "Jif Peanut Butter",
-        original_weight: "400",
-        current_weight: "250",
-        image: "https://jetimages.jetcdn.net/md5/b5dd9b619c01f664ec255318d9092789?odnBound=500"
-    }
-    product.percentage = product.current_weight / product.original_weight
-    return product
-};
-
-const productTestGreen = () => {
-    let product = {
-        name: "Jif Peanut Butter",
-        original_weight: "400",
-        current_weight: "350",
-        image: "https://jetimages.jetcdn.net/md5/b5dd9b619c01f664ec255318d9092789?odnBound=500"
-    }
-    product.percentage = product.current_weight / product.original_weight
-    return product
-};*/
-
+//ASSETS
 
 
 class Dashboard extends React.Component {
@@ -97,7 +43,7 @@ class Dashboard extends React.Component {
             dietaryPref: [],
             foodAllergies: [],
             date: new Date(),
-            userRecipeDB: true,
+            userRecipeDB: false,
             addRecipe: false,
             pantry: [],
             token: '',
@@ -119,7 +65,7 @@ class Dashboard extends React.Component {
     handleClickBack = () => {
         this.setState({
             addRecipe: false,
-            userRecipeDB: false
+            userRecipeDB: true
         })
     }
 
@@ -130,12 +76,14 @@ class Dashboard extends React.Component {
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
             firebase.auth().currentUser.getIdToken(false)
                 .then((token) => {
+                    console.log('token', token)
                     this.setState({ token: token })
                 })
                 .then(() => {
                     readUser(this.state.token, user.email)
                         .then((response) => {
                             const rootObj = response.data.data
+                            if(response.data.data){
                             this.setState({
                                 diet_preference: rootObj.diet_preference,
                                 food_allergies: rootObj.food_allergies,
@@ -145,6 +93,7 @@ class Dashboard extends React.Component {
                                 username: rootObj.username,
                                 phone_number: rootObj.phone_number
                             })
+                        }
                         })
                 })
 
@@ -170,8 +119,7 @@ class Dashboard extends React.Component {
         const { user_id, phone_number } = this.state
 
         return sendTextMessage(user_id, phone_number)
-            .then( res => {
-                console.log(res.data.message)
+            .then(res => {
                 this.setState({
                     sms_alert: res.data.message
                 })
@@ -186,65 +134,98 @@ class Dashboard extends React.Component {
 
 
     render() {
-        console.log(this.state)
+        console.log("ID", this.state.user_id)
         return (
             <AuthContext.Consumer>
                 {
                     (user) => {
                         if (user) {
                             return (<div className="container-fluid">
-                                <Header recipes={this.state.recipes} userName={this.state.name} email={this.state.email} id={this.state.user_id} click={this.handleClickRecipeDB} clickAddR={this.handleClickAddRecipe} clickDash={this.handleClickBack} pantry={this.state.pantry} />
-                                <div className="container-fluid">
+                                <Header recipes={this.state.recipes} userName={this.state.name} email={this.state.email} id={this.state.user_id} click={this.handleClickRecipeDB} clickAddR={this.handleClickAddRecipe} clickDash={this.handleClickBack} pantry={this.state.pantry} token={this.state.token} />
+                                <div className="container-fluid" >
                                     {
                                         this.state.userRecipeDB ? <RecipesSearch click={this.handleClickBack} id={this.state.user_id} />
                                             : this.state.addRecipe ? <AddRecipe click={this.handleClickBack} />
-                                                : <>
-                                                    <div className="row" style={{ marginBottom: "0px" }}>
-                                                        <div className="col-9">
+                                                : <>{
+                                                  /*  <div className="jumbotron jumbotronBackground mb-0" style={{backgroundColor: "white"}}>
+                                                        <div className="row">
+                                                            <div className="col"></div>
+                                                            <div className="col-6"></div>
+                                                            <div className="col-4">
+                                                                <div className="py-5" style={{ backgroundColor: "white", color: "black", border: "2px solid black" }}>
+                                                                    <h3 className="text-center my-auto px-5" style={{ fontSize: '25px', fontFamily: "Roboto Condensed", opacity: "1", fontWeight: "550" }}><i>SMALL STEPS</i>, <b>BIG CHANGES</b></h3>
+                                                                    <hr />
+                                                                    <p className="text-center px-5"> By making <b><i>small changes</i></b> to your grocery shopping routine, you too can be part of the movement, that <b>ends</b></p>
+                                                                    <ul className="text-center"><li> the <b>waste</b> of food... </li>  <li>the <b>waste</b> of valuable resources ...</li>  <li>and slows <b>climate change</b>...</li></ul>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col"></div>
+                                                        </div>
+                                                </div>*/}
+                                                    <div className="row my-0">
+                                                        <div className="col-7 my-0 pt-4">
                                                             <div className="row" style={{
-                                                                backgroundColor: "#3bb78f",
-                                                                backgroundImage: "linear-gradient(315deg, #166D3B 0%, #000000 74%)", height: "35px",
+                                                                backgroundColor: "#06174c",
+                                                                backgroundImage: "linear-gradient(315deg, #06174c 0% ,#166D3B 45%, #000000 95%)", height: "35px",
                                                             }}>
-                                                                <p className="m-auto" style={{ color: "white", fontSize: "22px" }} >Your Recipes For The Week Of...</p>
+                                                                <p className="m-auto" style={{ color: "white", fontSize: "22px", fontFamily: "Roboto Condensed" }} >Your Recipes For The Week Of...</p>
                                                             </div>
                                                         </div>
-                                                        <div className="col">
-                                                            <div className="row align-middle ml-2" style={{
-                                                                width: "15", height: "35px", backgroundColor: "#06174c", backgroundImage: "linear-gradient(315deg, #000000 0%, #06174c 74%)",
+                                                        <div className="col-5 my-0 pt-4">
+                                                            <div className="row align-middle" style={{
+                                                                height: "35px", backgroundColor: "#06174c", backgroundImage: "linear-gradient(315deg, #000000 0%, #06174c 74%)",
                                                                 color: "white"
                                                             }}>
                                                                 <Clock
-                                                                    style={{ fontSize: "20px", fontFamily: "Raleway", textAlign: "center", paddingLeft: "25px" }}
+                                                                    style={{ fontSize: "20px", textAlign: "center", paddingLeft: "25px" }}
                                                                     format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
                                                                     ticking={true}
                                                                 />
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="row">
-                                                        <WeekRecipe token={this.state.token} id={this.state.user_id} />
+                                                    <div className="my-0" style={{ backgroundColor: "black" }}>
+                                                    {
+                                                       <WeekRecipe token={this.state.token} id={this.state.user_id} />
+                                                    }
                                                     </div>
-                                                    <div className="row">
-                                                        <div className="col-6">
+                                                    <div className="row my-0">
+                                                        <div className="col-4">
+                                                            <div style={{
+                                                                backgroundColor: "#06174c", backgroundImage: "linear-gradient(315deg, #06174c 0%, #000000 74%)",
+                                                                color: "white", height: "35px"
+                                                            }}>
+                                                                <h5 className="pt-1 card-title text-center" style={{ fontSize: "20px" }}>Shopping List</h5>
+                                                            </div>
                                                             <div className="card">
+                                                            <a class="btn-floating halfway-fab waves-effect waves-light" onClick={this.handleText}><i class="material-icons">textsms</i></a>
                                                                 <div className="card-content">
-                                                                    <h5 className="pt-1 card-title">Shopping List</h5>
-                                                                    <a class="btn-floating halfway-fab waves-effect waves-light orange" onClick={this.handleText}><i class="material-icons">textsms</i></a>
+
+                                                                    <h5 className="pt-1 card-title"></h5>
+                                                                    <ShoppingList token={this.state.token} id={this.state.user_id}/>
+                                                                    {/*
                                                                     <ul>
                                                                         {
                                                                             this.state.shopping_list.map((ele, i) => {
                                                                                 return <li style={{ fontSize: '.9rem' }} key={i}>{ele}</li>
                                                                             })
                                                                         }
-                                                                    </ul>
+                                                                    </ul>*/
+                                                                    }
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-6">
+                                                        <div className="col-8">
+                                                            <div style={{
+                                                                backgroundColor: "#3bb78f",
+                                                                backgroundImage: "linear-gradient(315deg, #000000 0%, #166D3B 74%)", height: "35px",
+                                                                color: "white", height: "35px"
+                                                            }}>
+                                                                <h5 className="pt-1 card-title text-center" style={{ fontSize: "20px" }}>Your Pantry</h5>
+                                                            </div>
                                                             <div className="card">
-                                                                <div className="card-content">
-                                                                    <h5 className="pt-1 card-title">Your Pantry</h5>
-                                                                    <Pantry pantry={this.state.pantry} />
+                                                                <div className="card-content" style={{ overflow: "scroll", width: "95%" }}>
+                                                                    <Pantry id={this.state.user_id} token={this.state.token} />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -268,26 +249,3 @@ class Dashboard extends React.Component {
 
 export default withRouter(Dashboard);
 
-/*<section class="shelf">
-<div>
-
-</div>
-</section>
-<section class="shelf">
-<div>
-
-</div>
-</section>*/
-
-
-/*
-                                                <div className="row ml-2 headerContainer" style={{ scroll: "overflow", maxHeight: "469.172px" }}>
-                                                    <div className="col">
-                                                        {
-                                                            this.state.pantry.length > 0 ? <> <Pantry pantry={this.state.pantry} />
-
-                                                            </> : <p class="text-center" style={{ fontWeight: "bold" }}>No items in your pantry...</p>
-                                                        }
-                                                    </div>
-                                                </div>
-                                                */

@@ -4,6 +4,14 @@
     opacity: 1;
 }
 
+.jumbotronBackground {
+       background-image: url('../../assets/Photos/bread-close-up-colors-1667427.jpg');
+       width: 100%;
+       background-repeat: no-repeat;
+       background-size: cover;   
+       background-position: center;
+}
+
 .toast-rounded {
     border-radius: 24px;
     background-color: #26a69a;

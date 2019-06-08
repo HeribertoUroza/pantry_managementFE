@@ -39,6 +39,7 @@ class UserPreference extends React.Component {
             foodLimitations: [],
             date: '',
             phone_number: '',
+            firebase_uid: ''
         }
     }
 
