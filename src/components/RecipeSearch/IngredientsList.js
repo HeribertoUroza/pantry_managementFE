@@ -3,7 +3,6 @@ import React from 'react';
 
 
 const IngredientsList = (props) => {
-
     const IngredientsList = props.ingredients;
     if (IngredientsList.length === 0) {
         return <span>No recipe selected.</span>

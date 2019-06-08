@@ -30,10 +30,13 @@ class Pantry extends React.Component {
         setTimeout(() => {
             readPantry(this.props.token, this.props.id)
                 .then((response) => {
+                    console.log('STAR')
                 this.setState({ pantry: response.data.data })
             })
             .then(() => {
+                console.log("type", this.state.pantry)
                 if(this.state.pantry !== undefined){
+                    console.log('BAGS', this.state.pantry)
                 this.state.pantry.sort().map((e,i)=>{
                     e.percentage = e.weight_left/e.product_gram_weight
                     if (e.percentage <= 0.20) {
@@ -63,13 +66,15 @@ class Pantry extends React.Component {
                 })
             }
             })
-        }, 1000)
+        }, 2000)
     }
 
 render() {
     return (
         <>
             <div className="container" style={{height: "470px", overflow: "scroll"}}>
+            {
+                this.state.pantry.length < 1 ? <Spinner/> : <>
                 <section>
                     {
                         redPercentage.length > 0 ? <div className="p-3 mb-1" style={{
@@ -183,7 +188,8 @@ render() {
                         </div> : null
                     }
                 </section> 
-               
+                </>
+            }
             </div>
 
         </>

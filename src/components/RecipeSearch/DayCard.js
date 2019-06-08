@@ -2,6 +2,7 @@ import React from 'react';
 import { IngredientsList } from './IngredientsList';
 
 const DayCard = (props) => {
+    console.log("Ingre Pro", props)
     const { day, } = props;
     const  ingredients = day.recipe.ingredients;
 

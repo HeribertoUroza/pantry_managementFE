@@ -4,7 +4,6 @@ import { Media, Image, Content } from 'reactbulma';
 const SearchResults = (props) => {
 
     const { queryResults } = props;
-
     return queryResults.map((recipe, index) => {
         return <div className="row my-1 justify-content-md-center" key={index}>
             <Media style={{marginBottom:"30px", width:"500px"}}>
@@ -21,12 +20,12 @@ const SearchResults = (props) => {
                             {recipe.recipe_notes}
                             <a class="btn-floating btn-small hoverable" style={{float:"right"}} onClick={e => {props.onClick(recipe)}}><i class="material-icons">add</i></a>
                             {
-                                recipe.health_tags === "None" ? null :
+                              /* recipe.health_tags === "None" ? null :
                                     recipe.health_tags.map((e, i) => {
                                         return <span className="chip">
                                             {e}
                                         </span>
-                                    })
+                                    })*/
                             }
                         </p>
                     </Content>

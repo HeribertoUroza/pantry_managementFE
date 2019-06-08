@@ -294,7 +294,7 @@ class AddRecipe extends React.Component {
                                                                     {
                                                                         this.state.I_type.map((e, i) => {
                                                                             return (
-                                                                                <option disabled selected={e === 'Select Measurement'} key={i} value={e}>{e}</option>
+                                                                                <option selected={e === 'Select Measurement'} key={i} value={e}>{e}</option>
                                                                             )
                                                                         })
                                                                     }

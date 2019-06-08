@@ -1,8 +1,8 @@
 .headerContainer {
-    /*background-image: url('../../assets/Photos/bread-close-up-colors-1667427.jpg');*/
+    background-image: url('../../assets/Photos/bread-close-up-colors-1667427.jpg');
     width: 100%;
     opacity: 1;
-    background-color: black;
+    /*background-color: black;*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center; /* Center the image */

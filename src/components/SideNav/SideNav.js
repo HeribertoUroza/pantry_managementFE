@@ -28,7 +28,7 @@ class SideNavBar extends React.Component {
 
     componentDidMount() {
         M.AutoInit();
-        setTimeout(() => {
+        /*setTimeout(() => {
             readPantry(this.props.token, this.props.id)
                 .then((response) => {
                 console.log("pantry", response)
@@ -37,7 +37,7 @@ class SideNavBar extends React.Component {
             .catch(err => {
                 console.log("Error",err.toString())
             })
-        }, 1000)
+        }, 1000)*/
     }
 
 

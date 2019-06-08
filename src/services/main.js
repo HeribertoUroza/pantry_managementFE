@@ -80,8 +80,8 @@ const scrape = (url) =>{
         return axios({
             method: 'get',
             headers: { 'token': token },
-            url: `http://localhost:${port}/mealSchedule/user/${user_id}
-            `,
+            url: `http://localhost:${port}/mealSchedule/currentTrue/${user_id}`
+            ,
     });
 };
 
@@ -95,8 +95,18 @@ const scrape = (url) =>{
         });
     };
 
+    //READ SHOPPING LIST
+    const readShoppingList = (token,user_id) => {
+        return axios({
+            method: 'get',
+            headers: {'token': token},
+            url: `http://localhost:${port}/user/upcomingIngList/${user_id}
+            `
+        })
+    }
+
     //CREATE
-const createIngredient = (token, ingredient_name, current_recipeID, product_id, ingredient_weight, ingredient_type) => {
+    const createIngredient = (token, ingredient_name, current_recipeID, product_id, ingredient_weight, ingredient_type) => {
     return axios({
         method: 'post',
         headers: { 'token': token },
@@ -112,6 +122,7 @@ const createIngredient = (token, ingredient_name, current_recipeID, product_id, 
 }
 
 
+
 //RECIPES
     //READ 
     const readRecipes = (token, user_id) => {
@@ -121,6 +132,15 @@ const createIngredient = (token, ingredient_name, current_recipeID, product_id, 
             url: `http://localhost:${port}/recipe/user/${user_id}`,
         });
     };
+
+        //READ BY ID
+        const readRecipeById = (token, recipe_id) => {
+            return axios({
+                method: 'get',
+                headers: { 'token': token },
+                url: `http://localhost:${port}/recipe/${recipe_id}`,
+            });
+        };
 
     //CREATE
     const createRecipe = (token, recipe_name, health_tag, current_userID, recipe_desc) => {
@@ -140,7 +160,6 @@ const createIngredient = (token, ingredient_name, current_recipeID, product_id, 
 //PANTRY
 //READ
 const readPantry = (token, id) => {
-    console.log("Lock")
     return axios({
         method: 'get',
         headers: { 'token': token },
@@ -150,7 +169,7 @@ const readPantry = (token, id) => {
 
 //PRODUCT
     //CREATE
-const createProduct = (token, product_name, product_url, current_userID, product_image, product_original_weight, product_original_weight_type, product_price) => {
+    const createProduct = (token, product_name, product_url, current_userID, product_image, product_original_weight, product_original_weight_type, product_price) => {
     return axios({
         method: 'post',
         headers: { 'token': token },
@@ -169,7 +188,7 @@ const createProduct = (token, product_name, product_url, current_userID, product
 
 //TEXT MESSAGES
     //SEND
-const sendTextMessage = (user_id, phone_number) => {
+    const sendTextMessage = (user_id, phone_number) => {
     return axios({
         method: 'get',
         url: `http://localhost:11235/sms/${user_id}/${phone_number}`,  
@@ -188,5 +207,7 @@ export {
     createProduct,
     createIngredient,
     scrape,
-    sendTextMessage
+    sendTextMessage,
+    readShoppingList,
+    readRecipeById
 }
