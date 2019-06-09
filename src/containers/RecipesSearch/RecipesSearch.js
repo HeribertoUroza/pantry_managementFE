@@ -59,9 +59,6 @@ class RecipesSearch extends React.Component {
                         .then((token) => {
                             this.getAllUserRecipes(token)
                         })
-                        .then(() => {
-                            this.getNextWeekDates()
-                        })
                         .catch((error) => {
                             console.log(error);
                         });
