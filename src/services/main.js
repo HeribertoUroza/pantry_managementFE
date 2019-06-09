@@ -74,6 +74,14 @@ const scrape = (url) =>{
         });
     };
 
+    // GET USERS SHOPPING LIST
+    const getUpcomingMealsIngList = user_id => {
+        return axios({
+            method: 'get',
+            url: `http://localhost:${port}/user/upcomingIngList/${user_id}`,
+        });
+    };
+
 //MEAL SCHEDULE
     //READ
     const readMealSchedule = (token, user_id) => {
@@ -94,16 +102,6 @@ const scrape = (url) =>{
             url: `http://localhost:${port}/ingredient/recipe/${recipe_id}`,
         });
     };
-
-    //READ SHOPPING LIST
-    const readShoppingList = (token,user_id) => {
-        return axios({
-            method: 'get',
-            headers: {'token': token},
-            url: `http://localhost:${port}/user/upcomingIngList/${user_id}
-            `
-        })
-    }
 
     //CREATE
     const createIngredient = (token, ingredient_name, current_recipeID, product_id, ingredient_weight, ingredient_type) => {
@@ -208,6 +206,6 @@ export {
     createIngredient,
     scrape,
     sendTextMessage,
-    readShoppingList,
-    readRecipeById
+    readRecipeById,
+    getUpcomingMealsIngList,
 }

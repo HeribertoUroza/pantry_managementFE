@@ -198,21 +198,8 @@ class Dashboard extends React.Component {
                                                                 <h5 className="pt-1 card-title text-center" style={{ fontSize: "20px" }}>Shopping List</h5>
                                                             </div>
                                                             <div className="card">
-                                                            <a class="btn-floating halfway-fab waves-effect waves-light" onClick={this.handleText}><i class="material-icons">textsms</i></a>
-                                                                <div className="card-content">
-
-                                                                    <h5 className="pt-1 card-title"></h5>
-                                                                    <ShoppingList token={this.state.token} id={this.state.user_id}/>
-                                                                    {/*
-                                                                    <ul>
-                                                                        {
-                                                                            this.state.shopping_list.map((ele, i) => {
-                                                                                return <li style={{ fontSize: '.9rem' }} key={i}>{ele}</li>
-                                                                            })
-                                                                        }
-                                                                    </ul>*/
-                                                                    }
-                                                                </div>
+                                                                <a class="btn-floating halfway-fab waves-effect waves-light" onClick={this.handleText}><i class="material-icons">textsms</i></a>
+                                                                <ShoppingList token={this.state.token} id={this.state.user_id}/>
                                                             </div>
                                                         </div>
                                                         <div className="col-8">
