@@ -3,6 +3,8 @@ import { withRouter, Redirect } from 'react-router';
 import firebase from '../../firebase';
 import Clock from 'react-live-clock';
 
+
+
 //MATERIALIZE
 import M from 'materialize-css'
 
@@ -16,6 +18,7 @@ import '../../components/Header/header.css';
 //SERVICES
 import { readUser, readMealSchedule, readPantry, sendTextMessage } from '../../services/main';
 
+
 //COMPONENTS
 import Header from '../../components/Header/Header';
 import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
@@ -26,6 +29,7 @@ import Pantry from '../../components/Pantry/Pantry'
 import ShoppingList from '../../components/Shopping_List/ShoppingList'
 
 //ASSETS
+
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -49,6 +53,7 @@ class Dashboard extends React.Component {
         }
     }
 
+
     handleClickRecipeDB = () => {
         this.setState({ userRecipeDB: true })
     }
@@ -63,6 +68,8 @@ class Dashboard extends React.Component {
             userRecipeDB: false
         })
     }
+
+
 
     componentDidMount = () => {
 
@@ -85,6 +92,8 @@ class Dashboard extends React.Component {
 
         })
     }
+
+
 
     componentWillUnmount() {
         this.unsubscribe();
@@ -115,6 +124,7 @@ class Dashboard extends React.Component {
                 console.log(err.toString())
             })
     }
+
 
     render() {
         return (
@@ -150,7 +160,7 @@ class Dashboard extends React.Component {
                                                                 backgroundColor: "#06174c",
                                                                 backgroundImage: "linear-gradient(315deg, #06174c 0% ,#166D3B 45%, #000000 95%)", height: "35px",
                                                             }}>
-                                                                <p className="m-auto" style={{ color: "white", fontSize: "22px", fontFamily: "Roboto Condensed" }} >Your Recipes For The Week Of...</p>
+                                                                <p className="m-auto" style={{ color: "white", fontSize: "22px", fontFamily: "Roboto Condensed" }} >For The Week Of...</p>
                                                             </div>
                                                         </div>
                                                         <div className="col-5 my-0 pt-4">
@@ -166,9 +176,25 @@ class Dashboard extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div className="row my-0">
+                                                            <div className="col-4">
+                                                            <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Shopping List</div>
+      <div class="collapsible-body"><ShoppingList id={this.state.user_id}/></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">place</i>Pantry</div>
+      <div class="collapsible-body"><Pantry id={this.state.user_id}/></div>
+    </li>   
+        </ul>                                                         </div>
+                                                            <div className="col-8">
+                                                            <WeekRecipe id={this.state.user_id}/>
+                                                            </div>
+                                                    </div>
                                                     <div className="my-0" style={{ backgroundColor: "black" }}>
                                                     {
-                                                       <WeekRecipe token={this.state.token} id={this.state.user_id} />
+                                                       //<WeekRecipe token={this.state.token} id={this.state.user_id} />
                                                     }
                                                     </div>
                                                     <div className="row my-0">
@@ -217,3 +243,4 @@ class Dashboard extends React.Component {
 }
 
 export default withRouter(Dashboard);
+

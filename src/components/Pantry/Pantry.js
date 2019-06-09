@@ -70,7 +70,7 @@ class Pantry extends React.Component {
 render() {
     return (
         <>
-            <div className="container" style={{height: "470px", overflow: "scroll"}}>
+            <div className="row" style={{height: "470px", overflow: "scroll", width: "100%", backgroundColor: "black"}}>
             {
                 this.state.pantry.length < 1 ? <Spinner/> : <>
                 <section>
@@ -174,7 +174,7 @@ render() {
                         <p style={{display: "inline-block", fontWeight: "bold", color: "white"}}>Over 80%</p>
                             {
                                 greenPercentage.map((e, i) => {
-                                    return <div className="col-1" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
+                                    return <div className="col-6" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
                                         <div>
                                             <div className="img">
                                                 <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
