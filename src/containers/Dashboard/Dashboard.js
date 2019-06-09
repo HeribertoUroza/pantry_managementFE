@@ -3,8 +3,6 @@ import { withRouter, Redirect } from 'react-router';
 import firebase from '../../firebase';
 import Clock from 'react-live-clock';
 
-
-
 //MATERIALIZE
 import M from 'materialize-css'
 
@@ -18,7 +16,6 @@ import '../../components/Header/header.css';
 //SERVICES
 import { readUser, readMealSchedule, readPantry, sendTextMessage } from '../../services/main';
 
-
 //COMPONENTS
 import Header from '../../components/Header/Header';
 import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
@@ -29,7 +26,6 @@ import Pantry from '../../components/Pantry/Pantry'
 import ShoppingList from '../../components/Shopping_List/ShoppingList'
 
 //ASSETS
-
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -53,7 +49,6 @@ class Dashboard extends React.Component {
         }
     }
 
-
     handleClickRecipeDB = () => {
         this.setState({ userRecipeDB: !this.state.userRecipeDB })
     }
@@ -68,8 +63,6 @@ class Dashboard extends React.Component {
             userRecipeDB: true
         })
     }
-
-
 
     componentDidMount = () => {
 
@@ -100,8 +93,6 @@ class Dashboard extends React.Component {
         })
     }
 
-
-
     componentWillUnmount() {
         this.unsubscribe();
     }
@@ -131,7 +122,6 @@ class Dashboard extends React.Component {
                 console.log(err.toString())
             })
     }
-
 
     render() {
         console.log("ID", this.state.user_id)
@@ -235,4 +225,3 @@ class Dashboard extends React.Component {
 }
 
 export default withRouter(Dashboard);
-

@@ -25,7 +25,7 @@ class ShoppingList extends React.Component {
 
     getUserInfo = async _ => {
         const {id, token,} = this.props;
-        if (id !== 0 && token.length > 0) {
+        if (id !== 0) {
             const shoppingListCall = await getUpcomingMealsIngList(id);
             const shoppingListObj = shoppingListCall.data.data
             const shoppingListArr = Object.keys(shoppingListObj);
@@ -78,6 +78,5 @@ class ShoppingList extends React.Component {
         );
     };
 };
-
 
 export default withRouter(ShoppingList);
