@@ -27,7 +27,7 @@ class Pantry extends React.Component {
     }
 
     componentDidMount() {
-        setTimeout(() => {
+        //setTimeout(() => {
             readPantry( this.props.id)
                 .then((response) => {
                     console.log("Pantry", response.data.data)
@@ -64,7 +64,7 @@ class Pantry extends React.Component {
                 })
             }
             })
-        }, 2000)
+        //}, 2000)
     }
 
 render() {
