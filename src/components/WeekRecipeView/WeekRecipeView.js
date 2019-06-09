@@ -5,6 +5,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import {Spinner} from 'reactstrap';
 
+// SERVICES
+import {updateMealSchedule,} from '../../services/main';
 
 //COMPONENTS
 import { readMealSchedule, readRecipeById} from '../../services/main';
@@ -103,6 +105,23 @@ class WeekRecipeView extends React.Component {
     }, 1000)
   }
 
+  pantryCalc = async e => {
+    const {meals,} = this.state;
+    const id = e.target.value;
+    let selectedMeal = [];
+    for (let meal of meals) {
+      if (meal.meal_schedule_id === parseInt(id, 10)) {
+        selectedMeal.push(meal);
+      };
+    };
+    const {recipe_owner, recipe_id, day_id, date, cooked, current_week,} = selectedMeal[0];
+    try {
+      const updateMealCall = await updateMealSchedule(parseInt(recipe_owner, 10), parseInt(recipe_id, 10), parseInt(day_id, 10), date, cooked, current_week, parseInt(id));
+    } catch(e) {
+      console.log(e);
+    };
+  };
+
   render() {
     return (<>
       <DragDropContext onDragEnd={this.onDragEnd} >
@@ -135,7 +154,8 @@ class WeekRecipeView extends React.Component {
                           <form action="#" className="text-left mt-3">
                             <p>
                               <label>
-                                <input type="checkbox" class="checkbox" id={{ index }} style={{ fontSize: "12px" }}></input>
+                                <input type="checkbox" value={item.meal_schedule_id} class="checkbox" id={{ index }} style={{ fontSize: "12px" }}
+                                  onClick={this.pantryCalc}></input>
                                 <span htmlFor={{ index }} style={{ fontSize: "12px" }}>Cooked?</span>
                               </label>
                             </p>
