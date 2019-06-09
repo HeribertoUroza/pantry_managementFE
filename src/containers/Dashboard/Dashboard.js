@@ -69,8 +69,6 @@ class Dashboard extends React.Component {
         })
     }
 
-
-
     componentDidMount = () => {
 
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
@@ -99,8 +97,6 @@ class Dashboard extends React.Component {
 
         })
     }
-
-
 
     componentWillUnmount() {
         this.unsubscribe();
@@ -131,7 +127,6 @@ class Dashboard extends React.Component {
                 console.log(err.toString())
             })
     }
-
 
     render() {
         console.log("ID", this.state.user_id)
@@ -235,4 +230,3 @@ class Dashboard extends React.Component {
 }
 
 export default withRouter(Dashboard);
-
