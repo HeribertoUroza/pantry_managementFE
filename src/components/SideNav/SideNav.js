@@ -62,15 +62,16 @@ class SideNavBar extends React.Component {
                     <div class="collapsible-body">
                     </div>
                 </li>
-                <li>
+                {
+              /*  <li>
                     <div class="collapsible-header">
                         <span><i class="material-icons">calendar_today</i>Plan Your Meals</span>
                     </div>
                     <div class="collapsible-body">
                     </div>
-                </li>
+                </li>*/
                 <li><div class="divider"></div></li>
-                {
+                
                /* <li>
                     <div class="collapsible-header">
                         <span><i class="material-icons">storage</i>Your Pantry</span>
@@ -98,7 +99,7 @@ class SideNavBar extends React.Component {
                 </li>
                 <li>
                     <div class="collapsible-header" onClick={this.props.recipeDB}>
-                        <span><i class="material-icons">fastfood</i>Your Recipes</span>
+                        <span><i class="material-icons">fastfood</i>Plan Your Meals</span>
                     </div>
                     <div class="collapsible-body">
                     </div>

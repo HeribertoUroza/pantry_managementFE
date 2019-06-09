@@ -28,15 +28,13 @@ class Pantry extends React.Component {
 
     componentDidMount() {
         setTimeout(() => {
-            readPantry(this.props.token, this.props.id)
+            readPantry( this.props.id)
                 .then((response) => {
-                    console.log('STAR')
+                    console.log("Pantry", response)
                 this.setState({ pantry: response.data.data })
             })
             .then(() => {
-                console.log("type", this.state.pantry)
                 if(this.state.pantry !== undefined){
-                    console.log('BAGS', this.state.pantry)
                 this.state.pantry.sort().map((e,i)=>{
                     e.percentage = e.weight_left/e.product_gram_weight
                     if (e.percentage <= 0.20) {

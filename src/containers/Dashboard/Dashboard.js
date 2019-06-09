@@ -55,17 +55,17 @@ class Dashboard extends React.Component {
 
 
     handleClickRecipeDB = () => {
-        this.setState({ userRecipeDB: !this.state.userRecipeDB })
+        this.setState({ userRecipeDB: true })
     }
 
     handleClickAddRecipe = () => {
-        this.setState({ addRecipe: !this.state.addRecipe })
+        this.setState({ addRecipe: true })
     }
 
     handleClickBack = () => {
         this.setState({
             addRecipe: false,
-            userRecipeDB: true
+            userRecipeDB: false
         })
     }
 
@@ -74,13 +74,7 @@ class Dashboard extends React.Component {
     componentDidMount = () => {
 
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-            firebase.auth().currentUser.getIdToken(false)
-                .then((token) => {
-                    console.log('token', token)
-                    this.setState({ token: token })
-                })
-                .then(() => {
-                    readUser(this.state.token, user.email)
+                    readUser(user.email)
                         .then((response) => {
                             const rootObj = response.data.data
                             if(response.data.data){
@@ -95,7 +89,6 @@ class Dashboard extends React.Component {
                             })
                         }
                         })
-                })
 
         })
     }
@@ -134,7 +127,6 @@ class Dashboard extends React.Component {
 
 
     render() {
-        console.log("ID", this.state.user_id)
         return (
             <AuthContext.Consumer>
                 {
@@ -203,15 +195,6 @@ class Dashboard extends React.Component {
 
                                                                     <h5 className="pt-1 card-title"></h5>
                                                                     <ShoppingList token={this.state.token} id={this.state.user_id}/>
-                                                                    {/*
-                                                                    <ul>
-                                                                        {
-                                                                            this.state.shopping_list.map((ele, i) => {
-                                                                                return <li style={{ fontSize: '.9rem' }} key={i}>{ele}</li>
-                                                                            })
-                                                                        }
-                                                                    </ul>*/
-                                                                    }
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -225,7 +208,7 @@ class Dashboard extends React.Component {
                                                             </div>
                                                             <div className="card">
                                                                 <div className="card-content" style={{ overflow: "scroll", width: "95%" }}>
-                                                                    <Pantry id={this.state.user_id} token={this.state.token} />
+                                                                    <Pantry id={this.state.user_id} />
                                                                 </div>
                                                             </div>
                                                         </div>

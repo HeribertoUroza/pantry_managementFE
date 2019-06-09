@@ -46,10 +46,10 @@ const scrape = (url) =>{
 
 //USERS
     //READ
-    const readUser = (token, email) => {
+    const readUser = ( email) => {
         return axios({
             method: 'get',
-            headers: {'token': token},
+           // headers: {'token': token},
             url: `http://localhost:${port}/user/email/${email}`,
         });
     };
@@ -159,10 +159,10 @@ const scrape = (url) =>{
 
 //PANTRY
 //READ
-const readPantry = (token, id) => {
+const readPantry = (id) => {
     return axios({
         method: 'get',
-        headers: { 'token': token },
+        //headers: { 'token': token },
         url: `http://localhost:${port}/currentPantry/user/${id}`,
     });
 }
