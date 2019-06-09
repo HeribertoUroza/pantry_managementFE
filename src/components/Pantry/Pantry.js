@@ -30,7 +30,7 @@ class Pantry extends React.Component {
         setTimeout(() => {
             readPantry( this.props.id)
                 .then((response) => {
-                    console.log("Pantry", response)
+                    console.log("Pantry", response.data.data)
                 this.setState({ pantry: response.data.data })
             })
             .then(() => {

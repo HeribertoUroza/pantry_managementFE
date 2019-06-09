@@ -176,13 +176,18 @@ class Dashboard extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    {}
+                                                    {
                                                     <div className="row my-0">
-                                                            <div className="col-4">
-                                                        </div>
-                                                            <div className="col-8">
+                                                    {
+                                                            /*<div className="col-4">
+                                                        </div>*/
+                                                    }
+                                                            <div className="col">
                                                             <WeekRecipe id={this.state.user_id}/>
                                                             </div>
                                                     </div>
+                                                    }
                                                     <div className="my-0" style={{ backgroundColor: "black" }}>
                                                     {
                                                        //<WeekRecipe token={this.state.token} id={this.state.user_id} />

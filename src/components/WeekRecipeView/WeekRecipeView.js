@@ -148,8 +148,8 @@ class WeekRecipeView extends React.Component {
       {...provided.dragHandleProps}
       >
         <div class="card-image">
-          <img src={item.recipe_image_url} className="materialboxed" style={{backgroundColor: "black", height: "200px", maxWidth: "200px"}}/>
-          <a class="btn-floating halfway-fab waves-effect waves-light gold" style={{border: '1px solid navy'}}><i class="material-icons">add</i></a>
+          <img src={item.recipe_image_url} className="materialboxed" style={{backgroundColor: "black", height: "200px", maxWidth: "250px"}}/>
+          <a class="btn-floating halfway-fab waves-effect waves-light" style={{border: '1px solid navy'}}><i class="material-icons">add</i></a>
         </div>
         <div class="card-content">
         {
