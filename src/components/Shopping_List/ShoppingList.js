@@ -12,9 +12,7 @@ class ShoppingList extends React.Component {
         token: '',
     };
 
-    componentDidMount = async () => {
-        this.getUserInfo();
-    };
+    componentDidMount = async () => this.getUserInfo();
 
     componentDidUpdate = async () => {
         const {user_id,} = this.state;
