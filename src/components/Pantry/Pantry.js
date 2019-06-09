@@ -28,15 +28,13 @@ class Pantry extends React.Component {
 
     componentDidMount() {
         setTimeout(() => {
-            readPantry(this.props.token, this.props.id)
+            readPantry( this.props.id)
                 .then((response) => {
-                    console.log('STAR')
+                    console.log("Pantry", response.data.data)
                 this.setState({ pantry: response.data.data })
             })
             .then(() => {
-                console.log("type", this.state.pantry)
                 if(this.state.pantry !== undefined){
-                    console.log('BAGS', this.state.pantry)
                 this.state.pantry.sort().map((e,i)=>{
                     e.percentage = e.weight_left/e.product_gram_weight
                     if (e.percentage <= 0.20) {
@@ -72,7 +70,7 @@ class Pantry extends React.Component {
 render() {
     return (
         <>
-            <div className="container" style={{height: "470px", overflow: "scroll"}}>
+            <div className="container-fluid" style={{height: "470px", overflow: "scroll", width: "100%"}}>
             {
                 this.state.pantry.length < 1 ? <Spinner/> : <>
                 <section>
@@ -176,7 +174,7 @@ render() {
                         <p style={{display: "inline-block", fontWeight: "bold", color: "white"}}>Over 80%</p>
                             {
                                 greenPercentage.map((e, i) => {
-                                    return <div className="col-1" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
+                                    return <div className="col-6" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
                                         <div>
                                             <div className="img">
                                                 <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>

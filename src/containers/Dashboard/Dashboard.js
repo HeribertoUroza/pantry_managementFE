@@ -3,6 +3,8 @@ import { withRouter, Redirect } from 'react-router';
 import firebase from '../../firebase';
 import Clock from 'react-live-clock';
 
+
+
 //MATERIALIZE
 import M from 'materialize-css'
 
@@ -16,6 +18,7 @@ import '../../components/Header/header.css';
 //SERVICES
 import { readUser, readMealSchedule, readPantry, sendTextMessage } from '../../services/main';
 
+
 //COMPONENTS
 import Header from '../../components/Header/Header';
 import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
@@ -26,6 +29,7 @@ import Pantry from '../../components/Pantry/Pantry'
 import ShoppingList from '../../components/Shopping_List/ShoppingList'
 
 //ASSETS
+
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -49,31 +53,28 @@ class Dashboard extends React.Component {
         }
     }
 
+
     handleClickRecipeDB = () => {
-        this.setState({ userRecipeDB: !this.state.userRecipeDB })
+        this.setState({ userRecipeDB: true })
     }
 
     handleClickAddRecipe = () => {
-        this.setState({ addRecipe: !this.state.addRecipe })
+        this.setState({ addRecipe: true })
     }
 
     handleClickBack = () => {
         this.setState({
             addRecipe: false,
-            userRecipeDB: true
+            userRecipeDB: false
         })
     }
+
+
 
     componentDidMount = () => {
 
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-            firebase.auth().currentUser.getIdToken(false)
-                .then((token) => {
-                    console.log('token', token)
-                    this.setState({ token: token })
-                })
-                .then(() => {
-                    readUser(this.state.token, user.email)
+                    readUser(user.email)
                         .then((response) => {
                             const rootObj = response.data.data
                             if(response.data.data){
@@ -88,10 +89,11 @@ class Dashboard extends React.Component {
                             })
                         }
                         })
-                })
 
         })
     }
+
+
 
     componentWillUnmount() {
         this.unsubscribe();
@@ -123,8 +125,8 @@ class Dashboard extends React.Component {
             })
     }
 
+
     render() {
-        console.log("ID", this.state.user_id)
         return (
             <AuthContext.Consumer>
                 {
@@ -158,7 +160,7 @@ class Dashboard extends React.Component {
                                                                 backgroundColor: "#06174c",
                                                                 backgroundImage: "linear-gradient(315deg, #06174c 0% ,#166D3B 45%, #000000 95%)", height: "35px",
                                                             }}>
-                                                                <p className="m-auto" style={{ color: "white", fontSize: "22px", fontFamily: "Roboto Condensed" }} >Your Recipes For The Week Of...</p>
+                                                                <p className="m-auto" style={{ color: "white", fontSize: "22px", fontFamily: "Roboto Condensed" }} >For The Week Of...</p>
                                                             </div>
                                                         </div>
                                                         <div className="col-5 my-0 pt-4">
@@ -174,9 +176,21 @@ class Dashboard extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    {}
+                                                    {
+                                                    <div className="row my-0">
+                                                    {
+                                                            /*<div className="col-4">
+                                                        </div>*/
+                                                    }
+                                                            <div className="col">
+                                                            <WeekRecipe id={this.state.user_id}/>
+                                                            </div>
+                                                    </div>
+                                                    }
                                                     <div className="my-0" style={{ backgroundColor: "black" }}>
                                                     {
-                                                       <WeekRecipe token={this.state.token} id={this.state.user_id} />
+                                                       //<WeekRecipe token={this.state.token} id={this.state.user_id} />
                                                     }
                                                     </div>
                                                     <div className="row my-0">
@@ -202,7 +216,7 @@ class Dashboard extends React.Component {
                                                             </div>
                                                             <div className="card">
                                                                 <div className="card-content" style={{ overflow: "scroll", width: "95%" }}>
-                                                                    <Pantry id={this.state.user_id} token={this.state.token} />
+                                                                    <Pantry id={this.state.user_id} />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -225,3 +239,4 @@ class Dashboard extends React.Component {
 }
 
 export default withRouter(Dashboard);
+

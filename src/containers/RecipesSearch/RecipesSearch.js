@@ -177,6 +177,7 @@ class RecipesSearch extends React.Component {
                             return (
                                 <>
                                     <div className='container fluid' style={{ marginTop: "40px" }}>
+                                    <span onClick={this.props.click} style={{cursor: "pointer", marginRight:"auto" }}><i className="material-icons">keyboard_backspace</i></span>
                                         <div><h1 style={{ fontWeight: "bold", fontSize: "30px" }}>Plan your meals for the new week!</h1>
                                             <Dates></Dates>
                                         </div>
