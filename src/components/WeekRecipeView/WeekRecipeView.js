@@ -117,7 +117,6 @@ class WeekRecipeView extends React.Component {
     const {recipe_owner, recipe_id, day_id, date, cooked, current_week,} = selectedMeal[0];
     try {
       const updateMealCall = await updateMealSchedule(parseInt(recipe_owner, 10), parseInt(recipe_id, 10), parseInt(day_id, 10), date, cooked, current_week, parseInt(id));
-      console.log(updateMealCall);
     } catch(e) {
       console.log(e);
     };
