@@ -1,6 +1,7 @@
 import React from 'react';
 import {withRouter,} from 'react-router';
 import {Spinner,} from 'reactstrap';
+import moment from 'moment-timezone';
 
 //SERVICES
 import {getUpcomingMealsIngList,} from '../../services/main';
@@ -23,10 +24,20 @@ class ShoppingList extends React.Component {
         };
     };
 
+    getWeekDateRange = _ => {
+        const weekStartTime = moment().day('monday');
+        const weekEndTime = moment().day('monday').add(4, 'days');
+
+        const weekStart = moment.tz(weekStartTime, 'America/New_York').format('MMMM DD, YYYY');
+        const weekEnd = moment.tz(weekEndTime, 'America/New_York').format('MMMM DD, YYYY');
+        return [weekStart, weekEnd];
+    }
+
     getUserInfo = async _ => {
         const {id, token,} = this.props;
+        const weekDateRange = this.getWeekDateRange();
         if (id !== 0) {
-            const shoppingListCall = await getUpcomingMealsIngList(id);
+            const shoppingListCall = await getUpcomingMealsIngList(id, weekDateRange[0], weekDateRange[1]);
             const shoppingListObj = shoppingListCall.data.data
             const shoppingListArr = Object.keys(shoppingListObj);
             const shoppingList = [];
