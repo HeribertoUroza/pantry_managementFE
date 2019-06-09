@@ -178,16 +178,7 @@ class Dashboard extends React.Component {
                                                     </div>
                                                     <div className="row my-0">
                                                             <div className="col-4">
-                                                            <ul class="collapsible">
-    <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Shopping List</div>
-      <div class="collapsible-body"><ShoppingList id={this.state.user_id}/></div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">place</i>Pantry</div>
-      <div class="collapsible-body"><Pantry id={this.state.user_id}/></div>
-    </li>   
-        </ul>                                                         </div>
+                                                        </div>
                                                             <div className="col-8">
                                                             <WeekRecipe id={this.state.user_id}/>
                                                             </div>

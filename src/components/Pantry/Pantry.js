@@ -70,7 +70,7 @@ class Pantry extends React.Component {
 render() {
     return (
         <>
-            <div className="row" style={{height: "470px", overflow: "scroll", width: "100%", backgroundColor: "black"}}>
+            <div className="container-fluid" style={{height: "470px", overflow: "scroll", width: "100%"}}>
             {
                 this.state.pantry.length < 1 ? <Spinner/> : <>
                 <section>

@@ -184,6 +184,22 @@ const readPantry = (id) => {
     })
 }
 
+// UPDATE SCHEDULE MEAL - PANTRY SUBSTRACTIONS 
+const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_week, id) => {
+    return axios({
+        method: 'put',
+        url: `http://localhost:${port}/mealSchedule/${id}`,
+        data: {
+            user_id, 
+            recipe_id,
+            day_id,
+            date,
+            cooked,
+            current_week,
+        },
+    });
+};
+
 //TEXT MESSAGES
     //SEND
     const sendTextMessage = (user_id, phone_number) => {
@@ -207,5 +223,6 @@ export {
     scrape,
     sendTextMessage,
     readRecipeById,
+    updateMealSchedule,
     getUpcomingMealsIngList,
 }
