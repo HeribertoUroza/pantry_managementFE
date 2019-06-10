@@ -6,7 +6,7 @@
 .pnp.js
 
 # API_Keys
-/src/services/apiKey.js
+# /src/services/apiKey.js
 
 # testing
 /coverage
