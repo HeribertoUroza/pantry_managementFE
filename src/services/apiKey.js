@@ -8,4 +8,8 @@ const firebaseAPI = {
     appId: process.env.REACT_APP_appId
 };
 
-export { firebaseAPI }
+const possiblePantryAPI = {
+    baseURL: process.env.REACT_APP_BASE_URL 
+}
+
+export { firebaseAPI, possiblePantryAPI }
