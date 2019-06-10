@@ -86,12 +86,31 @@ class Pantry extends React.Component {
         };
     };
 
-    render() {
-        return (
-            <>
-                <div className="container-fluid" style={{ height: "470px", overflow: "scroll", width: "100%" }}>
-                    {
-                        !this.state.pantry ? <Spinner /> : <>
+    renderPantry = _ => {
+        const {pantry,} = this.state;
+        if (!pantry) {
+            return(
+                <>
+                    <div className='container'>
+                        <div className='col-4 my-5 py-5 text-center'>
+                            <Spinner color="dark" />
+                        </div>
+                    </div>
+                </>
+            )
+        } else if (pantry.length === 0) {
+            return(
+                <>
+                    <div className='container px-0 mx-0'>
+                        <div className='col-4 my-5 py-5 text-center px-0 mx-0'>
+                            <p style={{fontSize: 36}} className='font-weight-bold'>No items</p>
+                        </div>
+                    </div>
+                </>
+            )
+        } else {
+            return(
+                <>
                             <section>
                                 {
                                     redPercentage.length > 0 ? <div className="p-3 mb-1" style={{
@@ -206,9 +225,18 @@ class Pantry extends React.Component {
                                 }
                             </section>
                         </>
+            )
+        }
+    }
+
+    render() {
+        return (
+            <>
+                <div className="container-fluid" style={{ height: "470px", overflow: "scroll", width: "100%" }}>
+                    {
+                        this.renderPantry()
                     }
                 </div>
-
             </>
         )
     }
