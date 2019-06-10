@@ -1,4 +1,4 @@
-import app from 'firebase/app';
+import { firebase } from '@firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
 
@@ -7,7 +7,7 @@ import {firebaseAPI} from './services/apiKey'
 const firebaseConfig = firebaseAPI
 
 
-  // Initialize Firebase
-  app.initializeApp(firebaseConfig);
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-  export default app;
+export default firebase;
