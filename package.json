@@ -9,6 +9,7 @@
     "cheerio": "^1.0.0-rc.3",
     "firebase": "^6.0.2",
     "materialize-css": "^1.0.0",
+    "moment-timezone": "^0.5.25",
     "peapod": "0.0.1",
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.3",

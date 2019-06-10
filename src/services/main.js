@@ -93,10 +93,10 @@ const scrape = (url) =>{
     };
 
     // GET USERS SHOPPING LIST
-    const getUpcomingMealsIngList = user_id => {
+    const getUpcomingMealsIngList = (user_id, fromDate, toDate) => {
         return axios({
             method: 'get',
-            url: `http://localhost:${port}/user/upcomingIngList/${user_id}`,
+            url: `http://localhost:${port}/user/upcomingIngList/${user_id}/${fromDate}/${toDate}`,
         });
     };
 
