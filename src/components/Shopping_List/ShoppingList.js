@@ -56,18 +56,26 @@ class ShoppingList extends React.Component {
                         </div>
                     </>
                         :
-                    <ul class="collection m-0">
+                    <ul class="collection row m-0" style={{overflowX:"scroll", display: "flex"}}>
                         {
                             list.map((e, i) => {
                                 return(
-                                    <li className="collection-item avatar">
-                                        <img src={e.product_image} alt="" class="circle border" />
-                                        <h1 className="text-center mb-1" style={{fontSize: 22}}>{e.ingredient_name}</h1>
-                                        <p className=''><a className='font-weight-bold'>Preferred Product:</a> {e.product_name}</p>
-                                        <div className='col-12 text-center font-weight-bold'>
-                                            <small className='text-muted'>Press star to buy</small>
+                                    <li className="collection-item col-12 avatar">
+                                    <div className="row">
+                                    <div className="col-2">
+                                        <img src={e.product_image} alt="" class="img-fluid img-thumbnail" />
+                                    </div>
+                                    <div className="col-8">
+                                        <h1 className="text-left mb-1" style={{fontSize: 22}}>{e.ingredient_name}</h1>
+                                        <p className=''><a className='font-weight-bold'>Preferred Product:</a><br/> {e.product_name}</p>
+                                        <div className='col-12 text-left font-weight-bold'>
+                                            <small className='text-muted'>Press cart to buy</small>
                                         </div>
-                                        <a href={e.product_url} target='_blank' className="secondary-content"><i className="material-icons">grade</i></a>
+                                    </div>
+                                    <div className="col-2">
+                                        <a href={e.product_url} target='_blank' className="secondary-content"><i className="material-icons" style={{color:"black"}}>shopping_cart</i></a>
+                                    </div>
+                                    </div>
                                     </li>
                                 )
                             })

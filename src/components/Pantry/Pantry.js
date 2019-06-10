@@ -36,27 +36,32 @@ class Pantry extends React.Component {
             .then(() => {
                 if(this.state.pantry !== undefined){
                 this.state.pantry.sort().map((e,i)=>{
+                    redPercentage = []
                     e.percentage = e.weight_left/e.product_gram_weight
                     if (e.percentage <= 0.20) {
                         redPercentage.push(e)
                         return redPercentage
                     }
                     else if (e.percentage <= 0.40 && e.percentage > 0.20) {
+                        orangePercentage = []
                         e.percentage = e.weight_left/e.product_gram_weight
                         orangePercentage.push(e)
                         return orangePercentage
                     }
                     else if (e.percentage <= 0.60 && e.percentage > 0.40) {
+                        yellowPercentage = []
                         e.percentage = e.weight_left/e.product_gram_weight
                         yellowPercentage.push(e)
                         return yellowPercentage
                     }
                     else if (e.percentage <= 0.80 && e.percentage > 0.60) {
+                        bluePercentage = []
                         e.percentage = e.weight_left/e.product_gram_weight
                         bluePercentage.push(e)
                         return bluePercentage
                     }
                     else {
+                        greenPercentage = []
                         e.percentage = e.weight_left/e.product_gram_weight
                         greenPercentage.push(e)
                         return greenPercentage
@@ -70,9 +75,10 @@ class Pantry extends React.Component {
 render() {
     return (
         <>
-            <div className="container-fluid" style={{height: "470px", overflow: "scroll", width: "100%"}}>
+            <div className="" style={{overflow: "scroll", width: "100%"}}>
             {
                 this.state.pantry.length < 1 ? <Spinner/> : <>
+               
                 <section>
                     {
                         redPercentage.length > 0 ? <div className="p-3 mb-1" style={{
@@ -83,7 +89,7 @@ render() {
                                                 <p style={{display: "inline-block", fontWeight: "bold", color: "white"}}>Under 20%</p>
                             {
                                 redPercentage.map((e, i) => {
-                                    return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
+                                    return <div className="col-4" style={{ display: "inline-block"}} data-toggle="tooltip" data-placement="top" title={`${(e.percentage*100).toString()}`+'%'}>
                                         <div>
                                             <div className="img">
                                                 <span><img src={e.percentage_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>

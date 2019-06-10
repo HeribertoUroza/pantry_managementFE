@@ -9,7 +9,7 @@ import Logout from './containers/Logout/Logout';
 import Landing from './containers/Landing/Landing'
 import Error404 from './components/Error404/Error404';
 import UserPref from './containers/UserPref/UserPref';
-import Dashboard from './containers/Dashboard/Dashboard';
+import Dashboard from './containers/Dashboard/DashboadReEdit/ReDesign';
 import AddRecipe from './containers/AddRecipe/AddRecipe';
 
 

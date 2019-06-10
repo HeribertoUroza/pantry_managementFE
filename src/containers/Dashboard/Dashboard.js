@@ -24,7 +24,6 @@ import Header from '../../components/Header/Header';
 import WeekRecipe from '../../components/WeekRecipeView/WeekRecipeView';
 import AddRecipe from '../AddRecipe/AddRecipe';
 import RecipesSearch from '../RecipesSearch/RecipesSearch';
-import Recipes from '../Recipes/Recipes';
 import Pantry from '../../components/Pantry/Pantry'
 import ShoppingList from '../../components/Shopping_List/ShoppingList'
 
