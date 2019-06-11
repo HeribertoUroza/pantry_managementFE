@@ -22,14 +22,18 @@ class Pantry extends React.Component {
         this.state = {
             pantry: null,
             finishedLoading: false,
+            pantryUpdates: 0,
         };
     };
 
     componentDidMount = () => this.getPantry();
 
     componentDidUpdate = () => {
-        const { pantry, } = this.state;
+        const { pantry, pantryUpdates } = this.state;
+        const { updates, } = this.props;
         if (!pantry) {
+            this.getPantry();
+        } else if (updates > pantryUpdates) {
             this.getPantry();
         } else {
             return;
@@ -37,12 +41,13 @@ class Pantry extends React.Component {
     };
 
     getPantry = _ => {
-        const { id, } = this.props;
+        const { id, updates } = this.props;
         if (id !== 0) {
             readPantry(id)
                 .then((response) => {
                     this.setState(() => ({
                         pantry: response.data.data,
+                        pantryUpdates: updates,
                     }));
                 })
                 .then(() => {

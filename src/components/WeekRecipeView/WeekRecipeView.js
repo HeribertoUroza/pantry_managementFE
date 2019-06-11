@@ -116,15 +116,16 @@ class WeekRecipeView extends React.Component {
     };
     const { recipe_owner, recipe_id, day_id, date, cooked, current_week, } = selectedMeal[0];
     try {
-      const updateMealCall = await updateMealSchedule(parseInt(recipe_owner, 10), parseInt(recipe_id, 10), parseInt(day_id, 10), date, cooked, current_week, parseInt(id));
+      const updateMealCall = await updateMealSchedule(parseInt(recipe_owner, 10), parseInt(recipe_id, 10), parseInt(day_id, 10), date, 'true', current_week, parseInt(id));
       for (let meal of meals) {
         if (meal.meal_schedule_id === parseInt(id, 10)) {
           const mealIdx = meals.indexOf(meal);
           meals[mealIdx].cooked = 'true';
-          console.log(2, meals);
           this.setState(() => ({
             meals,
-          }))
+          }), () => {
+            this.props.updatePantry();
+          })
         };
       };
     } catch (e) {

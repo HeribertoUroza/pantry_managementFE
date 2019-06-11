@@ -49,7 +49,8 @@ class Dashboard extends React.Component {
             token: '',
             shopping_list: [],
             phone_number: '',
-            sms_alert: ''
+            sms_alert: '',
+            pantryUpdates: 0,
         }
     }
 
@@ -125,6 +126,12 @@ class Dashboard extends React.Component {
             })
     }
 
+    updatePantry = _ => {
+        const {pantryUpdates,} = this.state;
+        this.setState(() => ({
+            pantryUpdates: pantryUpdates + 1,
+        }));
+    };
 
     render() {
         return (
@@ -184,7 +191,7 @@ class Dashboard extends React.Component {
                                                         </div>*/
                                                     }
                                                             <div className="col">
-                                                            <WeekRecipe id={this.state.user_id}/>
+                                                            <WeekRecipe id={this.state.user_id} updatePantry={this.updatePantry} />
                                                             </div>
                                                     </div>
                                                     }
@@ -216,7 +223,7 @@ class Dashboard extends React.Component {
                                                             </div>
                                                             <div className="card">
                                                                 <div className="card-content" style={{ overflow: "scroll", width: "95%" }}>
-                                                                    <Pantry id={this.state.user_id} />
+                                                                    <Pantry id={this.state.user_id} updates={this.state.pantryUpdates} />
                                                                 </div>
                                                             </div>
                                                         </div>
