@@ -106,6 +106,7 @@ class WeekRecipeView extends React.Component {
 
   pantryCalc = async e => {
     const { meals, } = this.state;
+    console.log(meals);
     const id = e.target.value;
     let selectedMeal = [];
     for (let meal of meals) {
@@ -116,6 +117,16 @@ class WeekRecipeView extends React.Component {
     const { recipe_owner, recipe_id, day_id, date, cooked, current_week, } = selectedMeal[0];
     try {
       const updateMealCall = await updateMealSchedule(parseInt(recipe_owner, 10), parseInt(recipe_id, 10), parseInt(day_id, 10), date, cooked, current_week, parseInt(id));
+      for (let meal of meals) {
+        if (meal.meal_schedule_id === parseInt(id, 10)) {
+          const mealIdx = meals.indexOf(meal);
+          meals[mealIdx].cooked = 'true';
+          console.log(2, meals);
+          this.setState(() => ({
+            meals,
+          }))
+        };
+      };
     } catch (e) {
       console.log(e);
     };
@@ -149,15 +160,20 @@ class WeekRecipeView extends React.Component {
                               index === 0 ? <p style={{ color: '#06174c' }}>Monday</p> : index === 1 ? <p style={{ color: '#06174c' }}>Tuesday</p> : index === 2 ? <p style={{ color: '#06174c' }}>Wednesday</p> : index === 3 ? <p style={{ color: '#06174c' }}>Thursday</p> : index === 4 ? <p style={{ color: '#06174c' }}>Friday</p> : null
                             }
                             <h5 class="card-title" style={{ color: "black" }}>{item.recipe_name}</h5>
-                            <form action="#" className="text-left mt-3">
-                              <p>
-                                <label>
-                                  <input type="checkbox" value={item.meal_schedule_id} class="checkbox" id={{ index }} style={{ fontSize: "12px" }}
-                                    onClick={this.pantryCalc}></input>
-                                  <span htmlFor={{ index }} style={{ fontSize: "12px" }}>Cooked?</span>
-                                </label>
-                              </p>
-                            </form>
+                            {
+                              item.cooked === 'false' ?
+                                <form action="#" className="text-left mt-3">
+                                  <p>
+                                    <label>
+                                      <input type="checkbox" value={item.meal_schedule_id} class="checkbox" id={{ index }} style={{ fontSize: "12px" }}
+                                        onClick={this.pantryCalc}></input>
+                                      <span htmlFor={{ index }} style={{ fontSize: "12px" }}>Cooked?</span>
+                                    </label>
+                                  </p>
+                                </form>
+                              :
+                                ''
+                            }
                             {
                               /*<h6 className="pt-1">Ingredients</h6>*/
                             }

@@ -38,18 +38,14 @@ class Pantry extends React.Component {
 
     getPantry = _ => {
         const { id, } = this.props;
-        console.log(1, id);
         if (id !== 0) {
-            console.log(2, id)
             readPantry(id)
                 .then((response) => {
-                    console.log(3, response.data.data);
                     this.setState(() => ({
                         pantry: response.data.data,
                     }));
                 })
                 .then(() => {
-                    console.log(4, this.state.pantry);
                     if (this.state.pantry !== undefined) {
                         this.state.pantry.sort().map((e, i) => {
                             e.percentage = e.weight_left / e.product_gram_weight
