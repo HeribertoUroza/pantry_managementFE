@@ -1,11 +1,29 @@
 import axios from 'axios';
 
 import cheerio from 'cheerio'
+import {EdamamAppID, EdamamAPIKey} from './apiKey';
+
 const request = require('request')
 
 
 const port = 11235;
 
+//NUTRITIONAL DATA
+const nutrition = (title, ingr) => {
+return axios ({
+    method: 'post',
+    url: `https://api.edamam.com/api/nutrition-details`,
+    headers: {"Content-Type": "application/json"},
+    params: {
+        app_id: EdamamAppID,
+        app_key: EdamamAPIKey,
+    },
+    data: {
+        title: title,
+        ingr: ingr,
+    }
+})
+}
 
 //WEBSCRAPING
 
@@ -136,7 +154,7 @@ const scrape = (url) =>{
             return axios({
                 method: 'get',
                 headers: { 'token': token },
-                url: `http://localhost:${port}/recipe/${recipe_id}`,
+                url: `http://localhost:${port}/ingredient/recipe/${recipe_id}`,
             });
         };
 
@@ -225,4 +243,5 @@ export {
     readRecipeById,
     updateMealSchedule,
     getUpcomingMealsIngList,
+    nutrition,
 }
