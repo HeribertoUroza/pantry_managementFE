@@ -1,10 +1,10 @@
 import React from 'react';
-import {withRouter,} from 'react-router';
-import {Spinner,} from 'reactstrap';
+import { withRouter, } from 'react-router';
+import { Spinner, } from 'reactstrap';
 import moment from 'moment-timezone';
 
 //SERVICES
-import {getUpcomingMealsIngList,} from '../../services/main';
+import { getUpcomingMealsIngList, } from '../../services/main';
 
 class ShoppingList extends React.Component {
     state = {
@@ -16,7 +16,7 @@ class ShoppingList extends React.Component {
     componentDidMount = async () => this.getUserInfo();
 
     componentDidUpdate = async () => {
-        const {user_id,} = this.state;
+        const { user_id, } = this.state;
         if (this.props.id === user_id) {
             return;
         } else {
@@ -34,7 +34,7 @@ class ShoppingList extends React.Component {
     }
 
     getUserInfo = async _ => {
-        const {id, token,} = this.props;
+        const { id, token, } = this.props;
         const weekDateRange = this.getWeekDateRange();
         if (id !== 0) {
             const shoppingListCall = await getUpcomingMealsIngList(id, weekDateRange[0], weekDateRange[1]);
@@ -54,9 +54,10 @@ class ShoppingList extends React.Component {
     };
 
     renderShoppingList = _ => {
-        const {list,} = this.state;
+        const { list, } = this.state;
+        console.log("list", list)
         if (!list) {
-            return(
+            return (
                 <>
                     <div className='container'>
                         <div className='col-4 my-5 py-5 text-center'>
@@ -66,29 +67,37 @@ class ShoppingList extends React.Component {
                 </>
             );
         } else if (list.length === 0) {
-            return(
+            return (
                 <>
                     <div className='container px-0 mx-0'>
                         <div className='col-4 my-5 py-5 text-center px-0 mx-0'>
-                            <p style={{fontSize: 36}} className='font-weight-bold'>No items</p>
+                            <p style={{ fontSize: 36 }} className='font-weight-bold'>No items</p>
                         </div>
                     </div>
                 </>
             );
         } else {
-            return(
+            return (
                 <ul class="collection m-0">
                     {
                         list.map((e, i) => {
-                            return(
-                                <li className="collection-item avatar">
-                                    <img src={e.product_image} alt="" class="circle border" />
-                                    <h1 className="text-center mb-1" style={{fontSize: 22}}>{e.ingredient_name}</h1>
-                                    <p className=''><a className='font-weight-bold'>Preferred Product:</a> {e.product_name}</p>
-                                    <div className='col-12 text-center font-weight-bold'>
-                                        <small className='text-muted'>Press star to buy</small>
+                            return (
+                                <li className="collection-item col-12 avatar">
+                                    <div className="row">
+                                        <div className="col-2">
+                                            <img src={e.product_image} alt="" class="img-fluid img-thumbnail" />
+                                        </div>
+                                        <div className="col-8">
+                                            <h1 className="text-left mb-1" style={{ fontSize: 22 }}>{e.ingredient_name}</h1>
+                                            <p className=''><a className='font-weight-bold'>Preferred Product:</a><br /> {e.product_name}</p>
+                                            <div className='col-12 text-left font-weight-bold'>
+                                                <small className='text-muted'>Press cart to buy</small>
+                                            </div>
+                                        </div>
+                                        <div className="col-2">
+                                            <a href={e.product_url} target='_blank' className="secondary-content"><i className="material-icons" style={{ color: "black" }}>shopping_cart</i></a>
+                                        </div>
                                     </div>
-                                    <a href={e.product_url} target='_blank' className="secondary-content"><i className="material-icons">grade</i></a>
                                 </li>
                             )
                         })
@@ -99,7 +108,7 @@ class ShoppingList extends React.Component {
     }
 
     render() {
-        const {list,} = this.state;
+        const { list, } = this.state;
         return (
             <>
                 {

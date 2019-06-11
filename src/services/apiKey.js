@@ -12,4 +12,8 @@ const possiblePantryAPI = {
     baseURL: process.env.REACT_APP_BASE_URL 
 }
 
-export { firebaseAPI, possiblePantryAPI }
+const EdamamAppID = process.env.REACT_APP_EdamamAppID;
+
+const EdamamAPIKey = process.env.REACT_APP_EdamamAPIKey;
+
+export { firebaseAPI, possiblePantryAPI, EdamamAppID, EdamamAPIKey }
