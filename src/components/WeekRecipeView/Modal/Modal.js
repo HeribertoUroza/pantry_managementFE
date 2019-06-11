@@ -58,7 +58,7 @@ class ModalExample extends React.Component {
             <>
                 <a class="btn-floating halfway-fab waves-effect waves-light black" data-toggle="modal" data-target="#myModal" onClick={this.toggle} ><i class="material-icons">add</i></a>
 
-                <Modal size="lg" isOpen={this.state.modal} toggle={this.toggle} backdrop={false} fade={false} scrollable={true}>
+                <Modal size="lg" isOpen={this.state.modal} toggle={this.toggle} backdrop={false} fade={true} scrollable={false}>
                     <ModalHeader toggle={this.toggle} style={{ backgroundColor: "crimson" }}>
                         <h2 style={{ fontWeight: "bold", fontSize: "2rem", color: "white", textAlign: "center" }}>{this.props.name.toUpperCase()}</h2>
                     </ModalHeader>
@@ -66,9 +66,6 @@ class ModalExample extends React.Component {
                         <div className="row">
                             <div className="col-6">
                                 <img class="mx-auto d-block" src={this.props.image} />
-                            </div>
-                            <div className="col-6">
-                                <hr />
                                 <h3 style={{ fontWeight: "bold", fontSize: "1.2rem" }}>Ingredients</h3>
                                 <ul>
                                     {
@@ -77,7 +74,8 @@ class ModalExample extends React.Component {
                                         })
                                     }
                                 </ul>
-                                <hr />
+                            </div>
+                            <div className="col-6">
                                 {
                                     this.state.nutrients.totalNutrients ? 
                                     <Nutrition calories={this.state.nutrients.calories} 
