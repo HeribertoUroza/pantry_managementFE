@@ -200,8 +200,8 @@ class RecipesSearch extends React.Component {
                                     <div className="col-3">
                                     <div className="row">                                       
                                             {
-                                                saveAlert === true ? <a class="btn-large black pulse" onClick={this.saveMealSchedule} style={{color: "white"}}>SUBMIT WEEK</a> :
-                                                <a className="btn-large black" style={{color: "white"}} onClick={this.saveMealSchedule}>SUBMIT WEEK<i className="large material-icons"  style={{color: "white"}}></i></a>
+                                                saveAlert === true ? <a class="btn-small black pulse" onClick={this.saveMealSchedule} style={{color: "white"}}>SUBMIT WEEK</a> :
+                                                <a className="btn-small black" style={{color: "white"}} onClick={this.saveMealSchedule}>SUBMIT WEEK<i className="large material-icons"  style={{color: "white"}}></i></a>
                                             }                               
                                         </div>
                                     </div>

@@ -54,6 +54,7 @@ class ModalExample extends React.Component {
 
 
     render() {
+        console.log("Nutrients", this.state.nutrients)
         return (
             <>
                 <a class="btn-floating halfway-fab waves-effect waves-light black" data-toggle="modal" data-target="#myModal" onClick={this.toggle} ><i class="material-icons">add</i></a>
@@ -76,14 +77,8 @@ class ModalExample extends React.Component {
                                 </ul>
                             </div>
                             <div className="col-6">
-                                {
-                                    this.state.nutrients.totalNutrients ? 
-                                    <Nutrition calories={this.state.nutrients.calories} 
-                                                totalWeight={this.state.nutrients.totalWeight} 
-                                                yield={this.state.nutrients.yield}
-                                                />: "Nutrient Facts Cannot Be Rendered"
-                                }
-                                    
+                                
+                                    <Nutrition/>
                             </div>
                         </div>
 
