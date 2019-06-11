@@ -51,8 +51,6 @@ const getListStyle = isDraggingOver => ({
   overflow: 'auto',
 });
 
-
-
 class WeekRecipeView extends React.Component {
   constructor(props) {
     super(props)
@@ -77,19 +75,11 @@ class WeekRecipeView extends React.Component {
     if (!result.destination) {
       return;
     }
-
-    const items = reorder(
-      this.state.recipe,
-      result.source.index,
-      result.destination.index
-    );
-
-    this.setState({
-      items,
-    });
   }
 
+   
 
+   
   componentDidMount() {
     setTimeout(() => {
       readMealSchedule(this.props.token, this.props.id)
@@ -106,6 +96,7 @@ class WeekRecipeView extends React.Component {
 
   pantryCalc = async e => {
     const { meals, } = this.state;
+    console.log(meals);
     const id = e.target.value;
     let selectedMeal = [];
     for (let meal of meals) {
@@ -115,8 +106,18 @@ class WeekRecipeView extends React.Component {
     };
     const { recipe_owner, recipe_id, day_id, date, cooked, current_week, } = selectedMeal[0];
     try {
-      const updateMealCall = await updateMealSchedule(parseInt(recipe_owner, 10), parseInt(recipe_id, 10), parseInt(day_id, 10), date, cooked, current_week, parseInt(id));
-      console.log(updateMealCall);
+      const updateMealCall = await updateMealSchedule(parseInt(recipe_owner, 10), parseInt(recipe_id, 10), parseInt(day_id, 10), date, 'true', current_week, parseInt(id));
+      for (let meal of meals) {
+        if (meal.meal_schedule_id === parseInt(id, 10)) {
+          const mealIdx = meals.indexOf(meal);
+          meals[mealIdx].cooked = 'true';
+          this.setState(() => ({
+            meals,
+          }), () => {
+            this.props.updatePantry();
+          })
+        };
+      };
     } catch (e) {
       console.log(e);
     };
@@ -146,15 +147,20 @@ class WeekRecipeView extends React.Component {
                   </div>
                   <div className="row" style={{maxHeignt: "20.33%"}}>
                   <div className="">
-                    <form action="#" className="text-left">
-                      <p>
-                        <label>
-                          <input type="checkbox" value={item.meal_schedule_id} class="checkbox" id={{ index }} style={{ fontSize: "12px" }}
-                            onClick={this.pantryCalc}></input>
-                          <span htmlFor={{ index }} style={{ fontSize: "12px" }}>Cooked?</span>
-                        </label>
-                      </p>
-                    </form>
+                {
+                              item.cooked === 'false' ?
+                                <form action="#" className="text-left mt-3">
+                                  <p>
+                                    <label>
+                                      <input type="checkbox" value={item.meal_schedule_id} class="checkbox" id={{ index }} style={{ fontSize: "12px" }}
+                                        onClick={this.pantryCalc}></input>
+                                      <span htmlFor={{ index }} style={{ fontSize: "12px" }}>Cooked?</span>
+                                    </label>
+                                  </p>
+                                </form>
+                              :
+                                ''
+                            }
                   </div>
                   </div>
                 </div>

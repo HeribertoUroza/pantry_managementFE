@@ -15,11 +15,11 @@ const DayCard = (props) => {
                         }
                         <span className="card-title" style={{ fontWeight: "bolder", fontSize: "25px", textShadow: "2px 2px #000000" }}>{day.weekday_name}</span>
                     </div>
-                    <div className="card-content" style={{minHeight: "200px", maxHeight: "200px"}}>
+                    <div className="card-content" style={{ maxHeight: "200px"}}>
                         <p style={{ fontWeight: "bold" }}>{day.recipe.recipe_name}</p>
                         <p>{day.recipe.recipe_notes}</p>
                     </div>
-                    <div className="card-action" style={{minHeight: "200px", maxHeight: "200px"}} >
+                    <div className="card-action" style={{maxHeight: "200px"}} >
                         <ul class="collapsible">
                             <li>
                                 <div class="collapsible-header" style={{backgroundColor: "black", color: "white"}}><i class="material-icons" style={{backgroundColor: "black", color: "white"}}>kitchen</i>Details</div>

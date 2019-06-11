@@ -45,7 +45,9 @@ class Dashboard extends React.Component {
             token: '',
             shopping_list: [],
             phone_number: '',
-            sms_alert: ''
+            sms_alert: '',
+            pantryUpdates: 0,
+
         }
     }
 
@@ -136,6 +138,12 @@ class Dashboard extends React.Component {
             })
     }
 
+    updatePantry = _ => {
+        const {pantryUpdates,} = this.state;
+        this.setState(() => ({
+            pantryUpdates: pantryUpdates + 1,
+        }));
+    };
 
     render() {
         return (
@@ -173,7 +181,7 @@ class Dashboard extends React.Component {
                                                                     <p className="mt-5" style={{ transform: "rotate(270deg)", color: "white", fontWeight: "bold", fontSize: "1.5rem" }}>MENU</p>
                                                                 </div>
                                                                 <div className="col-11">
-                                                                    <WeekRecipe id={this.state.user_id} />
+                                                                    <WeekRecipe id={this.state.user_id} updatePantry={this.updatePantry} />
                                                                 </div>
                                                             </div>
                                                             <div className="row py-0 my-0">
@@ -191,7 +199,7 @@ class Dashboard extends React.Component {
                                                                     <p className="mt-5" style={{ transform: "rotate(270deg)", color: "white", fontWeight: "bold", fontSize: "1.5rem", marginTop: "25px" }}> HAVE</p>
                                                                 </div>
                                                                 <div className="col-5">
-                                                                    <Pantry id={this.state.user_id} />
+                                                                    <Pantry id={this.state.user_id} updates={this.state.pantryUpdates} />
                                                                 </div>
                                                             </div>
                                                         </>
