@@ -64,7 +64,7 @@ class AddRecipe extends React.Component {
                     this.setState({ token: token })
                 })
                 .then(() => {
-                    readUser(this.state.token, userEmail)
+                    readUser(userEmail)
                         .then((response) => {
                 this.setState({
                      current_userID: response.data.data.user_id
@@ -126,7 +126,7 @@ class AddRecipe extends React.Component {
                     this.setState({ token: token })
         })
                 .then(() => {
-                    return createRecipe(this.state.token, recipe_name, health_tag, current_userID, recipe_desc  )
+                    return createRecipe(recipe_name, health_tag, current_userID, recipe_desc  )
                 })
                 .then((res) => {
             this.setState({
@@ -137,9 +137,9 @@ class AddRecipe extends React.Component {
                 .then( async(recipe_id) => {
                     const { new_ingredients, } = this.state
                     for(let Ingredient of new_ingredients){
-                        const postProduct = await createProduct(this.state.token, Ingredient.product_name, Ingredient.product_url, current_userID, Ingredient.product_image, Ingredient.product_original_weight, Ingredient.product_original_weight_type, Ingredient.product_price)
+                        const postProduct = await createProduct(Ingredient.product_name, Ingredient.product_url, current_userID, Ingredient.product_image, Ingredient.product_original_weight, Ingredient.product_original_weight_type, Ingredient.product_price)
 
-                        const postIngredient = await createIngredient(this.state.token, Ingredient.ingredient_name, this.state.current_recipeID, postProduct.data.data.product_id.product_id, Ingredient.ingredient_weight, Ingredient.ingredient_type)
+                        const postIngredient = await createIngredient(Ingredient.ingredient_name, this.state.current_recipeID, postProduct.data.data.product_id.product_id, Ingredient.ingredient_weight, Ingredient.ingredient_type)
                     }
                 })
                 .then(()=> {

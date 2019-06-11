@@ -1,15 +1,9 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import M from 'materialize-css';
-import firebase from '../../firebase';
-
-
-import headImage from '../../assets/Photos/birme/broccoli-carrots-close-up-952482.jpg';
-import Pantry from '../Pantry/Pantry'
-import { readPantry } from '../../services/main';
 
 //ASSETS
-import logoName from '../../assets/Branding/PossiblePantryLogoWhite.png';
+import logoName from '../../assets/Branding/LogoRedesign.png';
 
 
 const productPercentage = (product)=>{

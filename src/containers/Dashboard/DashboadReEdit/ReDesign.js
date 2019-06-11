@@ -65,6 +65,24 @@ class Dashboard extends React.Component {
         })
     }
 
+    handleText = e => {
+        e.preventDefault();
+        const { user_id, phone_number } = this.state
+
+        return sendTextMessage(user_id, phone_number)
+            .then(res => {
+                this.setState({
+                    sms_alert: res.data.message
+                })
+            })
+            .then(() => {
+                M.toast({ html: this.state.sms_alert, classes: 'toast-rounded' });
+            })
+            .catch(err => {
+                console.log(err.toString())
+            })
+    }
+
     componentDidMount = () => {
 
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
@@ -111,7 +129,7 @@ class Dashboard extends React.Component {
                 })
             })
             .then(() => {
-                M.toast({ html: this.state.sms_alert, classes: 'toast-rounded' });
+                M.toast({ html: this.state.sms_alert, classes: 'toast-rounded black' });
             })
             .catch(err => {
                 console.log(err.toString())
@@ -160,7 +178,7 @@ class Dashboard extends React.Component {
                                                             </div>
                                                             <div className="row py-0 my-0">
                                                                 <div className="col-1" style={{ backgroundColor: "orange" }}>
-                                                                <a class="btn-floating btn-large waves-effect waves-light transparent mt-3 mx-auto"><i class="material-icons">sms</i></a>
+                                                                <a class="btn-floating btn-large waves-effect waves-light transparent mt-3 mx-auto" onClick={this.handleText}><i class="material-icons">sms</i></a>
                                                                     <p className="mt-5 mx-auto" style={{ transform: "rotate(270deg)", color: "white", fontWeight: "bold", fontSize: "1.5rem" }}>NEED</p>
                                                                 </div>
                                                                 <div className="col-5" style={{ height: "526px", overflow: "scroll" }}>

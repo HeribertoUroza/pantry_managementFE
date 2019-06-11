@@ -55,6 +55,7 @@ class ShoppingList extends React.Component {
 
     renderShoppingList = _ => {
         const { list, } = this.state;
+        console.log("list", list)
         if (!list) {
             return (
                 <>
