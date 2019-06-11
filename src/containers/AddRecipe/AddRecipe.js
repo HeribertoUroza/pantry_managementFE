@@ -56,7 +56,7 @@ class AddRecipe extends React.Component {
         M.AutoInit();
         
         const userEmail = await this.context.email
-        
+        console.log('AR P',this.props.id)
         this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
             firebase.auth().currentUser.getIdToken(false)
                 .then((token) => {
@@ -66,8 +66,9 @@ class AddRecipe extends React.Component {
                 .then(() => {
                     readUser(this.state.token, userEmail)
                         .then((response) => {
+                            //response.data.data.user_id
                 this.setState({
-                     current_userID: response.data.data.user_id
+                     current_userID: this.props.id
                 })
             })
                 })

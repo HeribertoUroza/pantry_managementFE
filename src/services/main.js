@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { possiblePantryAPI } from '../services/apiKey'
+
 import cheerio from 'cheerio'
 const request = require('request')
 
@@ -145,7 +145,7 @@ const scrape = (url) =>{
         return axios({
             method: 'post',
             headers: { 'token' : token},
-            url: `${possiblePantryAPI.baseURL}/recipe/`,
+            url: `http://localhost:11235/recipe/`,
             data: {
                 recipe_name: recipe_name,
                 health_tags: health_tag,
