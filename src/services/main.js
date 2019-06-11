@@ -62,6 +62,7 @@ const scrape = (url) =>{
 }
 
 
+
 //USERS
     //READ
     const readUser = ( email) => {

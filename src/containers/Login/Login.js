@@ -10,7 +10,10 @@ import AuthContext from '../../context/auth';
 import './login.css'
 
 //ASSETS
-import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
+import logo from '../../assets/Branding/LogoRedesignClearBackground.png'
+import video from '../../assets/Videos/FoodPack1_04_Videvo.mov';
+//import video from '../../assets/Videos/FoodPack1_01_Videvo.mov';
+
 
 
 class Login extends React.Component {
@@ -18,14 +21,15 @@ class Login extends React.Component {
   state = {
     email: '',
     password: '',
-    error: ''
+    error: '',
+    videoURL: video,
   }
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
-  
-  handleFill = (e) =>{
+
+  handleFill = (e) => {
     this.setState({
       email: "joserodriguez@pursuit.org",
       password: "123123"
@@ -57,13 +61,59 @@ class Login extends React.Component {
             if (!user) {
               return (
                 <>
-                  <div className="container-fluid loginContainer">
-                    <div className="row">
-                      <div className="col"></div>
-                      <div className="col">
-                        <img src={logo} alt="logo" className="loginLogo" />
+                  <video id="myVideo" loop muted autoPlay>
+                    <source src={this.state.videoURL} type="video/mp4" />
+                  </video>
+                  <div className="row">
+                    <div className="col" style={{ margin: "20px" }}>
+                      <div className="row">
+                        <div className="col"></div>
+                        <div className="col" style={{ marginTop: "200px" }}>
+                          <img src={logo} />
+                        </div>
+                        <div className="col">
+                          <div className="text-center" style={{ marginTop: "200px" }}>
+                            {displayError}
+                            <form onSubmit={this.handleSubmit}>
+                              <div className="form-group">
+                                <label htmlFor="exampleInputEmail1" className="whiteText boldText">EMAIL</label>
+                                <input type="email" className="form-control whiteForm" id="signupinputemail" aria-describedby="emailHelp" name="email" value={email} onChange={this.handleChange} />
+                              </div>
+                              <div className="form-group">
+                                <label htmlFor="exampleInputPassword1" className="whiteText boldText">PASSWORD</label>
+                                <input type="password" className="form-control" id="signupinputpassword" value={password} name="password" onChange={this.handleChange} />
+                              </div>
+                              <button className="btn waves-effect waves-light navy mt-5 black" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px', color: "white" }} onClick={this.handleSubmit}>LOGIN
+                              </button>
+                              <p className="mt-3" style={{color: "black"}}>Don't have an account? <Link to='/signup' style={{color: "yellow", fontWeight: "bold"}}>Sign Up</Link></p>
+                            </form>
+                          </div>
+                        </div>
+                        <div className="col">
+                          <button className="btn waves-effect waves-light mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleFill}>DEMO
+                          </button>
+                        </div>
                       </div>
-                      <div className="col">
+
+                    </div>
+                  </div>
+                </>
+              )
+            }
+            else {
+              return (<Redirect to='/dashboard' />)
+            }
+          }
+        }
+      </AuthContext.Consumer>
+
+    );
+  }
+}
+
+export default withRouter(Login)
+
+/*                      <div className="col">
                         <div className="text-center" style={{ marginTop: "200px" }}>
                           {displayError}
                           <form onSubmit={this.handleSubmit}>
@@ -86,21 +136,4 @@ class Login extends React.Component {
                         <button className="btn waves-effect waves-light mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleFill}>DEMO
                             <i className="material-icons right">settings_input_hdmi</i>
                         </button>                  
-                        </div>
-                    </div>
-                  </div>
-                </>
-              )
-            }
-            else {
-              return (<Redirect to='/dashboard' />)
-            }
-          }
-        }
-      </AuthContext.Consumer>
-
-    );
-  }
-}
-
-export default withRouter(Login)
+                        </div>*/

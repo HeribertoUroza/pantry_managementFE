@@ -25,9 +25,9 @@ const WeekdayDisplay = (props) => {
         message= 'Selection Completed!'
     }
     return <>
-        <div class="row">
-        <h1 style={{ fontWeight: "bold", fontSize: "50px" }}>{message} {dayName}!</h1>
-        </div>
+       
+        <h1 class="mx-auto" style={{ fontWeight: "bold", fontSize: "40px" }}>{message} {dayName}!</h1>
+        
     </>
 }
 

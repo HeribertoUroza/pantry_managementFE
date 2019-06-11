@@ -10,8 +10,9 @@ import AuthContext from '../../context/auth';
 import './landing.css'
 
 //ASSETS
-import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
-import video from '../../assets/Videos/Pexels_Videos_1494297.mp4';
+import logo from '../../assets/Branding/LogoRedesignClearBackground.png';
+//import video from '../../assets/Videos/FoodPack1_04_Videvo.mov'
+import video from '../../assets/Videos/FoodPack1_01_Videvo.mov'
 
 
 class Login extends React.Component {
@@ -51,28 +52,25 @@ class Login extends React.Component {
                                         <source src={this.state.videoURL} type="video/mp4" />
                                     </video>
                                     <div className="row">
-                                        <div className="col" style={{ border: "white 2px solid", margin: "20px" }}>
-                                            <div className="row">
+                                        <div className="col" style={{margin: "100px" }}>
+                                            <div className="row" style={{backgroundColor: "rgba(0, 0, 0, 0.4)"}}>
                                                 <div className="col"></div>
-                                                <div className="col pt-5">
-                                                    <img src={logo} className="landingLogo" />
+                                                <div className="col my-auto">
+                                                    <img src={logo} style={{height: "300%", width: "auto"}}/>
                                                 </div>
-                                                <div className="col whiteText text-center" style={{ height: "100%", marginTop: "300px" }}>
-                                                    <h2>Know What You Need...</h2>
-                                                    <h3>Simplify Your Life...</h3>
-                                                    <h4>Save The Planet...</h4>
-                                                    <h5>The Choice Is Yours...</h5>
-                                                    <h6>Possible Pantry</h6>
-                                                </div>
+                                                <div className="col whiteText py-5">
+                                                                    <h1 className="text-center my-auto" style={{ fontSize: '35px', fontFamily: "Roboto Condensed", fontWeight: "550" }}><i>SMALL STEPS</i> <br/> <b>BIG CHANGES</b></h1>
+                                                                    <hr />
+                                                                    <p className="text-center px-2"> By making <b><i>small changes</i></b> to your grocery shopping routine, you too can be part of the movement, that <b>ENDS</b></p>
+                                                                    <ul className="text-center"><li> the <b>waste</b> of food... </li>  <li>the <b>waste</b> of valuable resources ...</li>  <li>and slows <b>climate change</b>...</li></ul>
+                                                                </div>
                                                 <div className="col"></div>
                                             </div>
-                                            <div className="row">
-                                                <div className="col text-center">
-                                                    <Link to='/signup'><button className="btn waves-effect waves-light brown mt-5 mr-4" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmitSignup}>SIGN UP
-                                                        <i className="material-icons right">send</i>
+                                            <div className="row" style={{backgroundColor: "rgba(0, 0, 0, 0.4)"}}>
+                                                <div className="col my-auto text-center">
+                                                    <Link to='/signup'><button className="btn waves-effect waves-light black my-3 mr-4" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px', color: "white" }} onClick={this.handleSubmitSignup}>SIGN UP
                                                     </button></Link>
-                                                    <button className="btn waves-effect waves-light navy mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmitLogin}>LOGIN
-                                                        <i className="material-icons right">send</i>
+                                                    <button className="btn waves-effect waves-light green my-3" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px', color: "white" }} onClick={this.handleSubmitLogin}>LOGIN
                                                     </button>
                                                 </div>
                                             </div>
