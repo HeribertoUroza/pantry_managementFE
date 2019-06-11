@@ -50,7 +50,7 @@ const scrape = (url) =>{
         return axios({
             method: 'get',
            // headers: {'token': token},
-            url: `http://localhost:${port}/user/email/${email}`,
+            url: `${possiblePantryAPI}/user/email/${email}`,
         });
     };
 
@@ -59,7 +59,7 @@ const scrape = (url) =>{
         return axios({
             method: 'post',
             headers: { 'token': token },
-            url: `http://localhost:${port}/user/`,
+            url: `${possiblePantryAPI}/user/`,
             data: {
                 name: name,
                 username: username,
@@ -78,7 +78,7 @@ const scrape = (url) =>{
     const getUpcomingMealsIngList = (user_id, fromDate, toDate) => {
         return axios({
             method: 'get',
-            url: `http://localhost:${port}/user/upcomingIngList/${user_id}/${fromDate}/${toDate}`,
+            url: `${possiblePantryAPI}/user/upcomingIngList/${user_id}/${fromDate}/${toDate}`,
         });
     };
 
@@ -88,7 +88,7 @@ const scrape = (url) =>{
         return axios({
             method: 'get',
             headers: { 'token': token },
-            url: `http://localhost:${port}/mealSchedule/currentTrue/${user_id}`
+            url: `${possiblePantryAPI}/mealSchedule/currentTrue/${user_id}`
             ,
     });
 };
@@ -99,7 +99,7 @@ const scrape = (url) =>{
         return axios({
             method: 'get',
             headers: { 'token': token },
-            url: `http://localhost:${port}/ingredient/recipe/${recipe_id}`,
+            url: `${possiblePantryAPI}/ingredient/recipe/${recipe_id}`,
         });
     };
 
@@ -108,7 +108,7 @@ const scrape = (url) =>{
     return axios({
         method: 'post',
         headers: { 'token': token },
-        url: `http://localhost:11235/ingredient/`,
+        url: `${possiblePantryAPI}/ingredient/`,
         data: {
             ingredient_name: ingredient_name,
             recipe_id: current_recipeID,
@@ -127,7 +127,7 @@ const scrape = (url) =>{
         return axios({
             method: 'get',
             headers: { 'token': token },
-            url: `http://localhost:${port}/recipe/user/${user_id}`,
+            url: `${possiblePantryAPI}/recipe/user/${user_id}`,
         });
     };
 
@@ -136,7 +136,7 @@ const scrape = (url) =>{
             return axios({
                 method: 'get',
                 headers: { 'token': token },
-                url: `http://localhost:${port}/recipe/${recipe_id}`,
+                url: `${possiblePantryAPI}/recipe/${recipe_id}`,
             });
         };
 
@@ -145,7 +145,7 @@ const scrape = (url) =>{
         return axios({
             method: 'post',
             headers: { 'token' : token},
-            url: `http://localhost:11235/recipe/`,
+            url: `${possiblePantryAPI}/recipe/`,
             data: {
                 recipe_name: recipe_name,
                 health_tags: health_tag,
@@ -161,7 +161,7 @@ const readPantry = (id) => {
     return axios({
         method: 'get',
         //headers: { 'token': token },
-        url: `http://localhost:${port}/currentPantry/user/${id}`,
+        url: `${possiblePantryAPI}/currentPantry/user/${id}`,
     });
 }
 
@@ -171,7 +171,7 @@ const readPantry = (id) => {
     return axios({
         method: 'post',
         headers: { 'token': token },
-        url: `http://localhost:11235/product/`,
+        url: `${possiblePantryAPI}/product/`,
         data: {
             product_name: product_name,
             product_url: product_url,
@@ -188,7 +188,7 @@ const readPantry = (id) => {
 const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_week, id) => {
     return axios({
         method: 'put',
-        url: `http://localhost:${port}/mealSchedule/${id}`,
+        url: `${possiblePantryAPI}/mealSchedule/${id}`,
         data: {
             user_id, 
             recipe_id,
@@ -205,7 +205,7 @@ const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_we
     const sendTextMessage = (user_id, phone_number) => {
     return axios({
         method: 'get',
-        url: `http://localhost:11235/sms/${user_id}/${phone_number}`,  
+        url: `${possiblePantryAPI}/sms/${user_id}/${phone_number}`,  
     })
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import firebase from 'firebase';
+import { possiblePantryAPI } from '../../services/apiKey'
 
 //COMPONENTS
 import { Weekdays } from '../../components/RecipeSearch/WeekdaysContainer';
@@ -70,7 +71,7 @@ class RecipesSearch extends React.Component {
     getAllUserRecipes = (token) => {
         return axios({
             method: 'get',
-            url: `http://localhost:11235/recipe/user/${this.props.id}`,
+            url: `${possiblePantryAPI}/recipe/user/${this.props.id}`,
             headers: { 'token': token }
         })
             .then((response) => {
@@ -122,7 +123,7 @@ class RecipesSearch extends React.Component {
     getIngredientsByRecipeID = (recipeID) => {
         return axios({
             method: 'get',
-            url: `http://localhost:11235/ingredient/recipe/${recipeID}`
+            url: `${possiblePantryAPI}/ingredient/recipe/${recipeID}`
         })
             .then((response) => {
                 const data = response.data.data;
@@ -149,7 +150,7 @@ class RecipesSearch extends React.Component {
                 };
                 axios({
                     method: 'post',
-                    url: 'http://localhost:11235/mealSchedule/',
+                    url: `${possiblePantryAPI}/mealSchedule/`,
                     headers: { 'token': this.state.token },
                     data: requestBody
                 })
