@@ -89,7 +89,6 @@ class WeekRecipeView extends React.Component {
 
 
   render() {
-    console.log("RD", this.state.recipe)
     return (<>
       <div style={{ display: "flex" }}>
         {
@@ -97,7 +96,10 @@ class WeekRecipeView extends React.Component {
             this.state.meals.map((item, index) => {
               return <div class="card" style={{ backroundColor: "blue", maxWidth: "20%" }}>
                 <div class="card-image">
-                  <img src={item.recipe_image_url} className="materialboxed" style={{ backgroundColor: "black", height: "200px", maxWidth: "250px" }} />
+                {
+                  item.cooked === "false" ?  <img src={item.recipe_image_url} className="materialboxed" style={{ backgroundColor: "black", height: "200px", maxWidth: "250px"}} /> :
+                  <img src={item.recipe_image_url} className="materialboxed" style={{ backgroundColor: "black", height: "200px", maxWidth: "250px", filter: "grayscale(100%)" }} />
+                }
                   <ModalExample name={item.recipe_name} image={item.recipe_image_url} id={item.recipe_id} />
                 </div>
                 <div class="card-content">
