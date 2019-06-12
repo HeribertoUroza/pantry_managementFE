@@ -144,23 +144,8 @@ class Dashboard extends React.Component {
                                     {
                                         this.state.userRecipeDB ? <RecipesSearch click={this.handleClickBack} id={this.state.user_id} />
                                             : this.state.addRecipe ? <AddRecipe click={this.handleClickBack} />
-                                                : <>{
-                                                  /*  <div className="jumbotron jumbotronBackground mb-0" style={{backgroundColor: "white"}}>
-                                                        <div className="row">
-                                                            <div className="col"></div>
-                                                            <div className="col-6"></div>
-                                                            <div className="col-4">
-                                                                <div className="py-5" style={{ backgroundColor: "white", color: "black", border: "2px solid black" }}>
-                                                                    <h3 className="text-center my-auto px-5" style={{ fontSize: '25px', fontFamily: "Roboto Condensed", opacity: "1", fontWeight: "550" }}><i>SMALL STEPS</i>, <b>BIG CHANGES</b></h3>
-                                                                    <hr />
-                                                                    <p className="text-center px-5"> By making <b><i>small changes</i></b> to your grocery shopping routine, you too can be part of the movement, that <b>ends</b></p>
-                                                                    <ul className="text-center"><li> the <b>waste</b> of food... </li>  <li>the <b>waste</b> of valuable resources ...</li>  <li>and slows <b>climate change</b>...</li></ul>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col"></div>
-                                                        </div>
-                                                </div>*/}
-                                                    <div className="row my-0">
+                                                : <>
+                                                    <div className="row my-0" style={{minHeight: "700px"}}>
                                                         <div className="col-7 my-0 pt-4">
                                                             <div className="row" style={{
                                                                 backgroundColor: "#06174c",

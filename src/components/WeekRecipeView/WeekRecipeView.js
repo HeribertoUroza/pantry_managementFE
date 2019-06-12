@@ -19,7 +19,7 @@ class WeekRecipeView extends React.Component {
     super(props)
 
     this.state = {
-      meals: [],
+      meals: null,
       ingredients: [],
       date: new Date(),
       modal: false,
@@ -90,9 +90,9 @@ class WeekRecipeView extends React.Component {
 
   render() {
     return (<>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", minHeight: "300px" }}>
         {
-          this.state.meals.length === 0 ? <Spinner /> :
+          this.state.meals === null ? <Spinner /> : this.state.meals.length === 0 ? <><p style={{ fontSize: 36 }} className='font-weight-bold m-auto'>Plan Your Meals For The Upcoming Week</p></> :
             this.state.meals.map((item, index) => {
               return <div class="card" style={{ backroundColor: "blue", maxWidth: "20%" }}>
                 <div class="card-image">
