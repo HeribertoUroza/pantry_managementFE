@@ -6,7 +6,7 @@ import { Link, } from 'react-router-dom';
 import './logout.css';
 
 //ASSETS
-import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
+//import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
 
 
 
@@ -28,7 +28,9 @@ export default class Logout extends React.Component {
   render() {
     return <>
       <div className="container-fluid logoutContainer">
-        <img src={logo} alt="logo" className="logoutLogo" />
+        {
+        //<img src={logo} alt="logo" className="logoutLogo" />
+        }
         <div className="row">
           <div className="col"></div>
           <div className="col text-center">
