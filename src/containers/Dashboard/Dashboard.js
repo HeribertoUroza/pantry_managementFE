@@ -145,7 +145,7 @@ class Dashboard extends React.Component {
                                         this.state.userRecipeDB ? <RecipesSearch click={this.handleClickBack} id={this.state.user_id} />
                                             : this.state.addRecipe ? <AddRecipe click={this.handleClickBack} />
                                                 : <>
-                                                    <div className="row my-0" style={{minHeight: "700px"}}>
+                                                    <div className="row my-0" >
                                                         <div className="col-7 my-0 pt-4">
                                                             <div className="row" style={{
                                                                 backgroundColor: "#06174c",
