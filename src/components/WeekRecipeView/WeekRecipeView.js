@@ -14,43 +14,6 @@ import { readMealSchedule, readRecipeById } from '../../services/main';
 import ModalExample from './Modal/Modal'
 
 
-/* const getItems = count =>
- Array.from({ length: count }, (v, k) => k).map(k => ({
-   id: `item-${k}`,
-   content: `item ${k}`,
- }));*/
-
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = list;
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
-const grid = 5;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 ${grid}px 0 0`,
-
-  // change background colour if dragging
-  background: isDragging ? '#2e6e51' : 'white',
-
-  // styles we need to apply on draggables
-  ...draggableStyle,
-});
-
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? '#46a082' : 'black',
-  display: 'flex',
-  padding: grid,
-  overflow: 'auto',
-});
-
 class WeekRecipeView extends React.Component {
   constructor(props) {
     super(props)
@@ -85,6 +48,7 @@ class WeekRecipeView extends React.Component {
       readMealSchedule(this.props.token, this.props.id)
         .then((response) => {
           {
+            console.log("Meal", response.data.data)
             this.setState({ meals: response.data.data })
           }
         })
@@ -139,7 +103,7 @@ class WeekRecipeView extends React.Component {
                 <div class="card-content">
                 <div className="row" style={{maxHeignt: "33.33%"}}>
                   {
-                    index === 0 ? <p style={{ color: '#06174c' }}>Monday</p> : index === 1 ? <p style={{ color: '#06174c' }}>Tuesday</p> : index === 2 ? <p style={{ color: '#06174c' }}>Wednesday</p> : index === 3 ? <p style={{ color: '#06174c' }}>Thursday</p> : index === 4 ? <p style={{ color: '#06174c' }}>Friday</p> : null
+                    <p style={{ color: '#06174c' }}>{item.date}</p> 
                   }
                   </div>
                   <div className="row" style={{maxHeignt: "43.33%"}}>
