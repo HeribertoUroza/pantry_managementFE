@@ -159,7 +159,9 @@ class WeekRecipeView extends React.Component {
                                   </p>
                                 </form>
                               :
-                                ''
+                                <i class="material-icons">
+                                check_circle_outline
+                                </i>
                             }
                   </div>
                   </div>
