@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import firebase from '../../firebase';
 
@@ -94,4 +94,4 @@ class Header extends React.Component {
     }
 }
 
-export default withRouter(Header)
+export default withRouter(Header)*/
