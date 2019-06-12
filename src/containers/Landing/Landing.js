@@ -11,8 +11,7 @@ import './landing.css'
 
 //ASSETS
 import logo from '../../assets/Branding/LogoRedesignClearBackground.png';
-//import video from '../../assets/Videos/FoodPack1_04_Videvo.mov'
-import video from '../../assets/Videos/FoodPack1_01_Videvo.mov'
+import video from '../../assets/Videos/c4d81d4ae0e00b3b4a2dc416680ece9a.mp4'
 
 
 class Login extends React.Component {
