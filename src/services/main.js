@@ -14,8 +14,8 @@ return axios ({
     url: `https://api.edamam.com/api/nutrition-details`,
     headers: {"Content-Type": "application/json"},
     params: {
-        app_id: EdamamAppID,
-        app_key: EdamamAPIKey,
+        //app_id: EdamamAppID,
+        //app_key: EdamamAPIKey,
     },
     data: {
         title: title,

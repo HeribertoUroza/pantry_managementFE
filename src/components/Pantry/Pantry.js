@@ -29,6 +29,11 @@ class Pantry extends React.Component {
     componentDidMount = () => this.getPantry();
 
     componentDidUpdate = () => {
+        redPercentage = [];
+        orangePercentage = [];
+        yellowPercentage = [];
+        bluePercentage = [];
+        greenPercentage = [];
         const { pantry, pantryUpdates } = this.state;
         const { updates, } = this.props;
         if (!pantry) {

@@ -11,8 +11,7 @@ import './login.css'
 
 //ASSETS
 import logo from '../../assets/Branding/LogoRedesignClearBackground.png'
-import video from '../../assets/Videos/FoodPack1_04_Videvo.mov';
-//import video from '../../assets/Videos/FoodPack1_01_Videvo.mov';
+import video from '../../assets/Videos/54d0e336cc5f377cbdd93d019adc3744.mp4';
 
 
 
