@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { possiblePantryAPI } from '../services/apiKey'
 import cheerio from 'cheerio'
-import {EdamamAppID, EdamamAPIKey} from './apiKey';
+import { possiblePantryAPI, EdamamAppID, EdamamAPIKey} from './apiKey';
 
 const request = require('request')
 
