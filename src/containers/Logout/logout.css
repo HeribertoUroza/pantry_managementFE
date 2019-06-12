@@ -1,5 +1,5 @@
 .logoutContainer {
-    background-image: url('../../assets/Photos/birme/aromatic-bread-bunch-349608.jpg');
+   /* background-image: url('../../assets/Photos/birme/aromatic-bread-bunch-349608.jpg');*/
     background-size: cover;
     height: 100%;
     opacity: 0.9;
@@ -11,7 +11,7 @@
 
 .logoutH3 {
     font-size: 50px;
-    color: #06174c;
+    color: white;
 }
 
 .logoutH4 {
