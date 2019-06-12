@@ -12,8 +12,6 @@ import AuthContext from '../../context/auth';
 //CSS
 import './addrecipe.css';
 
-//ASSETS
-//import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
 
 //MATERIALIZE
 import M from 'materialize-css'
