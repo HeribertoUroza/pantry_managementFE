@@ -10,7 +10,11 @@ import AuthContext from '../../context/auth';
 import './signup.css';
 
 //ASSETS
-import logo from '../../assets/Branding/PossiblePantryLogoWhite.png'
+import logo from '../../assets/Branding/LogoRedesignClearBackground.png';
+//import video from '../../assets/Videos/FoodPack1_04_Videvo.mov';
+import video from '../../assets/Videos/FoodPack1_05_Videvo.mov';
+
+
 
 
 
@@ -21,7 +25,9 @@ class Signup extends React.Component {
     this.state = {
       email: '',
       password: '',
-      error: ''
+      error: '',
+      videoURL: video,
+
     }
   }
 
@@ -57,14 +63,18 @@ class Signup extends React.Component {
             if (user === null) {
               return (
                 <>
-                  <div className="container-fluid signUpContainer">
-                    <div className="row reverseFlip">
+                <video id="myVideo" loop muted autoPlay>
+                    <source src={this.state.videoURL} type="video/mp4" />
+                  </video>
+                  <div className="container-fluid">
+                    <div className="row">
+                    <div className="col"></div>
                       <div className="col">
                       <img src={logo} alt="logo" className="signUpLogo" />
                       </div>
                       <div className="col">
                         <div className="row my-5 py-5">
-                          <div className="col text-center" style={{marginTop: "200px"}}>
+                          <div className="col text-center" style={{marginTop: "150px"}}>
                             {displayError}
                             <form onSubmit={this.handleSubmit}>
                               <div className="form-group">
@@ -75,8 +85,7 @@ class Signup extends React.Component {
                                 <label htmlFor="exampleInputPassword1" className="whiteText boldText">PASSWORD</label>
                                 <input type="password" className="form-control" id="signupinputpassword" value={password} name="password" onChange={this.handleChange} />
                               </div>
-                              <button className="btn waves-effect waves-light brown mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px' }} onClick={this.handleSubmit}>SIGN UP
-                            <i className="material-icons right">send</i>
+                              <button className="btn waves-effect waves-light black mt-5" type="submit" name="action" style={{ margin: "0 auto", borderRadius: '50px', color: "white" }} onClick={this.handleSubmit}>SIGN UP
                               </button>
                               <p className="whiteText mt-3">Already have an account? <Link to='/login' className="landingLink">Login</Link></p>
                             </form>

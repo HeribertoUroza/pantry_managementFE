@@ -53,11 +53,11 @@ class Dashboard extends React.Component {
 
 
     handleClickRecipeDB = () => {
-        this.setState({ userRecipeDB: true })
+        this.setState({ userRecipeDB: true, addRecipe: false })
     }
 
     handleClickAddRecipe = () => {
-        this.setState({ addRecipe: true })
+        this.setState({ addRecipe: true, userRecipeDB: false })
     }
 
     handleClickBack = () => {
@@ -139,7 +139,7 @@ class Dashboard extends React.Component {
     }
 
     updatePantry = _ => {
-        const {pantryUpdates,} = this.state;
+        const { pantryUpdates, } = this.state;
         this.setState(() => ({
             pantryUpdates: pantryUpdates + 1,
         }));
@@ -158,25 +158,28 @@ class Dashboard extends React.Component {
                                             <SideNav userName={this.state.name} email={this.state.email} id={this.state.user_id} clickRDB={this.handleClickRecipeDB} clickAddR={this.handleClickAddRecipe} clickDash={this.handleClickBack} pantry={this.state.pantry} token={this.state.token} />
                                         </div>
                                         <div className="col-10 pl-5" style={{ overflow: "scroll", width: "100%" }}>
-                                        <div className="row" style={{ backgroundColor: "black" }}>
-                                        <div className="col"></div>
-                                        <div className="col"></div>
-                                        <div className="col">
-                                                                <Clock
-                                                                    style={{ fontSize: "20px", textAlign: "right", paddingLeft: "25px", color: "white" }}
-                                                                    format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
-                                                                    ticking={true}
-                                                                />
-                                                            </div>
-                                                            </div>
+                                            <div className="row" style={{ backgroundColor: "black" }}>
+                                                <div className="col"></div>
+                                                <div className="col"></div>
+                                                <div className="col">
+                                                    <Clock
+                                                        style={{ fontSize: "20px", textAlign: "right", paddingLeft: "25px", color: "white" }}
+                                                        format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
+                                                        ticking={true}
+                                                    />
+                                                </div>
+                                            </div>
                                             {
                                                 this.state.userRecipeDB ? <RecipesSearch click={this.handleClickBack} id={this.state.user_id} />
                                                     : this.state.addRecipe ? <AddRecipe click={this.handleClickBack} id={this.state.user_id} />
                                                         : <>
-                                                           
+
                                                             <div className="row">
-                                                                <div className="col-1" style={{ backgroundColor: "#2e6e51" }}>
-                                                                <a class="btn-floating btn-large waves-effect waves-light transparent mt-3 mx-auto"><i class="material-icons">restaurant_menu</i></a>
+                                                                <div className="col-1" style={{
+                                                                    backgroundColor: "#63d471",
+                                                                    backgroundImage: "linear-gradient(315deg, #63d471 0%, #233329 74%)"
+                                                                }}>
+                                                                    <a class="btn-floating btn-large waves-effect waves-light transparent mt-3 mx-auto"><i class="material-icons">restaurant_menu</i></a>
 
                                                                     <p className="mt-5" style={{ transform: "rotate(270deg)", color: "white", fontWeight: "bold", fontSize: "1.5rem" }}>MENU</p>
                                                                 </div>
@@ -185,20 +188,27 @@ class Dashboard extends React.Component {
                                                                 </div>
                                                             </div>
                                                             <div className="row py-0 my-0">
-                                                                <div className="col-1" style={{ backgroundColor: "orange" }}>
-                                                                <a class="btn-floating btn-large waves-effect waves-light transparent mt-3 mx-auto" onClick={this.handleText}><i class="material-icons">sms</i></a>
+                                                                <div className="col-1" style={{
+                                                                    backgroundColor: "#ff4e00",
+                                                                    backgroundImage: "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
+                                                                }}>
+                                                                    <a class="btn-floating btn-large waves-effect waves-light transparent mt-3 mx-auto" onClick={this.handleText}><i class="material-icons">sms</i></a>
                                                                     <p className="mt-5 mx-auto" style={{ transform: "rotate(270deg)", color: "white", fontWeight: "bold", fontSize: "1.5rem" }}>NEED</p>
                                                                 </div>
                                                                 <div className="col-5" style={{ height: "526px", overflow: "scroll" }}>
-                                                                   
+
                                                                     <ShoppingList id={this.state.user_id} />
                                                                 </div>
-                                                                <div className="col-1" style={{ backgroundColor: "gray" }}>
-                                                                <a class="btn-floating btn-large waves-effect waves-light transparent mt-3 mx-auto"><i class="material-icons">storage</i></a>
+                                                                <div className="col-1" style={{
+                                                                    backgroundColor: "#d3d3d3",
+                                                                    backgroundImage: "linear-gradient(315deg, #d3d3d3 0%, #57606f 74%)"
+
+                                                                }}>
+                                                                    <a class="btn-floating btn-large waves-effect waves-light transparent mt-3 mx-auto"><i class="material-icons">storage</i></a>
 
                                                                     <p className="mt-5" style={{ transform: "rotate(270deg)", color: "white", fontWeight: "bold", fontSize: "1.5rem", marginTop: "25px" }}> HAVE</p>
                                                                 </div>
-                                                                <div className="col-5">
+                                                                <div className="col-5" style={{ height: "526px", overflow: "scroll" }}>
                                                                     <Pantry id={this.state.user_id} updates={this.state.pantryUpdates} />
                                                                 </div>
                                                             </div>

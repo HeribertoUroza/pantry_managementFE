@@ -233,7 +233,7 @@ class Pantry extends React.Component {
     render() {
         return (
             <>
-                <div className="container-fluid" style={{ height: "470px", overflow: "scroll", width: "100%" }}>
+                <div className="container-fluid" style={{ height: "526px", overflow: "scroll", width: "100%" }}>
                     {
                         this.renderPantry()
                     }
