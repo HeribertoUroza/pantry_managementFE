@@ -71,7 +71,7 @@ class RecipesSearch extends React.Component {
     getAllUserRecipes = (token) => {
         return axios({
             method: 'get',
-            url: `${possiblePantryAPI}/recipe/user/${this.props.id}`,
+            url: `${possiblePantryAPI.baseURL}/recipe/user/${this.props.id}`,
             headers: { 'token': token }
         })
             .then((response) => {
@@ -123,7 +123,7 @@ class RecipesSearch extends React.Component {
     getIngredientsByRecipeID = (recipeID) => {
         return axios({
             method: 'get',
-            url: `${possiblePantryAPI}/ingredient/recipe/${recipeID}`
+            url: `${possiblePantryAPI.baseURL}/ingredient/recipe/${recipeID}`
         })
             .then((response) => {
                 const data = response.data.data;
@@ -150,7 +150,7 @@ class RecipesSearch extends React.Component {
                 };
                 axios({
                     method: 'post',
-                    url: `${possiblePantryAPI}/mealSchedule/`,
+                    url: `${possiblePantryAPI.baseURL}/mealSchedule/`,
                     headers: { 'token': this.state.token },
                     data: requestBody
                 })

@@ -68,7 +68,7 @@ const scrape = (url) =>{
         return axios({
             method: 'get',
            // headers: {'token': token},
-            url: `${possiblePantryAPI}/user/email/${email}`,
+            url: `${possiblePantryAPI.baseURL}/user/email/${email}`,
         });
     };
 
@@ -77,7 +77,7 @@ const scrape = (url) =>{
         return axios({
             method: 'post',
             headers: { 'token': token },
-            url: `${possiblePantryAPI}/user/`,
+            url: `${possiblePantryAPI.baseURL}/user/`,
             data: {
                 name: name,
                 username: username,
@@ -96,7 +96,7 @@ const scrape = (url) =>{
     const getUpcomingMealsIngList = (user_id, fromDate, toDate) => {
         return axios({
             method: 'get',
-            url: `${possiblePantryAPI}/user/upcomingIngList/${user_id}/${fromDate}/${toDate}`,
+            url: `${possiblePantryAPI.baseURL}/user/upcomingIngList/${user_id}/${fromDate}/${toDate}`,
         });
     };
 
@@ -106,7 +106,7 @@ const scrape = (url) =>{
         return axios({
             method: 'get',
             headers: { 'token': token },
-            url: `${possiblePantryAPI}/mealSchedule/currentTrue/${user_id}`
+            url: `${possiblePantryAPI.baseURL}/mealSchedule/currentTrue/${user_id}`
             ,
     });
 };
@@ -117,7 +117,7 @@ const scrape = (url) =>{
         return axios({
             method: 'get',
             headers: { 'token': token },
-            url: `${possiblePantryAPI}/ingredient/recipe/${recipe_id}`,
+            url: `${possiblePantryAPI.baseURL}/ingredient/recipe/${recipe_id}`,
         });
     };
 
@@ -126,7 +126,7 @@ const scrape = (url) =>{
     return axios({
         method: 'post',
         headers: { 'token': token },
-        url: `${possiblePantryAPI}/ingredient/`,
+        url: `${possiblePantryAPI.baseURL}/ingredient/`,
         data: {
             ingredient_name: ingredient_name,
             recipe_id: current_recipeID,
@@ -145,7 +145,7 @@ const scrape = (url) =>{
         return axios({
             method: 'get',
             headers: { 'token': token },
-            url: `${possiblePantryAPI}/recipe/user/${user_id}`,
+            url: `${possiblePantryAPI.baseURL}/recipe/user/${user_id}`,
         });
     };
 
@@ -154,7 +154,7 @@ const scrape = (url) =>{
             return axios({
                 method: 'get',
                 headers: { 'token': token },
-                url: `${possiblePantryAPI}/ingredient/recipe/${recipe_id}`,
+                url: `${possiblePantryAPI.baseURL}/ingredient/recipe/${recipe_id}`,
             });
         };
 
@@ -163,7 +163,7 @@ const scrape = (url) =>{
         return axios({
             method: 'post',
             headers: { 'token' : token},
-            url: `${possiblePantryAPI}/recipe/`,
+            url: `${possiblePantryAPI.baseURL}/recipe/`,
             data: {
                 recipe_name: recipe_name,
                 health_tags: health_tag,
@@ -179,7 +179,7 @@ const readPantry = (id) => {
     return axios({
         method: 'get',
         //headers: { 'token': token },
-        url: `${possiblePantryAPI}/currentPantry/user/${id}`,
+        url: `${possiblePantryAPI.baseURL}/currentPantry/user/${id}`,
     });
 }
 
@@ -189,7 +189,7 @@ const readPantry = (id) => {
     return axios({
         method: 'post',
         headers: { 'token': token },
-        url: `${possiblePantryAPI}/product/`,
+        url: `${possiblePantryAPI.baseURL}/product/`,
         data: {
             product_name: product_name,
             product_url: product_url,
@@ -206,7 +206,7 @@ const readPantry = (id) => {
 const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_week, id) => {
     return axios({
         method: 'put',
-        url: `${possiblePantryAPI}/mealSchedule/${id}`,
+        url: `${possiblePantryAPI.baseURL}/mealSchedule/${id}`,
         data: {
             user_id, 
             recipe_id,
@@ -223,7 +223,7 @@ const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_we
     const sendTextMessage = (user_id, phone_number) => {
     return axios({
         method: 'get',
-        url: `${possiblePantryAPI}/sms/${user_id}/${phone_number}`,  
+        url: `${possiblePantryAPI.baseURL}/sms/${user_id}/${phone_number}`,  
     })
 }
 
