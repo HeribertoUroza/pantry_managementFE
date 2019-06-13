@@ -11,8 +11,7 @@ import './signup.css';
 
 //ASSETS
 import logo from '../../assets/Branding/LogoRedesignClearBackground.png';
-//import video from '../../assets/Videos/FoodPack1_04_Videvo.mov';
-import video from '../../assets/Videos/FoodPack1_05_Videvo.mov';
+import video from '../../assets/Videos/e7ee48e4c9f84841e86043ac7235b63f.mp4';
 
 
 

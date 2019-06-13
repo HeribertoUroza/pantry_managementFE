@@ -3,17 +3,21 @@ import { withRouter, } from 'react-router';
 import { Spinner, } from 'reactstrap';
 import moment from 'moment-timezone';
 
+
+
 //SERVICES
 import { getUpcomingMealsIngList, } from '../../services/main';
+
 
 class ShoppingList extends React.Component {
     state = {
         list: null,
         user_id: 0,
         token: '',
+        individualItems: []
     };
 
-    componentDidMount = async () => this.getUserInfo();
+    componentDidMount = async () => this.getUserInfo()
 
     componentDidUpdate = async () => {
         const { user_id, } = this.state;
@@ -78,6 +82,10 @@ class ShoppingList extends React.Component {
         };
     };
 
+
+
+    
+
     renderShoppingList = _ => {
         const { list, } = this.state;
         console.log("list", list)
@@ -102,7 +110,7 @@ class ShoppingList extends React.Component {
                 </>
             );
         } else {
-            return (
+            return (<>
                 <ul class="collection m-0">
                     {
                         list.map((e, i) => {
@@ -128,6 +136,7 @@ class ShoppingList extends React.Component {
                         })
                     }
                 </ul>
+                </>
             );
         };
     }
