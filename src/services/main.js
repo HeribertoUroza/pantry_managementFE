@@ -188,7 +188,7 @@ const readPantryByProductID = (product_id) => {
     return axios({
         method: 'get',
         //headers: { 'token': token },
-        url: `http://localhost:${port}/currentPantry/${product_id}`,
+        url: `${possiblePantryAPI.baseURL}/currentPantry/${product_id}`,
     });
 }
 
@@ -216,7 +216,7 @@ const getProduct = (product_id, token) => {
     return axios({
         method: 'get',
         headers: { 'token': token },
-        url: `http://localhost:11235/product/id/${product_id}`,
+        url: `${possiblePantryAPI.baseURL}/product/id/${product_id}`,
     })
 }
 
@@ -226,7 +226,7 @@ const updateProductWeightLeft = (product_id, weight_left, token) => {
     return axios({
         method: 'put',
         headers: { 'token': token },
-        url: `http://localhost:${port}/currentPantry/product/${product_id}`,
+        url: `${possiblePantryAPI.baseURL}/currentPantry/product/${product_id}`,
         data: {
             weight_left, 
         },
