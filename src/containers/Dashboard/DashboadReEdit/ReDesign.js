@@ -67,23 +67,7 @@ class Dashboard extends React.Component {
         })
     }
 
-    handleText = e => {
-        e.preventDefault();
-        const { user_id, phone_number } = this.state
 
-        return sendTextMessage(user_id, phone_number)
-            .then(res => {
-                this.setState({
-                    sms_alert: res.data.message
-                })
-            })
-            .then(() => {
-                M.toast({ html: this.state.sms_alert, classes: 'toast-rounded' });
-            })
-            .catch(err => {
-                console.log(err.toString())
-            })
-    }
 
     componentDidMount = () => {
 
