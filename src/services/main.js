@@ -183,6 +183,15 @@ const readPantry = (id) => {
     });
 }
 
+//READ BY PRODUCT ID
+const readPantryByProductID = (product_id) => {
+    return axios({
+        method: 'get',
+        //headers: { 'token': token },
+        url: `http://localhost:${port}/currentPantry/${product_id}`,
+    });
+}
+
 //PRODUCT
     //CREATE
     const createProduct = (token, product_name, product_url, current_userID, product_image, product_original_weight, product_original_weight_type, product_price) => {
@@ -201,6 +210,28 @@ const readPantry = (id) => {
         }
     })
 }
+
+//GET PRODUCT BY ID
+const getProduct = (product_id, token) => {
+    return axios({
+        method: 'get',
+        headers: { 'token': token },
+        url: `http://localhost:11235/product/id/${product_id}`,
+    })
+}
+
+// UPDATE CURRENT PANTRY ADD WEIGHT
+const updateProductWeightLeft = (product_id, weight_left, token) => {
+    console.log('inrequest weight',weight_left)
+    return axios({
+        method: 'put',
+        headers: { 'token': token },
+        url: `http://localhost:${port}/currentPantry/product/${product_id}`,
+        data: {
+            weight_left, 
+        },
+    });
+};
 
 // UPDATE SCHEDULE MEAL - PANTRY SUBSTRACTIONS 
 const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_week, id) => {
@@ -244,4 +275,7 @@ export {
     updateMealSchedule,
     getUpcomingMealsIngList,
     nutrition,
+    getProduct,
+    updateProductWeightLeft,
+    readPantryByProductID,
 }

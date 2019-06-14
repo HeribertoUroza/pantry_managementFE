@@ -175,7 +175,7 @@ class RecipesSearch extends React.Component {
                             return (
                                 <>
                                     <div className='container-fluid' style={{ marginTop: "40px" }}>
-                                    <span onClick={this.props.click} style={{cursor: "pointer", marginRight:"auto" }}><i className="material-icons">keyboard_backspace</i></span>
+                                        <span onClick={this.props.click} style={{ cursor: "pointer", marginRight: "auto" }}><i className="material-icons">keyboard_backspace</i></span>
                                         <div><h1 style={{ fontWeight: "bold", fontSize: "50px", textAlign: "center" }}>Plan your meals for the new week!</h1>
                                             <Dates></Dates>
                                         </div>
@@ -187,29 +187,29 @@ class RecipesSearch extends React.Component {
                                         </div>
                                     </div>
                                     <div className='container'>
-                                    <div className="row">
-                                        {showAlert ? alert : <br></br>}
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-3">
-                                        <SearchForm onChange={this.handleOnChange} inputValue={inputValue} />
-                                       
-                                    </div>
-                                    <div className="col-5">
-                                        <SearchResults queryResults={queryResults} onClick={this.addRecipeToWeek} />
-                                    </div>
-                                    <div className="col-3">
-                                    <div className="row">                                       
-                                            {
-                                                saveAlert === true ? <a class="btn-small black pulse" onClick={this.saveMealSchedule} style={{color: "white"}}>SUBMIT WEEK</a> :
-                                                <a className="btn-small black" style={{color: "white"}} onClick={this.saveMealSchedule}>SUBMIT WEEK<i className="large material-icons"  style={{color: "white"}}></i></a>
-                                            }                               
+                                        <div className="row">
+                                            {showAlert ? alert : <br></br>}
                                         </div>
-                                    </div>
-                                    <div className="col"></div>
-                                    </div>
-                                    
+                                        <div className="row">
+                                            <div className="col-3">
+                                                <SearchForm onChange={this.handleOnChange} inputValue={inputValue} />
+
+                                            </div>
+                                            <div className="col-5">
+                                                <SearchResults queryResults={queryResults} onClick={this.addRecipeToWeek} />
+                                            </div>
+                                            <div className="col-3">
+                                                <div className="row">
+                                                    {
+                                                        saveAlert === true ? <a className="btn-small black pulse" onClick={this.saveMealSchedule} style={{ color: "white" }}>SUBMIT WEEK</a> :
+                                                            <a className="btn-small black" style={{ color: "white" }} onClick={this.saveMealSchedule}>SUBMIT WEEK<i className="large material-icons" style={{ color: "white" }}></i></a>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="col"></div>
                                         </div>
+
+                                    </div>
                                 </>
                             )
                         }

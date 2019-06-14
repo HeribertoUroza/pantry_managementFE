@@ -194,7 +194,7 @@ class Dashboard extends React.Component {
                                                             </div>
                                                             <div className="card">
                                                                 <a class="btn-floating halfway-fab waves-effect waves-light" onClick={this.handleText}><i class="material-icons">textsms</i></a>
-                                                                <ShoppingList token={this.state.token} id={this.state.user_id}/>
+                                                                <ShoppingList token={this.state.token} id={this.state.user_id} onClick={this.updatePantry}/>
                                                             </div>
                                                         </div>
                                                         <div className="col-8">
