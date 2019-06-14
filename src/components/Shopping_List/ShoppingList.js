@@ -6,7 +6,7 @@ import moment from 'moment-timezone';
 
 
 //SERVICES
-import { getUpcomingMealsIngList, } from '../../services/main';
+import { getUpcomingMealsIngList, getProduct, updateProductWeightLeft, readPantryByProductID } from '../../services/main';
 
 
 class ShoppingList extends React.Component {
@@ -71,6 +71,7 @@ class ShoppingList extends React.Component {
             const shoppingListArr = Object.keys(shoppingListObj);
             const shoppingList = [];
             for (let item of shoppingListArr) {
+                console.log(shoppingListArr)
                 shoppingListObj[item].ingredient_name = item;
                 shoppingList.push(shoppingListObj[item]);
             };
@@ -82,12 +83,31 @@ class ShoppingList extends React.Component {
         };
     };
 
-    updateProduct = (index) => {
+    updateProductWeight = (index) => {
         const list = this.state.list;
         const product = list[index];
-        const weightLeft = product.weightOnPantry;
-            console.log("**********************", product)
-            console.log("**********************", this.state.individualItems)
+        const product_id = product.product_id;
+        let productOrgGramWeight = null;
+        getProduct(product_id)
+            .then((data) => {
+                const productInfo = data.data.data;
+                productOrgGramWeight = productInfo[0].product_gram_weight;
+                return readPantryByProductID(product_id)
+            })
+            .then((data) => {
+                const productInPantry = data.data.data;
+                const currentWeight = productInPantry[0].weight_left;
+                const newWeight = currentWeight + productOrgGramWeight;
+                return updateProductWeightLeft(product_id, newWeight, this.state.token)
+            })
+            .then(() => {
+                const list = this.state.list;
+                const remove=list.splice(index,1)   
+                this.setState({ list:list})
+            })
+            .catch((e)=>{
+                console.log(e)
+            })
     }
 
 
@@ -131,7 +151,7 @@ class ShoppingList extends React.Component {
                                             <p className=''><a className='font-weight-bold'>Preferred Product:</a><br /> {e.product_name}</p>
                                             <div className='col-12 text-left font-weight-bold'>
                                                 <small className='text-muted'>Press cart to buy</small>
-                                                <button type="button" className="btn sm btn-outline-success" onClick={e => {this.updateProduct(i)}}>Purchased</button>
+                                                <button type="button" className="btn sm btn-outline-success" onClick={e => { this.updateProductWeight(i) }}>Purchased</button>
                                             </div>
                                         </div>
                                         <div className="col-2">
