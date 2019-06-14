@@ -147,7 +147,7 @@ class Pantry extends React.Component {
                                         <p style={{ display: "inline-block", fontWeight: "bold", color: "white" }}>Under 20%</p>
                                         {
                                             redPercentage.map((e, i) => {
-                                                return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${e.product_name}-${(e.percentage * 100).toFixed()}` + '%'}>
+                                                return <div className="col-3" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${e.product_name}-${(e.percentage * 100).toFixed()}` + '%'}>
                                                     <div>
                                                         <div className="img">
                                                             <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" data-position="bottom" data-tooltip="I am a tooltip" /></span>
@@ -169,7 +169,7 @@ class Pantry extends React.Component {
                                         <p style={{ display: "inline-block", fontWeight: "bold", color: "white" }}>20%-40%</p>
                                         {
                                             orangePercentage.map((e, i) => {
-                                                return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${e.product_name}-${(e.percentage * 100).toFixed()}` + '%'}>
+                                                return <div className="col-3" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${e.product_name}-${(e.percentage * 100).toFixed()}` + '%'}>
                                                     <div>
                                                         <div className="img">
                                                             <span><img src={e.product_image} style={{ height: "70px",width:"auto", opacity: ".95" }} className="effect8" /></span>
@@ -192,7 +192,7 @@ class Pantry extends React.Component {
 
                                         {
                                             yellowPercentage.map((e, i) => {
-                                                return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${e.product_name}-${(e.percentage * 100).toFixed()}` + '%'}>
+                                                return <div className="col-3" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${e.product_name}-${(e.percentage * 100).toFixed()}` + '%'}>
                                                     <div>
                                                         <div className="img">
                                                             <span><img src={e.product_image} style={{ height: "70px",width:"auto", opacity: ".95" }} className="effect8" /></span>
@@ -216,7 +216,7 @@ class Pantry extends React.Component {
 
                                         {
                                             bluePercentage.map((e, i) => {
-                                                return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${e.product_name}-${(e.percentage * 100).toFixed()}` + '%'} >
+                                                return <div className="col-3" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${e.product_name}-${(e.percentage * 100).toFixed()}` + '%'} >
                                                     <div>
                                                         <div className="img">
                                                             <span><img src={e.product_image} style={{ height: "70px",width:"auto", opacity: ".95" }} className="effect8" /></span>
@@ -238,7 +238,7 @@ class Pantry extends React.Component {
                                         <p style={{ display: "inline-block", fontWeight: "bold", color: "white" }}>Over 80%</p>
                                         {
                                             greenPercentage.map((e, i) => {
-                                                return <div className="col-6" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${e.product_name}-${(e.percentage * 100).toFixed()}` + '%'}>
+                                                return <div className="col-3" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${e.product_name}-${(e.percentage * 100).toFixed()}` + '%'}>
                                                     <div>
                                                         <div className="img">
                                                             <span><img src={e.product_image} style={{ height: "70px",width:"auto", opacity: ".95" }} className="effect8" /></span>

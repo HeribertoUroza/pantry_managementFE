@@ -11,7 +11,7 @@ const DayCard = (props) => {
                 <div className="card s12" style={{ maxHeight: "400px", border: "2px solid black" }}>
                     <div className="card-image" style={{ overflow: "hidden"}}>
                         {
-                            !day.recipe.recipe_image_url ? <img src='https://images.pexels.com/photos/6205/eating-table-kitchen-silver.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500' /> : <img src={day.recipe.recipe_image_url} style={{height:"200px", width: "auto" }}/>
+                            !day.recipe.recipe_image_url ? <img src='https://images.pexels.com/photos/6205/eating-table-kitchen-silver.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500' /> : <img src={day.recipe.recipe_image_url} style={{height:"auto", width: "auto" }}/>
                         }
                         <span className="card-title" style={{ fontWeight: "bolder", fontSize: "25px", textShadow: "2px 2px #000000" }}>{day.weekday_name}</span>
                     </div>
