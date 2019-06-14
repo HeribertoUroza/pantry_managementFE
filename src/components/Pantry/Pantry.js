@@ -130,7 +130,7 @@ class Pantry extends React.Component {
                                                 return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage * 100).toString()}` + '%'}>
                                                     <div>
                                                         <div className="img">
-                                                            <span><img src={e.percentage_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
+                                                            <span><img src={e.percentage_image} style={{ height: "70px",width:"auto", opacity: ".95" }} className="effect8" /></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -152,7 +152,7 @@ class Pantry extends React.Component {
                                                 return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage * 100).toString()}` + '%'}>
                                                     <div>
                                                         <div className="img">
-                                                            <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" data-position="bottom" data-tooltip="I am a tooltip" /></span>
+                                                            <span><img src={e.product_image} style={{ height: "70px",width:"auto", opacity: ".95" }} className="effect8" data-position="bottom" data-tooltip="I am a tooltip" /></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -175,7 +175,7 @@ class Pantry extends React.Component {
                                                 return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage * 100).toString()}` + '%'}>
                                                     <div>
                                                         <div className="img">
-                                                            <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
+                                                            <span><img src={e.product_image} style={{ height: "70px",width:"auto", opacity: ".95" }} className="effect8" /></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -199,7 +199,7 @@ class Pantry extends React.Component {
                                                 return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage * 100).toString()}` + '%'} >
                                                     <div>
                                                         <div className="img">
-                                                            <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
+                                                            <span><img src={e.product_image} style={{ height: "70px",width:"auto", opacity: ".95" }} className="effect8" /></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -221,7 +221,7 @@ class Pantry extends React.Component {
                                                 return <div className="col-6" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage * 100).toString()}` + '%'}>
                                                     <div>
                                                         <div className="img">
-                                                            <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
+                                                            <span><img src={e.product_image} style={{ height: "70px",width:"auto", opacity: ".95" }} className="effect8" /></span>
                                                         </div>
                                                     </div>
                                                 </div>
