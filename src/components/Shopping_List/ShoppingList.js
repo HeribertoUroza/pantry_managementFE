@@ -84,8 +84,10 @@ class ShoppingList extends React.Component {
 
     updateProduct = (index) => {
         const list = this.state.list;
-        const product = list[index]
+        const product = list[index];
+        const weightLeft = product.weightOnPantry;
             console.log("**********************", product)
+            console.log("**********************", this.state.individualItems)
     }
 
 

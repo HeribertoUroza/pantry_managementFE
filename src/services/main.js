@@ -203,6 +203,15 @@ const readPantry = (id) => {
     })
 }
 
+//GET PRODUCT BY ID
+const getProduct = (product_id) => {
+    return axios({
+        method: 'get',
+        headers: { 'token': token },
+        url: `http://localhost:11235/product/weightLeft${product_id}`,
+    })
+}
+
 // UPDATE SCHEDULE MEAL - PANTRY SUBSTRACTIONS 
 const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_week, id) => {
     return axios({
@@ -245,4 +254,5 @@ export {
     updateMealSchedule,
     getUpcomingMealsIngList,
     nutrition,
+    getProduct,
 }
