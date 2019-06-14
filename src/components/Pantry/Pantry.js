@@ -8,14 +8,7 @@ import './pantry.css'
 //SERVICES
 import { readPantry } from '../../services/main';
 
-let redPercentage = []; //<=20%
-let orangePercentage = []; //<=40%
-let yellowPercentage = []; //<=60%
-let bluePercentage = []; //<=80%
-let greenPercentage = []; //<=100%
-
 class Pantry extends React.Component {
-
     constructor(props) {
         super(props)
 
@@ -23,27 +16,23 @@ class Pantry extends React.Component {
             pantry: null,
             finishedLoading: false,
             pantryUpdates: 0,
+            redPercentage: [],
+            orangePercentage: [],
+            yellowPercentage: [],
+            bluePercentage: [],
+            greenPercentage: [],
         };
     };
 
     componentDidMount = () => this.getPantry();
 
     componentDidUpdate = () => {
-        redPercentage = [];
-        orangePercentage = [];
-        yellowPercentage = [];
-        bluePercentage = [];
-        greenPercentage = [];
         const { pantry, pantryUpdates } = this.state;
         const { updates, } = this.props;
         if (!pantry) {
             this.getPantry();
         } else if (updates > pantryUpdates) {
             this.getPantry();
-        } else if (pantry.length > 0 && redPercentage.length === 0 && bluePercentage.length === 0
-            && orangePercentage.length === 0 && yellowPercentage.length === 0 
-            && greenPercentage.length === 0) {
-                this.getPantry();
         } else {
             return;
         }
@@ -51,6 +40,20 @@ class Pantry extends React.Component {
 
     getPantry = _ => {
         const { id, updates } = this.props;
+        let {
+            redPercentage, 
+            orangePercentage, 
+            yellowPercentage, 
+            bluePercentage, 
+            greenPercentage,
+        } = this.state;
+        
+        redPercentage = [];
+        orangePercentage = [];
+        yellowPercentage = [];
+        bluePercentage = [];
+        greenPercentage = [];
+
         if (id !== 0) {
             readPantry(id)
                 .then((response) => {
@@ -87,17 +90,30 @@ class Pantry extends React.Component {
                                 greenPercentage.push(e)
                                 return greenPercentage
                             }
-                        })
+                        });
                     };
                     this.setState(() => ({
                         finishedLoading: true,
+                        redPercentage, 
+                        orangePercentage,
+                        yellowPercentage,
+                        bluePercentage,
+                        greenPercentage,
                     }));
                 });
         };
     };
 
     renderPantry = _ => {
-        const {pantry,} = this.state;
+        const {
+            pantry, 
+            redPercentage, 
+            orangePercentage, 
+            yellowPercentage, 
+            bluePercentage, 
+            greenPercentage,
+        } = this.state;
+        
         if (!pantry) {
             return(
                 <>
@@ -134,7 +150,7 @@ class Pantry extends React.Component {
                                                 return <div className="col-4" style={{ display: "inline-block" }} data-toggle="tooltip" data-placement="top" title={`${(e.percentage * 100).toString()}` + '%'}>
                                                     <div>
                                                         <div className="img">
-                                                            <span><img src={e.percentage_image} style={{ height: "70px", opacity: ".95" }} className="effect8" /></span>
+                                                        <span><img src={e.product_image} style={{ height: "70px", opacity: ".95" }} className="effect8" data-position="bottom" data-tooltip="I am a tooltip" /></span>
                                                         </div>
                                                     </div>
                                                 </div>
