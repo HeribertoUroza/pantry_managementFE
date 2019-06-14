@@ -57,8 +57,8 @@ class ShoppingList extends React.Component {
             daysToAdd = 2;
             daysToEnd = 6;
         }
-        const weekStartTime = moment.tz(date,'America/New_York').add(daysToAdd, 'days').format('MMMM DD, YYYY');
-        const weekEndTime = moment.tz(date,'America/New_York').add(daysToEnd, 'days').format('MMMM DD, YYYY');
+        const weekStartTime = moment.tz(date, 'America/New_York').add(daysToAdd, 'days').format('MMMM DD, YYYY');
+        const weekEndTime = moment.tz(date, 'America/New_York').add(daysToEnd, 'days').format('MMMM DD, YYYY');
         return [weekStartTime, weekEndTime];
     }
 
@@ -82,9 +82,13 @@ class ShoppingList extends React.Component {
         };
     };
 
+    updateProduct = (index) => {
+        const list = this.state.list;
+        const product = list[index]
+            console.log("**********************", product)
+    }
 
 
-    
 
     renderShoppingList = _ => {
         const { list, } = this.state;
@@ -125,6 +129,7 @@ class ShoppingList extends React.Component {
                                             <p className=''><a className='font-weight-bold'>Preferred Product:</a><br /> {e.product_name}</p>
                                             <div className='col-12 text-left font-weight-bold'>
                                                 <small className='text-muted'>Press cart to buy</small>
+                                                <button type="button" className="btn sm btn-outline-success" onClick={e => {this.updateProduct(i)}}>Purchased</button>
                                             </div>
                                         </div>
                                         <div className="col-2">
@@ -136,7 +141,7 @@ class ShoppingList extends React.Component {
                         })
                     }
                 </ul>
-                </>
+            </>
             );
         };
     }
