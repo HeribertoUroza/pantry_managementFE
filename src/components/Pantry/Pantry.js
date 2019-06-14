@@ -40,6 +40,10 @@ class Pantry extends React.Component {
             this.getPantry();
         } else if (updates > pantryUpdates) {
             this.getPantry();
+        } else if (pantry.length > 0 && redPercentage.length === 0 && bluePercentage.length === 0
+            && orangePercentage.length === 0 && yellowPercentage.length === 0 
+            && greenPercentage.length === 0) {
+                this.getPantry();
         } else {
             return;
         }
