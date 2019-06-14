@@ -54,7 +54,6 @@ class ModalExample extends React.Component {
 
 
     render() {
-        console.log("Nutrients", this.state.nutrients)
         return (
             <>
                 <a class="btn-floating halfway-fab waves-effect waves-light black" data-toggle="modal" data-target="#myModal" onClick={this.toggle} ><i class="material-icons">add</i></a>
