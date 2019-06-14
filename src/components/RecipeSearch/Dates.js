@@ -8,29 +8,29 @@ export default class MyComponent extends React.Component {
         const day = date.getDay();
         let daysToAdd = 0;
         let daysToEnd = 4;
-        if (day === 0) { //sunday
+        if (day === 0) {
             daysToAdd = 1;
             daysToEnd = 5;
         }
-        if (day === 2) {//Tuesday
+        if (day === 2) {
             daysToAdd = 6;
-            daysToEnd = 11;
-        }
-        if (day === 3) {//Wednesday
-            daysToAdd = 5;
             daysToEnd = 10;
         }
-        if (day === 4) {//Thursday
-            daysToAdd = 4;
+        if (day === 3) {
+            daysToAdd = 5;
             daysToEnd = 9;
         }
-        if (day === 5) {//Friday
-            daysToAdd = 3;
+        if (day === 4) {
+            daysToAdd = 4;
             daysToEnd = 8;
         }
-        if (day === 6) {//Saturday
-            daysToAdd = 2;
+        if (day === 5) {
+            daysToAdd = 3;
             daysToEnd = 7;
+        }
+        if (day === 6) {
+            daysToAdd = 2;
+            daysToEnd = 6;
         }
 
         return (
