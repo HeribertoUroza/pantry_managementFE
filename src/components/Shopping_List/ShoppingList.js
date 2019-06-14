@@ -60,7 +60,7 @@ class ShoppingList extends React.Component {
         const weekStartTime = moment.tz(date,'America/New_York').add(daysToAdd, 'days').format('MMMM DD, YYYY');
         const weekEndTime = moment.tz(date,'America/New_York').add(daysToEnd, 'days').format('MMMM DD, YYYY');
         return [weekStartTime, weekEndTime];
-    }
+      }
 
     getUserInfo = async _ => {
         const { id, token, } = this.props;
@@ -88,7 +88,6 @@ class ShoppingList extends React.Component {
 
     renderShoppingList = _ => {
         const { list, } = this.state;
-        console.log("list", list)
         if (!list) {
             return (
                 <>
