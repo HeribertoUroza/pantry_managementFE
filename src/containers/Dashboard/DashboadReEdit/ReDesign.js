@@ -122,11 +122,19 @@ class Dashboard extends React.Component {
             })
     }
 
-    updatePantry = _ => {
-        const { pantryUpdates, } = this.state;
-        this.setState(() => ({
-            pantryUpdates: pantryUpdates + 1,
-        }));
+    updatePantry = h => {
+        console.log("*******", h)
+        if (h !== null) {
+            const { pantryUpdates, } = this.state;
+            this.setState(() => ({
+                pantryUpdates: pantryUpdates + h,
+            }));
+        } else {
+            const { pantryUpdates, } = this.state;
+            this.setState(() => ({
+                pantryUpdates: pantryUpdates + 1,
+            }));
+        }
     };
 
     render() {
@@ -181,7 +189,7 @@ class Dashboard extends React.Component {
                                                                 </div>
                                                                 <div className="col-5" style={{ height: "526px", overflow: "scroll" }}>
 
-                                                                    <ShoppingList id={this.state.user_id} />
+                                                                    <ShoppingList id={this.state.user_id} update={this.updatePantry} />
                                                                 </div>
                                                                 <div className="col-1" style={{
                                                                     backgroundColor: "#d3d3d3",

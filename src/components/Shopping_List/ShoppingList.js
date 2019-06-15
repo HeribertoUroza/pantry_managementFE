@@ -60,7 +60,7 @@ class ShoppingList extends React.Component {
         const weekStartTime = moment.tz(date, 'America/New_York').add(daysToAdd, 'days').format('MMMM DD, YYYY');
         const weekEndTime = moment.tz(date, 'America/New_York').add(daysToEnd, 'days').format('MMMM DD, YYYY');
         return [weekStartTime, weekEndTime];
-      }
+    }
 
     getUserInfo = async _ => {
         const { id, token, } = this.props;
@@ -102,10 +102,14 @@ class ShoppingList extends React.Component {
             })
             .then(() => {
                 const list = this.state.list;
-                const remove=list.splice(index,1)   
-                this.setState({ list:list})
+                const remove = list.splice(index, 1);
+                this.setState({ list: list });
             })
-            .catch((e)=>{
+            .then(() => {
+                const add = 1;
+                this.props.update(add);
+            })
+            .catch((e) => {
                 console.log(e)
             })
     }
@@ -151,7 +155,7 @@ class ShoppingList extends React.Component {
                                             <p className='text-right'><a className='font-weight-bold'>Need: </a>{e.needed_weight} grams</p>
                                             <div className='col-12 text-left font-weight-bold'>
                                                 <small className='text-muted'>Press cart to buy</small>
-                                                <button type="button" className="btn sm btn-outline-success" onClick={e => { this.updateProductWeight(i) && this.props.onClick() }}>Purchased</button>
+                                                <button type="button" className="btn sm btn-outline-success" onClick={e => { this.updateProductWeight(i) }}>Purchased</button>
                                             </div>
                                         </div>
                                         <div className="col-2">
