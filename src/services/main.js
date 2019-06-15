@@ -9,24 +9,24 @@ const port = 11235;
 
 //NUTRITIONAL DATA
 const nutrition = (title, ingr) => {
-return axios ({
-    method: 'post',
-    url: `https://api.edamam.com/api/nutrition-details`,
-    headers: {"Content-Type": "application/json"},
-    params: {
-        //app_id: EdamamAppID,
-        //app_key: EdamamAPIKey,
-    },
-    data: {
-        title: title,
-        ingr: ingr,
-    }
-})
+    return axios({
+        method: 'post',
+        url: `https://api.edamam.com/api/nutrition-details`,
+        headers: { "Content-Type": "application/json" },
+        params: {
+            //app_id: EdamamAppID,
+            //app_key: EdamamAPIKey,
+        },
+        data: {
+            title: title,
+            ingr: ingr,
+        }
+    })
 }
 
 //WEBSCRAPING
 
-const scrape = (url) =>{
+const scrape = (url) => {
     request(url, (error, response, html) => {
         if (!error && response.statusCode === 200) {
             const obj = {}
@@ -192,9 +192,23 @@ const readPantryByProductID = (product_id) => {
     });
 }
 
+//POST TO PANTRY
+const addToPantry = (token, product_id, owner_id, weight_left) => {
+    return axios({
+        method: 'post',
+        headers: { 'token': token },
+        url: `${possiblePantryAPI.baseURL}/currentPantry/`,
+        data: {
+            product_id,
+            owner_id,
+            weight_left
+        }
+    })
+}
+
 //PRODUCT
-    //CREATE
-    const createProduct = (token, product_name, product_url, current_userID, product_image, product_original_weight, product_original_weight_type, product_price) => {
+//CREATE
+const createProduct = (token, product_name, product_url, current_userID, product_image, product_original_weight, product_original_weight_type, product_price) => {
     return axios({
         method: 'post',
         headers: { 'token': token },
@@ -222,13 +236,13 @@ const getProduct = (product_id, token) => {
 
 // UPDATE CURRENT PANTRY ADD WEIGHT
 const updateProductWeightLeft = (product_id, weight_left, token) => {
-    console.log('inrequest weight',weight_left)
+    console.log('inrequest weight', weight_left)
     return axios({
         method: 'put',
         headers: { 'token': token },
         url: `${possiblePantryAPI.baseURL}/currentPantry/product/${product_id}`,
         data: {
-            weight_left, 
+            weight_left,
         },
     });
 };
@@ -239,7 +253,7 @@ const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_we
         method: 'put',
         url: `${possiblePantryAPI.baseURL}/mealSchedule/${id}`,
         data: {
-            user_id, 
+            user_id,
             recipe_id,
             day_id,
             date,
@@ -250,8 +264,8 @@ const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_we
 };
 
 //TEXT MESSAGES
-    //SEND
-    const sendTextMessage = (user_id, phone_number) => {
+//SEND
+const sendTextMessage = (user_id, phone_number) => {
     return axios({
         method: 'get',
         url: `${possiblePantryAPI.baseURL}/sms/${user_id}/${phone_number}`,  
@@ -278,4 +292,5 @@ export {
     getProduct,
     updateProductWeightLeft,
     readPantryByProductID,
+    addToPantry,
 }

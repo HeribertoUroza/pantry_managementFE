@@ -123,8 +123,7 @@ class Dashboard extends React.Component {
     }
 
     updatePantry = h => {
-        console.log("*******", h)
-        if (h !== null) {
+        if (h) {
             const { pantryUpdates, } = this.state;
             this.setState(() => ({
                 pantryUpdates: pantryUpdates + h,
