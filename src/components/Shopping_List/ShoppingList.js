@@ -152,10 +152,15 @@ class ShoppingList extends React.Component {
                                         <div className="col-8">
                                             <h1 className="text-left mb-1" style={{ fontSize: 22 }}>{e.ingredient_name}</h1>
                                             <p className=''><a className='font-weight-bold'>Preferred Product:</a><br /> {e.product_name}</p>
-                                            <p className='text-right'><a className='font-weight-bold'>Need: </a>{e.needed_weight} grams</p>
-                                            <div className='col-12 text-left font-weight-bold'>
-                                                <small className='text-muted'>Press cart to buy</small>
-                                                <button type="button" className="btn sm btn-outline-success" onClick={e => { this.updateProductWeight(i) }}>Purchased</button>
+                                            <p className='text-left' style={{ color: "#2e6e51" }}><a className='font-weight-bold'>Need: </a>{e.needed_weight} grams</p>
+                                            <div className="row">
+                                                <div className='col-12 text-left font-weight-bold'>
+                                                    <small className='text-muted'>Press cart to buy</small>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <button type="button" className="btn sm btn-outline-success" onClick={e => { this.updateProductWeight(i) }}>Purchased ?</button>
+
                                             </div>
                                         </div>
                                         <div className="col-2">
