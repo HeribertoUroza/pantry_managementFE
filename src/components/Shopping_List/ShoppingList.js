@@ -102,8 +102,12 @@ class ShoppingList extends React.Component {
             })
             .then(() => {
                 const list = this.state.list;
-                const remove = list.splice(index, 1)
-                this.setState({ list: list })
+                const remove = list.splice(index, 1);
+                this.setState({ list: list });
+            })
+            .then(() => {
+                const add = 1;
+                this.props.update(add);
             })
             .catch((e) => {
                 console.log(e)
@@ -155,7 +159,7 @@ class ShoppingList extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="row">
-                                                <button type="button" className="btn sm btn-outline-success" onClick={e => { this.updateProductWeight(i) && this.props.onClick() }}>Purchased ?</button>
+                                                <button type="button" className="btn sm btn-outline-success" onClick={e => { this.updateProductWeight(i) }}>Purchased ?</button>
 
                                             </div>
                                         </div>
