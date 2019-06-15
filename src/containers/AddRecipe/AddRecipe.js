@@ -139,7 +139,7 @@ class AddRecipe extends React.Component {
                     for (let Ingredient of new_ingredients) {
                         const postProduct = await createProduct(this.state.token, Ingredient.product_name, Ingredient.product_url, current_userID, Ingredient.product_image, Ingredient.product_original_weight, Ingredient.product_original_weight_type, Ingredient.product_price)
 
-                        const postIngredient = await createIngredient(this.state.token, Ingredient.ingredient_name, this.state.current_recipeID, postProduct.data.data.product_id.product_id, Ingredient.ingredient_weight, Ingredient.ingredient_type)
+                        const postIngredient = await createIngredient(this.state.token, Ingredient.ingredient_name, this.state.current_recipeID, postProduct.data.data.product_id, Ingredient.ingredient_weight, Ingredient.ingredient_type)
                     }
                 })
                 .then(() => {
