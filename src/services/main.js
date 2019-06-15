@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import cheerio from 'cheerio'
-import {EdamamAppID, EdamamAPIKey} from './apiKey';
+import { EdamamAppID, EdamamAPIKey } from './apiKey';
 
 const request = require('request')
 
@@ -10,24 +10,24 @@ const port = 11235;
 
 //NUTRITIONAL DATA
 const nutrition = (title, ingr) => {
-return axios ({
-    method: 'post',
-    url: `https://api.edamam.com/api/nutrition-details`,
-    headers: {"Content-Type": "application/json"},
-    params: {
-        //app_id: EdamamAppID,
-        //app_key: EdamamAPIKey,
-    },
-    data: {
-        title: title,
-        ingr: ingr,
-    }
-})
+    return axios({
+        method: 'post',
+        url: `https://api.edamam.com/api/nutrition-details`,
+        headers: { "Content-Type": "application/json" },
+        params: {
+            //app_id: EdamamAppID,
+            //app_key: EdamamAPIKey,
+        },
+        data: {
+            title: title,
+            ingr: ingr,
+        }
+    })
 }
 
 //WEBSCRAPING
 
-const scrape = (url) =>{
+const scrape = (url) => {
     request(url, (error, response, html) => {
         if (!error && response.statusCode === 200) {
             const obj = {}
@@ -64,66 +64,66 @@ const scrape = (url) =>{
 
 
 //USERS
-    //READ
-    const readUser = ( email) => {
-        return axios({
-            method: 'get',
-           // headers: {'token': token},
-            url: `http://localhost:${port}/user/email/${email}`,
-        });
-    };
+//READ
+const readUser = (email) => {
+    return axios({
+        method: 'get',
+        // headers: {'token': token},
+        url: `http://localhost:${port}/user/email/${email}`,
+    });
+};
 
-    //POST
-    const postUser = (token, name, username, email, dob, phone_number, diet_preference, food_limitations, food_allergies,firebase_uid) => {
-        return axios({
-            method: 'post',
-            headers: { 'token': token },
-            url: `http://localhost:${port}/user/`,
-            data: {
-                name: name,
-                username: username,
-                email: email, 
-                dob: dob, 
-                phone_number: phone_number,
-                diet_preference: diet_preference,
-                food_limitations: food_limitations, 
-                food_allergies: food_allergies, 
-                firebase_uid: firebase_uid
-            }
-        });
-    };
+//POST
+const postUser = (token, name, username, email, dob, phone_number, diet_preference, food_limitations, food_allergies, firebase_uid) => {
+    return axios({
+        method: 'post',
+        headers: { 'token': token },
+        url: `http://localhost:${port}/user/`,
+        data: {
+            name: name,
+            username: username,
+            email: email,
+            dob: dob,
+            phone_number: phone_number,
+            diet_preference: diet_preference,
+            food_limitations: food_limitations,
+            food_allergies: food_allergies,
+            firebase_uid: firebase_uid
+        }
+    });
+};
 
-    // GET USERS SHOPPING LIST
-    const getUpcomingMealsIngList = (user_id, fromDate, toDate) => {
-        return axios({
-            method: 'get',
-            url: `http://localhost:${port}/user/upcomingIngList/${user_id}/${fromDate}/${toDate}`,
-        });
-    };
+// GET USERS SHOPPING LIST
+const getUpcomingMealsIngList = (user_id, fromDate, toDate) => {
+    return axios({
+        method: 'get',
+        url: `http://localhost:${port}/user/upcomingIngList/${user_id}/${fromDate}/${toDate}`,
+    });
+};
 
 //MEAL SCHEDULE
-    //READ
-    const readMealSchedule = (token, user_id) => {
-        return axios({
-            method: 'get',
-            headers: { 'token': token },
-            url: `http://localhost:${port}/mealSchedule/currentTrue/${user_id}`
-            ,
+//READ
+const readMealSchedule = (token, user_id) => {
+    return axios({
+        method: 'get',
+        headers: { 'token': token },
+        url: `http://localhost:${port}/mealSchedule/currentTrue/${user_id}`
+        ,
     });
 };
 
 //INGREDIENT
-    //READ
-    const readIngredient = (token, recipe_id) => {
-        return axios({
-            method: 'get',
-            headers: { 'token': token },
-            url: `http://localhost:${port}/ingredient/recipe/${recipe_id}`,
-        });
-    };
+//READ
+const readIngredient = (token, recipe_id) => {
+    return axios({
+        method: 'get',
+        headers: { 'token': token },
+        url: `http://localhost:${port}/ingredient/recipe/${recipe_id}`,
+    });
+};
 
-    //CREATE
-    const createIngredient = (token, ingredient_name, current_recipeID, product_id, ingredient_weight, ingredient_type) => {
+//CREATE
+const createIngredient = (token, ingredient_name, current_recipeID, product_id, ingredient_weight, ingredient_type) => {
     return axios({
         method: 'post',
         headers: { 'token': token },
@@ -141,38 +141,38 @@ const scrape = (url) =>{
 
 
 //RECIPES
-    //READ 
-    const readRecipes = (token, user_id) => {
-        return axios({
-            method: 'get',
-            headers: { 'token': token },
-            url: `http://localhost:${port}/recipe/user/${user_id}`,
-        });
-    };
+//READ 
+const readRecipes = (token, user_id) => {
+    return axios({
+        method: 'get',
+        headers: { 'token': token },
+        url: `http://localhost:${port}/recipe/user/${user_id}`,
+    });
+};
 
-        //READ BY ID
-        const readRecipeById = (token, recipe_id) => {
-            return axios({
-                method: 'get',
-                headers: { 'token': token },
-                url: `http://localhost:${port}/ingredient/recipe/${recipe_id}`,
-            });
-        };
+//READ BY ID
+const readRecipeById = (token, recipe_id) => {
+    return axios({
+        method: 'get',
+        headers: { 'token': token },
+        url: `http://localhost:${port}/ingredient/recipe/${recipe_id}`,
+    });
+};
 
-    //CREATE
-    const createRecipe = (token, recipe_name, health_tag, current_userID, recipe_desc) => {
-        return axios({
-            method: 'post',
-            headers: { 'token' : token},
-            url: `http://localhost:11235/recipe/`,
-            data: {
-                recipe_name: recipe_name,
-                health_tags: health_tag,
-                recipe_owner: current_userID,
-                recipe_notes: recipe_desc
-            }
-        })
-    }
+//CREATE
+const createRecipe = (token, recipe_name, health_tag, current_userID, recipe_desc) => {
+    return axios({
+        method: 'post',
+        headers: { 'token': token },
+        url: `http://localhost:11235/recipe/`,
+        data: {
+            recipe_name: recipe_name,
+            health_tags: health_tag,
+            recipe_owner: current_userID,
+            recipe_notes: recipe_desc
+        }
+    })
+}
 
 //PANTRY
 //READ
@@ -193,9 +193,23 @@ const readPantryByProductID = (product_id) => {
     });
 }
 
+//POST TO PANTRY
+const addToPantry = (token, product_id, owner_id, weight_left) => {
+    return axios({
+        method: 'post',
+        headers: { 'token': token },
+        url: `http://localhost:11235/currentPantry/`,
+        data: {
+            product_id,
+            owner_id,
+            weight_left
+        }
+    })
+}
+
 //PRODUCT
-    //CREATE
-    const createProduct = (token, product_name, product_url, current_userID, product_image, product_original_weight, product_original_weight_type, product_price) => {
+//CREATE
+const createProduct = (token, product_name, product_url, current_userID, product_image, product_original_weight, product_original_weight_type, product_price) => {
     return axios({
         method: 'post',
         headers: { 'token': token },
@@ -223,13 +237,13 @@ const getProduct = (product_id, token) => {
 
 // UPDATE CURRENT PANTRY ADD WEIGHT
 const updateProductWeightLeft = (product_id, weight_left, token) => {
-    console.log('inrequest weight',weight_left)
+    console.log('inrequest weight', weight_left)
     return axios({
         method: 'put',
         headers: { 'token': token },
         url: `http://localhost:${port}/currentPantry/product/${product_id}`,
         data: {
-            weight_left, 
+            weight_left,
         },
     });
 };
@@ -240,7 +254,7 @@ const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_we
         method: 'put',
         url: `http://localhost:${port}/mealSchedule/${id}`,
         data: {
-            user_id, 
+            user_id,
             recipe_id,
             day_id,
             date,
@@ -251,11 +265,11 @@ const updateMealSchedule = (user_id, recipe_id, day_id, date, cooked, current_we
 };
 
 //TEXT MESSAGES
-    //SEND
-    const sendTextMessage = (user_id, phone_number) => {
+//SEND
+const sendTextMessage = (user_id, phone_number) => {
     return axios({
         method: 'get',
-        url: `http://localhost:11235/sms/${user_id}/${phone_number}`,  
+        url: `http://localhost:11235/sms/${user_id}/${phone_number}`,
     })
 }
 
@@ -279,4 +293,5 @@ export {
     getProduct,
     updateProductWeightLeft,
     readPantryByProductID,
+    addToPantry,
 }

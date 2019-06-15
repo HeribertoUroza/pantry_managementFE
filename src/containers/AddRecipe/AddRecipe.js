@@ -167,6 +167,7 @@ class AddRecipe extends React.Component {
             ingredient_type === '' ||
             product_name === '' ||
             product_url === '' ||
+            product_image === '' ||
             product_original_weight === '' ||
             product_original_weight_type === '' ||
             product_price === ''
