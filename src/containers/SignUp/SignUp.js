@@ -63,7 +63,7 @@ class Signup extends React.Component {
               return (
                 <>
                 <video id="myVideo" loop muted autoPlay>
-                    <source src={this.state.videoURL} type="video/mp4" />
+                    <source src={this.state.videoURL} type="video/mp4" style={{height: '100%'}} />
                   </video>
                   <div className="container-fluid">
                     <div className="row">
