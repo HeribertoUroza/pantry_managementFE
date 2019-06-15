@@ -6,7 +6,7 @@ import moment from 'moment-timezone';
 
 
 //SERVICES
-import { getUpcomingMealsIngList, getProduct, updateProductWeightLeft, readPantryByProductID } from '../../services/main';
+import { getUpcomingMealsIngList, getProduct, updateProductWeightLeft, readPantryByProductID, addToPantry } from '../../services/main';
 
 
 class ShoppingList extends React.Component {
@@ -96,9 +96,14 @@ class ShoppingList extends React.Component {
             })
             .then((data) => {
                 const productInPantry = data.data.data;
-                const currentWeight = productInPantry[0].weight_left;
-                const newWeight = currentWeight + productOrgGramWeight;
-                return updateProductWeightLeft(product_id, newWeight, this.state.token)
+                if (productInPantry.length === 0) {
+                    const newWeight = productOrgGramWeight;
+                    return addToPantry(this.state.token, product_id, this.state.user_id, newWeight)
+                } else {
+                    const currentWeight = productInPantry[0].weight_left;
+                    const newWeight = currentWeight + productOrgGramWeight;
+                    return updateProductWeightLeft(product_id, newWeight, this.state.token)
+                }
             })
             .then(() => {
                 const list = this.state.list;
