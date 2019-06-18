@@ -12,6 +12,10 @@ export default class MyComponent extends React.Component {
             daysToAdd = 1;
             daysToEnd = 5;
         }
+        if (day === 1) {
+            daysToAdd = 7;
+            daysToEnd = 11;
+        }
         if (day === 2) {
             daysToAdd = 6;
             daysToEnd = 10;
