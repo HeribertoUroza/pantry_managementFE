@@ -153,11 +153,11 @@ class Dashboard extends React.Component {
                                                 <div className="col"></div>
                                                 <div className="col"></div>
                                                 <div className="col">
-                                                    <Clock
-                                                        style={{ fontSize: "20px", textAlign: "right", paddingLeft: "25px", color: "white" }}
-                                                        format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
-                                                        ticking={true}
-                                                    />
+//                                                     <Clock
+//                                                         style={{ fontSize: "20px", textAlign: "right", paddingLeft: "25px", color: "white" }}
+//                                                         format={' dddd, MMMM Mo, YYYY HH:mm:ss'}
+//                                                         ticking={true}
+//                                                     />
                                                 </div>
                                             </div>
                                             {
