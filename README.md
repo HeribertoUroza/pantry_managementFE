@@ -6,7 +6,7 @@
 **Visit:** https://www.possiblepantry.com/
 
 
-## Meet the Team That Made It ```Possbile```
+## Meet the team that made it ```Possible```
 
 ### Osita Igwe
 **LinkedIn:** https://www.linkedin.com/in/osita-igwe
